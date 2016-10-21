@@ -4,7 +4,9 @@ using System.Collections;
 public class Paddle : MonoBehaviour {
 
 	public bool autoPlay = false;
+	public bool mousePlay = false;
 	public float minX, maxX;
+	public float speed = 30.0F;
 
 	private Ball ball;
 	
@@ -13,12 +15,20 @@ public class Paddle : MonoBehaviour {
 	}
 		
 	// Update is called once per frame
-	void Update () {
-		if (!autoPlay) {
-			MoveWithMouse();
-		} else {
-			AutoPlay();
-		}
+	void Update ()
+		{
+			if (autoPlay) 
+			{
+				AutoPlay ();
+			} 
+			else if (mousePlay) 
+			{
+				MoveWithMouse ();
+			} 
+			else 
+			{
+				MoveWithAccelerometer();
+			}
 	}
 	
 	void AutoPlay() {
@@ -33,5 +43,21 @@ public class Paddle : MonoBehaviour {
 		float mousePosInBlocks = Input.mousePosition.x / Screen.width * 16;
 		paddlePos.x = Mathf.Clamp(mousePosInBlocks, minX, maxX);
 		this.transform.position = paddlePos;
+	}
+
+	void MoveWithAccelerometer ()
+	{
+        Vector3 dir = Vector3.zero;
+        Vector3 pos = new Vector3 (0.5f, this.transform.position.y, 0f);
+
+        dir.x = Input.acceleration.x;
+
+        if (dir.sqrMagnitude > 1)
+            dir.Normalize();
+        
+        dir *= Time.deltaTime;
+        this.transform.Translate(dir * speed);
+		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
+		this.transform.position = pos;
 	}
 }

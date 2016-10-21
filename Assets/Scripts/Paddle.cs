@@ -6,7 +6,7 @@ public class Paddle : MonoBehaviour {
 	public bool autoPlay = false;
 	public bool mousePlay = true;
 	public float minX, maxX;
-	public float speed = 35.0F;
+	public float speed = 70.0F;
 
 	private Ball ball;
 	

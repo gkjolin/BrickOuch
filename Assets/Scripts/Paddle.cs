@@ -4,14 +4,15 @@ using System.Collections;
 public class Paddle : MonoBehaviour {
 
 	public bool autoPlay = false;
-	public bool mousePlay = false;
+	public bool mousePlay = true;
 	public float minX, maxX;
-	public float speed = 30.0F;
+	public float speed = 35.0F;
 
 	private Ball ball;
 	
 	void Start () {
 		ball = GameObject.FindObjectOfType<Ball>();
+		mousePlay = !SystemInfo.supportsAccelerometer;
 	}
 		
 	// Update is called once per frame

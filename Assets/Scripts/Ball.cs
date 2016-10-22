@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour {
 			// Wait for a mouse press to launch.
 			if (Input.GetMouseButtonDown(0)) {
 				hasStarted = true;
-				this.GetComponent<Rigidbody2D>().velocity = new Vector2 (1.5f, 7.5f);
+				this.GetComponent<Rigidbody2D>().velocity = new Vector2 (150f, 750f);
 			}
 		}
 	}

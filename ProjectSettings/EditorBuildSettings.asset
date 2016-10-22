@@ -16,4 +16,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/Win Screen.unity
   - enabled: 1
-    path: Assets/_Scenes/Loose Screen.unity
+    path: Assets/_Scenes/Lose Screen.unity

@@ -5,7 +5,7 @@ public class Paddle : MonoBehaviour {
 
 	public bool autoPlay = false;
 	public bool mousePlay = true;
-	public float minX, maxX;
+	private float minX, maxX;
 	public float speed = 35.0F;
 
 	private Ball ball;
@@ -13,23 +13,26 @@ public class Paddle : MonoBehaviour {
 	void Start () {
 		ball = GameObject.FindObjectOfType<Ball>();
 		mousePlay = !SystemInfo.supportsAccelerometer;
+
+		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
+		minX = halfSizeX;
+		maxX = 900 - halfSizeX;
 	}
 		
 	// Update is called once per frame
-	void Update ()
+	void Update () {
+		if (autoPlay) 
 		{
-			if (autoPlay) 
-			{
-				AutoPlay ();
-			} 
-			else if (mousePlay) 
-			{
-				MoveWithMouse ();
-			} 
-			else 
-			{
-				MoveWithAccelerometer();
-			}
+			AutoPlay ();
+		} 
+		else if (mousePlay) 
+		{
+			MoveWithMouse ();
+		} 
+		else 
+		{
+			MoveWithAccelerometer();
+		}
 	}
 	
 	void AutoPlay() {
@@ -40,9 +43,8 @@ public class Paddle : MonoBehaviour {
 	}
 	
 	void MoveWithMouse () {
-		Vector3 paddlePos = new Vector3 (0.5f, this.transform.position.y, 0f);
-		float mousePosInBlocks = Input.mousePosition.x / Screen.width * 16;
-		paddlePos.x = Mathf.Clamp(mousePosInBlocks, minX, maxX);
+		float mousePosX = Mathf.Clamp(Input.mousePosition.x / Screen.width * 900, minX, maxX);
+		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 		this.transform.position = paddlePos;
 	}
 

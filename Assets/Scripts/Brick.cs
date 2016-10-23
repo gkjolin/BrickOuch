@@ -7,10 +7,10 @@ public class Brick : MonoBehaviour {
 	public Sprite[] hitSprites;
 	public static int breakableCount = 0;
 	public GameObject smoke;
-	public Score score;
 
 	private int timesHit;
 	private bool isBreakable;
+	private Score score;
 	
 	// Use this for initialization
 	void Start () {

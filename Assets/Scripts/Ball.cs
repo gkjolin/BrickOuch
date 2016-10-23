@@ -6,10 +6,12 @@ public class Ball : MonoBehaviour {
 	private Paddle paddle;
 	private bool hasStarted = false;
 	private Vector3 paddleToBallVector;
+	Bricks bricks;
 
 	// Use this for initialization
 	void Start () {
 		paddle = GameObject.FindObjectOfType<Paddle>();
+		bricks = GameObject.FindObjectOfType<Bricks>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 	}
 	
@@ -35,6 +37,10 @@ public class Ball : MonoBehaviour {
 		if (hasStarted) {	
 			GetComponent<AudioSource>().Play();
 			GetComponent<Rigidbody2D>().velocity += tweak;
+		}
+
+		if (collision.gameObject.name == "Paddle") {
+			bricks.CreateRandomBrick ();
 		}
 	}
 }

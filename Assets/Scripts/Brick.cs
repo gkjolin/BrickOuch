@@ -7,12 +7,15 @@ public class Brick : MonoBehaviour {
 	public Sprite[] hitSprites;
 	public static int breakableCount = 0;
 	public GameObject smoke;
+	public Score score;
 
 	private int timesHit;
 	private bool isBreakable;
 	
 	// Use this for initialization
 	void Start () {
+		score = GameObject.FindObjectOfType<Score> ();
+
 		isBreakable = (this.tag == "Breakable");
 		// Keep track of breakable bricks
 		if (isBreakable) {
@@ -39,6 +42,7 @@ public class Brick : MonoBehaviour {
 		int maxHits = hitSprites.Length + 1;
 		if (timesHit >= maxHits) {
 			breakableCount--;
+			score.AddScore ();
 			PuffSmoke();
 			Destroy(gameObject);
 		} else {

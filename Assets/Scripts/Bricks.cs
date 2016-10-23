@@ -34,7 +34,7 @@ public class Bricks : MonoBehaviour {
 		if (bricks [posX, posY] == null) {
 			bricks [posX, posY] = Instantiate (Resources.Load (brickPaths[type])) as GameObject;
 			
-			Vector2 startPos = new Vector2 (150 * posX, 50 * posY + 800);
+			Vector2 startPos = new Vector2 (150 * posX, 50 * posY + 700);
 			bricks [posX, posY].transform.position = startPos;
 		}
 	}

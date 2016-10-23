@@ -10,15 +10,16 @@ public class Score : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreText = GetComponent<Text> ();
+		DontDestroyOnLoad (gameObject.transform.root.gameObject);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void AddScore() {
 		score += 10;
 		scoreText.text = string.Format ("Score: {0}", score);
 	}
+
+	public int GetScore() {
+		return score;
+	}
+
 }

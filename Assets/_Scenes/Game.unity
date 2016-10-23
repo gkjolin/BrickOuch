@@ -509,7 +509,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoPlay: 0
   mousePlay: 1
-  speed: 800
+  text1: {fileID: 0}
+  text2: {fileID: 0}
+  text3: {fileID: 0}
 --- !u!1001 &1252290128
 Prefab:
   m_ObjectHideFlags: 0

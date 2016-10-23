@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Paddle : MonoBehaviour {
 
+	private const float SpeedFactor = 2000.0f;
+
 	public bool autoPlay = false;
 	public bool mousePlay = true;
 	private float minX, maxX;
-	public float speed = 35.0F;
 
 	private Ball ball;
 	
@@ -50,16 +52,16 @@ public class Paddle : MonoBehaviour {
 
 	void MoveWithAccelerometer ()
 	{
-        Vector3 dir = Vector3.zero;
-        Vector3 pos = new Vector3 (0.5f, this.transform.position.y, 0f);
+		Vector3 speed = Vector3.zero;
+		Vector3 pos = new Vector3 (0.5f, this.transform.position.y, 0f);
 
-        dir.x = Input.acceleration.x;
+		speed.x = Input.acceleration.x;
 
-        if (dir.sqrMagnitude > 1)
-            dir.Normalize();
-        
-        dir *= Time.deltaTime;
-        this.transform.Translate(dir * speed);
+		if (speed.sqrMagnitude > 1)
+			speed.Normalize();
+
+		speed *= Time.deltaTime;
+		this.transform.Translate(speed * SpeedFactor);
 		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
 		this.transform.position = pos;
 	}

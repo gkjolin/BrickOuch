@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: GA_Settings
   m_EditorClassIdentifier: 
   accounts:
-  - Name: Production
+  - Name: Production Account
     TrackingID: UA-85521806-2
     IsOpen: 1
-  - Name: Testing
+  - Name: Testing Account
     TrackingID: 
     IsOpen: 1
   platfromBounds:
@@ -103,9 +103,9 @@ MonoBehaviour:
   - platfrom: 31
     profileIndex: 0
     profileIndexTestMode: 1
-  showAdditionalParams: 1
-  showAdvancedParams: 1
-  showCParams: 1
+  showAdditionalParams: 0
+  showAdvancedParams: 0
+  showCParams: 0
   showAccounts: 1
   showPlatfroms: 1
   showTestingMode: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
   StringEscaping: 1
   EditorAnalytics: 1
   IsDisabled: 0
-  IsTestingModeEnabled: 0
+  IsTestingModeEnabled: 1
   TestingModeAccIndex: 0
   IsRequetsCachingEnabled: 1
   IsQueueTimeEnabled: 1

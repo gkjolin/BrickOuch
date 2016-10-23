@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+//TODO: Move all constant value to variable. If possible, set them based on the objects in screen.
 public class Paddle : MonoBehaviour {
 
 	private const float SpeedFactor = 2000.0f;
@@ -43,11 +44,12 @@ public class Paddle : MonoBehaviour {
 		paddlePos.x = Mathf.Clamp(ballPos.x, minX, maxX);
 		this.transform.position = paddlePos;
 	}
-	
+
 	void MoveWithMouse () {
-		float mousePosX = Mathf.Clamp(Input.mousePosition.x / Screen.width * 900, minX, maxX);
+		float mousePosX = Mathf.Clamp((Input.mousePosition.x - 650) * 1.5f, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 		this.transform.position = paddlePos;
+		print(Input.mousePosition.x);
 	}
 
 	void MoveWithAccelerometer ()

@@ -20,7 +20,7 @@ public class Paddle : MonoBehaviour {
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
-		maxX = playSpace.width - halfSizeX;
+		maxX = playSpace.Width - halfSizeX;
 	}
 		
 	// Update is called once per frame
@@ -47,12 +47,7 @@ public class Paddle : MonoBehaviour {
 	}
 
 	void MoveWithMouse () {
-		//TODO: Move this calculations to PlaySpace.cs
-		var actualWidth = Screen.height*playSpace.width/playSpace.height;
-		var offset = (Screen.width - actualWidth) / 2;
-		var heightRatio = playSpace.height /  Screen.height;
-
-		float mousePosX = Mathf.Clamp((Input.mousePosition.x - offset) * heightRatio, minX, maxX);
+		float mousePosX = Mathf.Clamp((Input.mousePosition.x - playSpace.ScreenOffsetX) * playSpace.ShrinkRatio, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
 		this.transform.position = paddlePos;

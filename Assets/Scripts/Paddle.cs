@@ -46,10 +46,9 @@ public class Paddle : MonoBehaviour {
 	}
 
 	void MoveWithMouse () {
-		float mousePosX = Mathf.Clamp((Input.mousePosition.x - 650) * 1.5f, minX, maxX);
+		float mousePosX = Mathf.Clamp(Input.mousePosition.x * 1.5f - 960, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 		this.transform.position = paddlePos;
-		print(Input.mousePosition.x);
 	}
 
 	void MoveWithAccelerometer ()

@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Collections;
 
-//TODO: Move all constant value to variable. If possible, set them based on the objects in screen.
 public class Paddle : MonoBehaviour {
 
 	private const float SpeedFactor = 2000.0f;
@@ -12,14 +11,16 @@ public class Paddle : MonoBehaviour {
 	private float minX, maxX;
 
 	private Ball ball;
+	private PlaySpace playSpace;
 	
 	void Start () {
 		ball = GameObject.FindObjectOfType<Ball>();
+		playSpace = GameObject.FindObjectOfType<PlaySpace>();
 		mousePlay = !SystemInfo.supportsAccelerometer;
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
-		maxX = 900 - halfSizeX;
+		maxX = playSpace.width - halfSizeX;
 	}
 		
 	// Update is called once per frame
@@ -46,8 +47,14 @@ public class Paddle : MonoBehaviour {
 	}
 
 	void MoveWithMouse () {
-		float mousePosX = Mathf.Clamp(Input.mousePosition.x * 1.5f - 960, minX, maxX);
+		//TODO: Move this calculations to PlaySpace.cs
+		var actualWidth = Screen.height*playSpace.width/playSpace.height;
+		var offset = (Screen.width - actualWidth) / 2;
+		var heightRatio = playSpace.height /  Screen.height;
+
+		float mousePosX = Mathf.Clamp((Input.mousePosition.x - offset) * heightRatio, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
+
 		this.transform.position = paddlePos;
 	}
 

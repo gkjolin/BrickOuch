@@ -142,9 +142,9 @@ GameObject:
   - 4: {fileID: 207692684}
   - 212: {fileID: 207692683}
   - 50: {fileID: 207692682}
-  - 58: {fileID: 207692681}
   - 114: {fileID: 207692680}
   - 82: {fileID: 207692679}
+  - 61: {fileID: 207692681}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -239,12 +239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb6e60038577416f80a0d2c56032771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceAudio: {fileID: 8300000, guid: 5c31b7bb762e8ff4284af6edc131bed9, type: 3}
---- !u!58 &207692681
-CircleCollider2D:
+--- !u!61 &207692681
+BoxCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5800000, guid: ff5536fe472d646e4945941b0dbdb7c7,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 207692678}
   m_Enabled: 1
@@ -254,7 +252,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 25
+  m_Size: {x: 50, y: 50}
 --- !u!50 &207692682
 Rigidbody2D:
   serializedVersion: 2
@@ -272,7 +270,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &207692683
 SpriteRenderer:
   m_ObjectHideFlags: 0

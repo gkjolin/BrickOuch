@@ -64,9 +64,11 @@ public class Paddle : MonoBehaviour {
 		if (speed.sqrMagnitude > 1)
 			speed.Normalize();
 
-		speed *= Time.deltaTime;
-		this.transform.Translate(speed * SpeedFactor);
-		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
+
+		pos.x = playSpace.Width/2 * (1 + speed.x);
+//		speed *= Time.deltaTime;
+//		this.transform.Translate(speed * SpeedFactor);
+//		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
 		this.transform.position = pos;
 	}
 }

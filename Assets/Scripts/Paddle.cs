@@ -47,7 +47,8 @@ public class Paddle : MonoBehaviour {
 	}
 
 	void MoveWithMouse () {
-		float mousePosX = Mathf.Clamp((Input.mousePosition.x - playSpace.ScreenOffsetX) * playSpace.ShrinkRatio, minX, maxX);
+		var mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		float mousePosX = Mathf.Clamp(mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
 		this.transform.position = paddlePos;

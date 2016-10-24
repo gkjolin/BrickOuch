@@ -3,6 +3,7 @@
 *.csproj
 *.pidb
 *.unityproj
+*.apk
 .DS_Store
 /Library/
 /obj

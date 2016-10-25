@@ -13,11 +13,12 @@ public class MusicPlayer : MonoBehaviour {
 			instance = this;
 			GameObject.DontDestroyOnLoad(gameObject);
 		}
-		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public void UpdateVolume()
+	{
+		var audioSource = gameObject.GetComponent<AudioSource>();
+
+		audioSource.volume = PlayerPrefsManager.GetMusicVolume();
 	}
 }

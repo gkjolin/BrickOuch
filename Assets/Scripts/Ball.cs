@@ -13,6 +13,9 @@ public class Ball : MonoBehaviour {
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		bricks = GameObject.FindObjectOfType<Bricks>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
+
+		var audioSource = gameObject.GetComponent<AudioSource>();
+		audioSource.volume = PlayerPrefsManager.GetSoundsVolume();
 	}
 	
 	// Update is called once per frame

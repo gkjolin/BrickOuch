@@ -455,7 +455,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You Lost!
+  m_Text: 'Score: XXXXXX
+
+    Highest Score: XXXXXX'
 --- !u!222 &869067659
 CanvasRenderer:
   m_ObjectHideFlags: 0

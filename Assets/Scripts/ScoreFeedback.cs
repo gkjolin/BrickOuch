@@ -10,7 +10,8 @@ public class ScoreFeedback : MonoBehaviour {
 		Score score = scoreObj.GetComponent<Score> ();
 
 		Text text = this.GetComponent<Text> ();
-		text.text = "Score\n" + score.GetScore ();
+		text.text = "Score: " + score.GetScore ();
+		text.text += "\nHighest Score: " + score.GetHighestScore();
 
 		Destroy (scoreObj.transform.root.gameObject);
 	}

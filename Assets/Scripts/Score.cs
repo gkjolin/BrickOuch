@@ -7,11 +7,10 @@ public class Score : MonoBehaviour {
 	private int score = 0;
 	private int highestScore = 0;
 	private Text scoreText;
-	private const string HIGHEST_SCORE_KEY = "HIGHEST SCORE";
 
 	// Use this for initialization
 	void Start () {
-		highestScore = PlayerPrefs.GetInt(HIGHEST_SCORE_KEY, 0);
+		highestScore = PlayerPrefsManager.GetHighestScore();
 		scoreText = GetComponent<Text> ();
 		DontDestroyOnLoad (gameObject.transform.root.gameObject);
 	}
@@ -37,8 +36,7 @@ public class Score : MonoBehaviour {
 		if (score > highestScore)
 		{
 			highestScore = score;
-			PlayerPrefs.SetInt(HIGHEST_SCORE_KEY, score);
-			PlayerPrefs.Save();
+			PlayerPrefsManager.SetHighestScore(score);
 		}
 	}
 

@@ -5,6 +5,7 @@ public static class PlayerPrefsManager {
 
 	private const string MUSIC_VOLUME_KEY = "music_volume";
 	private const string SOUNDS_VOLUME_KEY = "sounds_volume";
+	private const string HIGHEST_SCORE_KEY = "highest_score";
 
 	public static void SetMusicVolume(float volume)
 	{
@@ -38,5 +39,16 @@ public static class PlayerPrefsManager {
 	public static float GetSoundsVolume()
 	{
 		return PlayerPrefs.GetFloat(SOUNDS_VOLUME_KEY, 1);
+	}
+
+	public static void SetHighestScore(int score)
+	{
+		PlayerPrefs.SetInt(HIGHEST_SCORE_KEY, score);
+		PlayerPrefs.Save();
+	}
+
+	public static int GetHighestScore()
+	{
+		return PlayerPrefs.GetInt(HIGHEST_SCORE_KEY, 0);
 	}
 }

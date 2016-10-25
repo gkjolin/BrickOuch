@@ -12,9 +12,9 @@ public class Score : MonoBehaviour {
 		scoreText = GetComponent<Text> ();
 		DontDestroyOnLoad (gameObject.transform.root.gameObject);
 	}
-	
-	public void AddScore() {
-		score += 10;
+
+	public void AddScore(int points = 10) {
+		score += points;
 		scoreText.text = string.Format ("Score: {0}", score);
 	}
 

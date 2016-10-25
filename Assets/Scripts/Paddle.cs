@@ -14,6 +14,9 @@ public class Paddle : MonoBehaviour {
 	private PlaySpace playSpace;
 	
 	void Start () {
+
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
 		ball = GameObject.FindObjectOfType<Ball>();
 		playSpace = GameObject.FindObjectOfType<PlaySpace>();
 		mousePlay = !SystemInfo.supportsAccelerometer;

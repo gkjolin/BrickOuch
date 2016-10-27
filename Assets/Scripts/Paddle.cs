@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Spine.Unity;
 
 public class Paddle : MonoBehaviour {
 
@@ -12,14 +13,17 @@ public class Paddle : MonoBehaviour {
 
 	private Ball ball;
 	private PlaySpace playSpace;
+
+	private new SkeletonAnimation animation;
 	
 	void Start () {
-
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		ball = GameObject.FindObjectOfType<Ball>();
 		playSpace = GameObject.FindObjectOfType<PlaySpace>();
 		mousePlay = !SystemInfo.supportsAccelerometer;
+
+		animation = this.GetComponent<SkeletonAnimation> ();
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
@@ -71,5 +75,22 @@ public class Paddle : MonoBehaviour {
 		this.transform.Translate(speed * SpeedFactor);
 		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
 		this.transform.position = pos;
+	}
+
+	public void StartGameAnimation() {
+		DisableCollider ();
+		animation.loop = false;
+		animation.AnimationName = "StartGame";
+		Invoke ("EnableCollider", 1);
+	}
+
+	private void DisableCollider()
+	{
+		this.GetComponent<Collider2D> ().isTrigger = true;
+	}
+
+	private void EnableCollider()
+	{
+		this.GetComponent<Collider2D> ().isTrigger = false;
 	}
 }

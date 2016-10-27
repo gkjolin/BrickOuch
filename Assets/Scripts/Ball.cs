@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Spine.Unity;
 
 public class Ball : MonoBehaviour {
 	
@@ -7,6 +8,9 @@ public class Ball : MonoBehaviour {
 	private bool hasStarted = false;
 	private Vector3 paddleToBallVector;
 	Bricks bricks;
+
+	private Rigidbody2D body;
+	private new SkeletonAnimation animation;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +20,9 @@ public class Ball : MonoBehaviour {
 
 		var audioSource = gameObject.GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefsManager.GetSoundsVolume();
+
+		body = this.GetComponent<Rigidbody2D> ();
+		animation = this.GetComponent<SkeletonAnimation> ();
 	}
 	
 	// Update is called once per frame
@@ -28,7 +35,7 @@ public class Ball : MonoBehaviour {
 			if (Input.GetMouseButtonDown(0)) {
 				hasStarted = true;
 				StartCoroutine(paddle.StartGameAnimation ());
-				this.GetComponent<Rigidbody2D>().velocity = new Vector2 (-520f, 256f);
+				body.velocity = new Vector2 (-520f, 256f);
 			}
 		}
 	}
@@ -38,11 +45,18 @@ public class Ball : MonoBehaviour {
 		
 		if (hasStarted) {
 			GetComponent<AudioSource>().Play();
-			GetComponent<Rigidbody2D>().velocity += tweak;
+			body.velocity += tweak;
 		}
 
 		if (collision.gameObject.name == "Paddle") {
 			bricks.CreateRandomBrick ();
 		}
 	}
+
+	public void PuffAnimation()
+	{
+		body.velocity = Vector2.zero;
+		animation.AnimationName = "Puff";
+	}
+
 }

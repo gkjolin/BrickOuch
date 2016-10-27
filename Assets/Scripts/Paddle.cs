@@ -3,9 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 using Spine.Unity;
 
-public class Paddle : MonoBehaviour {
+public class Paddle : MonoBehaviour
+{
 
 	private const float SpeedFactor = 2000.0f;
+	private const float AnimationFactor = 0.05f;
 
 	public bool autoPlay = false;
 	public bool mousePlay = true;
@@ -15,12 +17,15 @@ public class Paddle : MonoBehaviour {
 	private PlaySpace playSpace;
 
 	private new SkeletonAnimation animation;
-	
-	void Start () {
+	private float moveAnimation = AnimationFactor;
+
+	void Start ()
+	{
+		this.GetComponent<Collider2D> ().isTrigger = true;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
-		ball = GameObject.FindObjectOfType<Ball>();
-		playSpace = GameObject.FindObjectOfType<PlaySpace>();
+		ball = GameObject.FindObjectOfType<Ball> ();
+		playSpace = GameObject.FindObjectOfType<PlaySpace> ();
 		mousePlay = !SystemInfo.supportsAccelerometer;
 
 		animation = this.GetComponent<SkeletonAnimation> ();
@@ -31,33 +36,32 @@ public class Paddle : MonoBehaviour {
 	}
 		
 	// Update is called once per frame
-	void Update () {
-		if (autoPlay) 
-		{
+	void Update ()
+	{
+		if (autoPlay) {
 			AutoPlay ();
-		} 
-		else if (mousePlay) 
-		{
+		} else if (mousePlay) {
 			MoveWithMouse ();
-		} 
-		else 
-		{
-			MoveWithAccelerometer();
+		} else {
+			MoveWithAccelerometer ();
 		}
 	}
-	
-	void AutoPlay() {
+
+	void AutoPlay ()
+	{
 		Vector3 paddlePos = new Vector3 (0.5f, this.transform.position.y, 0f);
 		Vector3 ballPos = ball.transform.position;
-		paddlePos.x = Mathf.Clamp(ballPos.x, minX, maxX);
+		paddlePos.x = Mathf.Clamp (ballPos.x, minX, maxX);
 		this.transform.position = paddlePos;
 	}
 
-	void MoveWithMouse () {
-		var mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		float mousePosX = Mathf.Clamp(mouseWorldPosition.x, minX, maxX);
+	void MoveWithMouse ()
+	{
+		var mouseWorldPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
+		MoveAnimation (paddlePos);
 		this.transform.position = paddlePos;
 	}
 
@@ -69,28 +73,48 @@ public class Paddle : MonoBehaviour {
 		speed.x = Input.acceleration.x;
 
 		if (speed.sqrMagnitude > 1)
-			speed.Normalize();
+			speed.Normalize ();
 
 		speed *= Time.deltaTime;
-		this.transform.Translate(speed * SpeedFactor);
-		pos.x = Mathf.Clamp(this.transform.position.x, minX, maxX);
+		this.transform.Translate (speed * SpeedFactor);
+		pos.x = Mathf.Clamp (this.transform.position.x, minX, maxX);
 		this.transform.position = pos;
 	}
 
-	public void StartGameAnimation() {
-		DisableCollider ();
+	public void MoveAnimation (Vector3 newPos)
+	{
+		if (animation.AnimationName == "StartGame") {
+			return;
+		}
+
+		moveAnimation -= Time.deltaTime;
+		string newAnimation = "";
+
+		if (newPos.x < this.transform.position.x) {
+			newAnimation = "Frente";
+		} else if (newPos.x > this.transform.position.x) {
+			newAnimation = "Tras";
+		} else {
+			newAnimation = "";
+		}
+
+		if (newAnimation == animation.AnimationName) {
+			moveAnimation = AnimationFactor;
+		} else if (moveAnimation < 0) {
+			animation.loop = true;
+			animation.AnimationName = newAnimation;
+			moveAnimation = AnimationFactor;
+		}
+	}
+
+	public IEnumerator StartGameAnimation ()
+	{
 		animation.loop = false;
 		animation.AnimationName = "StartGame";
-		Invoke ("EnableCollider", 1);
-	}
 
-	private void DisableCollider()
-	{
-		this.GetComponent<Collider2D> ().isTrigger = true;
-	}
-
-	private void EnableCollider()
-	{
+		yield return new WaitForSeconds(1.2f);
 		this.GetComponent<Collider2D> ().isTrigger = false;
+		animation.AnimationName = "";
 	}
+
 }

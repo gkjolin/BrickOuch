@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour {
 			// Wait for a mouse press to launch.
 			if (Input.GetMouseButtonDown(0)) {
 				hasStarted = true;
-				paddle.StartGameAnimation ();
+				StartCoroutine(paddle.StartGameAnimation ());
 				this.GetComponent<Rigidbody2D>().velocity = new Vector2 (-520f, 256f);
 			}
 		}

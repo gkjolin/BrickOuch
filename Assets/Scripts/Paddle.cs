@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using Spine.Unity;
 
@@ -81,12 +82,21 @@ public class Paddle : MonoBehaviour
 		this.transform.position = pos;
 	}
 
+	void OnCollisionEnter2D (Collision2D collision) {
+		animation.loop = false;
+		animation.AnimationName = "Hit";
+		moveAnimation = 0.3f;
+	}
+
+	public IEnumerator HitAnimation ()
+	{
+
+		yield return new WaitForSeconds(0.3f);
+		animation.AnimationName = "";
+	}
+
 	public void MoveAnimation (Vector3 newPos)
 	{
-		if (animation.AnimationName == "StartGame") {
-			return;
-		}
-
 		moveAnimation -= Time.deltaTime;
 		string newAnimation = "";
 
@@ -99,11 +109,11 @@ public class Paddle : MonoBehaviour
 		}
 
 		if (newAnimation == animation.AnimationName) {
-			moveAnimation = AnimationFactor;
+			moveAnimation = Math.Max(moveAnimation, AnimationFactor);
 		} else if (moveAnimation < 0) {
 			animation.loop = true;
 			animation.AnimationName = newAnimation;
-			moveAnimation = AnimationFactor;
+			moveAnimation = Math.Max(moveAnimation, AnimationFactor);
 		}
 	}
 
@@ -111,10 +121,10 @@ public class Paddle : MonoBehaviour
 	{
 		animation.loop = false;
 		animation.AnimationName = "StartGame";
+		moveAnimation = 1.2f;
 
 		yield return new WaitForSeconds(1.2f);
 		this.GetComponent<Collider2D> ().isTrigger = false;
-		animation.AnimationName = "";
 	}
 
 }

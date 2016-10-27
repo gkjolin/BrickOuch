@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
   m_Name: Canhao_Atlas
   m_EditorClassIdentifier: 
-  atlasFile: {fileID: 4900000, guid: 5d26e6d25b387fc46936deececb2d6b1, type: 3}
+  atlasFile: {fileID: 4900000, guid: 0254fe7dc94754945a050d91ed21489a, type: 3}
   materials:
   - {fileID: 2100000, guid: 7ba601bfaca187e4fb93dc5634101761, type: 2}

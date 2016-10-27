@@ -12,6 +12,7 @@ public class Paddle : MonoBehaviour
 
 	public bool autoPlay = false;
 	public bool mousePlay = true;
+	public bool gameOver = false;
 	private float minX, maxX;
 
 	private Ball ball;
@@ -39,6 +40,10 @@ public class Paddle : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (gameOver) {
+			return;
+		}
+			
 		if (autoPlay) {
 			AutoPlay ();
 		} else if (mousePlay) {
@@ -83,19 +88,26 @@ public class Paddle : MonoBehaviour
 	}
 
 	void OnCollisionEnter2D (Collision2D collision) {
+		HitAnimation ();
+	}
+
+	private void HitAnimation ()
+	{
 		animation.loop = false;
 		animation.AnimationName = "Hit";
 		moveAnimation = 0.3f;
 	}
 
-	public IEnumerator HitAnimation ()
+	public void EndGameAnimation ()
 	{
+		gameOver = true;
 
-		yield return new WaitForSeconds(0.3f);
-		animation.AnimationName = "";
+		animation.loop = false;
+		animation.AnimationName = "EndGame";
+		moveAnimation = float.MaxValue;
 	}
 
-	public void MoveAnimation (Vector3 newPos)
+	private void MoveAnimation (Vector3 newPos)
 	{
 		moveAnimation -= Time.deltaTime;
 		string newAnimation = "";

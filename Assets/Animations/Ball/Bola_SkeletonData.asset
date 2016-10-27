@@ -14,7 +14,7 @@ MonoBehaviour:
   atlasAssets:
   - {fileID: 11400000, guid: 1abfd83dd1a2cb94a9393f440811abbb, type: 2}
   scale: 1
-  skeletonJSON: {fileID: 4900000, guid: c00dd21bbcd852449b5b59f03857ea02, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 94a091f8a3fba194693181dc9478345d, type: 3}
   fromAnimation: []
   toAnimation: []
   duration: []

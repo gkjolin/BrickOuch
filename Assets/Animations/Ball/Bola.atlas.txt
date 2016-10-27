@@ -1,0 +1,41 @@
+
+Bola.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bola
+  rotate: true
+  xy: 367, 40
+  size: 64, 67
+  orig: 64, 67
+  offset: 0, 0
+  index: -1
+FumacaBola_01
+  rotate: false
+  xy: 297, 40
+  size: 68, 64
+  orig: 68, 64
+  offset: 0, 0
+  index: -1
+FumacaBola_02
+  rotate: false
+  xy: 210, 21
+  size: 85, 83
+  orig: 85, 83
+  offset: 0, 0
+  index: -1
+FumacaBola_03
+  rotate: false
+  xy: 2, 2
+  size: 103, 102
+  orig: 103, 102
+  offset: 0, 0
+  index: -1
+FumacaBola_04
+  rotate: false
+  xy: 107, 4
+  size: 101, 100
+  orig: 101, 100
+  offset: 0, 0
+  index: -1

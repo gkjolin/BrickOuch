@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Spine.Unity;
 
-public class Brick : MonoBehaviour {
+public class Brick : MonoBehaviour
+{
 
-	public Sprite[] hitSprites;
 	public static int breakableCount = 0;
-	public GameObject smoke;
 	public int pointsWorth = 10;
+	public int maxHits;
 
 	private int timesHit;
 	private bool isBreakable;
 	private Score score;
 	private bool destroy;
+	private SkeletonAnimation skeletonAnimation;
 	
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		score = GameObject.FindObjectOfType<Score> ();
+		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 
 		isBreakable = (this.tag == "Breakable");
 		// Keep track of breakable bricks
@@ -25,45 +29,34 @@ public class Brick : MonoBehaviour {
 		
 		timesHit = 0;
 	}
-	
-	void Update() {
+
+	void Update ()
+	{
 		if (destroy) {
-			Destroy(gameObject);
+			Destroy (gameObject);
 		}
 	}
-	
-	void OnCollisionEnter2D (Collision2D col) {
+
+	void OnCollisionEnter2D (Collision2D col)
+	{
 		if (isBreakable) {
-			HandleHits();
+			StartCoroutine (HandleHits ());
 		}
 	}
-	
-	void HandleHits () {
+
+	IEnumerator HandleHits ()
+	{
 		timesHit++;
-		int maxHits = hitSprites.Length + 1;
 		if (timesHit >= maxHits) {
 			breakableCount--;
 			score.AddScore (pointsWorth);
-			PuffSmoke();
-			
+
+			skeletonAnimation.AnimationName = "Pop";
+			yield return new WaitForSeconds (0.5f);
+
 			destroy = true;
 		} else {
-			LoadSprites();
-		}
-	}
-	
-	void PuffSmoke () {
-		GameObject smokePuff = Instantiate (smoke, transform.position, Quaternion.identity) as GameObject;
-		smokePuff.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
-	}
-	
-	void LoadSprites () {
-		int spriteIndex = timesHit - 1;
-		
-		if (hitSprites[spriteIndex] != null) {
-			this.GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
-		} else {
-			Debug.LogError ("Brick sprite missing");
+			skeletonAnimation.AnimationName = "Bump";
 		}
 	}
 }

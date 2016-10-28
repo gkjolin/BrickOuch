@@ -22,7 +22,7 @@ public class Bricks : MonoBehaviour {
 	
 	public void CreateRandomBrick() {
 		if (Brick.breakableCount < MaxBricks) {
-			BrickType type = (BrickType)Random.Range (0, 3);
+			BrickType type = BrickType.Yellow;//(BrickType)Random.Range (0, 3);
 			int posX = Random.Range (0, 6);
 			int posY = Random.Range (0, 16);
 
@@ -34,7 +34,7 @@ public class Bricks : MonoBehaviour {
 		if (bricks [posX, posY] == null) {
 			bricks [posX, posY] = Instantiate (Resources.Load (brickPaths[type])) as GameObject;
 			
-			Vector2 startPos = new Vector2 (150 * posX, 50 * posY + 700);
+			Vector2 startPos = new Vector2 (150 * posX + 75, 50 * posY + 700);
 			bricks [posX, posY].transform.position = startPos;
 		}
 	}

@@ -1,62 +1,209 @@
 
 Balloons.png
-size: 1024,128
+size: 1024,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+BLUE_BendDown
+  rotate: false
+  xy: 2, 195
+  size: 196, 59
+  orig: 196, 59
+  offset: 0, 0
+  index: -1
+BLUE_BendUp
+  rotate: false
+  xy: 194, 74
+  size: 196, 58
+  orig: 196, 58
+  offset: 0, 0
+  index: -1
+BLUE_Hit01
+  rotate: true
+  xy: 2, 2
+  size: 191, 46
+  orig: 191, 46
+  offset: 0, 0
+  index: -1
+BLUE_Hit02
+  rotate: false
+  xy: 596, 149
+  size: 179, 45
+  orig: 179, 45
+  offset: 0, 0
+  index: -1
+BLUE_Hit03_A
+  rotate: true
+  xy: 989, 191
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+BLUE_Hit03_B
+  rotate: false
+  xy: 856, 104
+  size: 64, 34
+  orig: 64, 34
+  offset: 0, 0
+  index: -1
+BLUE_Idle
+  rotate: false
+  xy: 392, 77
+  size: 193, 56
+  orig: 193, 56
+  offset: 0, 0
+  index: -1
+GREEN_BendDown
+  rotate: false
+  xy: 194, 134
+  size: 196, 59
+  orig: 196, 59
+  offset: 0, 0
+  index: -1
+GREEN_BendUp
+  rotate: false
+  xy: 596, 196
+  size: 196, 58
+  orig: 196, 58
+  offset: 0, 0
+  index: -1
+GREEN_Hit01
+  rotate: true
+  xy: 50, 2
+  size: 191, 46
+  orig: 191, 46
+  offset: 0, 0
+  index: -1
+GREEN_Hit02
+  rotate: false
+  xy: 590, 102
+  size: 179, 45
+  orig: 179, 45
+  offset: 0, 0
+  index: -1
+GREEN_Hit03_A
+  rotate: false
+  xy: 922, 70
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+GREEN_Hit03_B
+  rotate: false
+  xy: 856, 68
+  size: 64, 34
+  orig: 64, 34
+  offset: 0, 0
+  index: -1
+GREEN_Idle
+  rotate: false
+  xy: 794, 198
+  size: 193, 56
+  orig: 193, 56
+  offset: 0, 0
+  index: -1
 Layer 27 copy 6
   rotate: false
-  xy: 576, 49
+  xy: 771, 66
   size: 83, 72
   orig: 83, 72
   offset: 0, 0
   index: -1
 RED_Balloon1 copy_2
   rotate: false
-  xy: 2, 62
+  xy: 200, 195
   size: 196, 59
   orig: 196, 59
   offset: 0, 0
   index: -1
 RED_Balloon1_0
   rotate: false
-  xy: 200, 65
+  xy: 392, 19
   size: 193, 56
   orig: 193, 56
   offset: 0, 0
   index: -1
 RED_Balloon1_0 copy
-  rotate: false
-  xy: 200, 17
+  rotate: true
+  xy: 98, 2
   size: 191, 46
   orig: 191, 46
   offset: 0, 0
   index: -1
 RED_Balloon1_0 copy 2
   rotate: false
-  xy: 395, 76
+  xy: 587, 55
   size: 179, 45
   orig: 179, 45
   offset: 0, 0
   index: -1
 RED_Balloon1_0 copy 3
   rotate: false
-  xy: 661, 53
+  xy: 768, 32
   size: 63, 32
   orig: 63, 32
   offset: 0, 0
   index: -1
 RED_Balloon1_0 copy 4
   rotate: false
-  xy: 661, 87
+  xy: 922, 104
   size: 64, 34
   orig: 64, 34
   offset: 0, 0
   index: -1
 RED_Balloon1_1
   rotate: false
-  xy: 2, 2
+  xy: 392, 135
   size: 196, 58
   orig: 196, 58
+  offset: 0, 0
+  index: -1
+YELLOW_BendDown
+  rotate: false
+  xy: 398, 195
+  size: 196, 59
+  orig: 196, 59
+  offset: 0, 0
+  index: -1
+YELLOW_BendUp
+  rotate: false
+  xy: 194, 14
+  size: 196, 58
+  orig: 196, 58
+  offset: 0, 0
+  index: -1
+YELLOW_Hit01
+  rotate: true
+  xy: 146, 2
+  size: 191, 46
+  orig: 191, 46
+  offset: 0, 0
+  index: -1
+YELLOW_Hit02
+  rotate: false
+  xy: 587, 8
+  size: 179, 45
+  orig: 179, 45
+  offset: 0, 0
+  index: -1
+YELLOW_Hit03_A
+  rotate: false
+  xy: 856, 34
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+YELLOW_Hit03_B
+  rotate: true
+  xy: 988, 74
+  size: 64, 34
+  orig: 64, 34
+  offset: 0, 0
+  index: -1
+YELLOW_Idle
+  rotate: false
+  xy: 794, 140
+  size: 193, 56
+  orig: 193, 56
   offset: 0, 0
   index: -1

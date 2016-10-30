@@ -22,7 +22,7 @@ public class Bricks : MonoBehaviour {
 	
 	public void CreateRandomBrick() {
 		if (Brick.breakableCount < MaxBricks) {
-			BrickType type = BrickType.Yellow;//(BrickType)Random.Range (0, 3);
+			BrickType type = (BrickType)Random.Range (0, 3);
 			int posX = Random.Range (0, 6);
 			int posY = Random.Range (0, 16);
 

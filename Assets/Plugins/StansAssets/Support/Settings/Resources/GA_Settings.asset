@@ -107,10 +107,10 @@ MonoBehaviour:
   showAdvancedParams: 0
   showCParams: 0
   showAccounts: 1
-  showPlatfroms: 1
+  showPlatfroms: 0
   showTestingMode: 1
   AppName: BrickOuch
-  AppVersion: 0.0.4-4
+  AppVersion: 0.0.5-5
   UseHTTPS: 0
   StringEscaping: 1
   EditorAnalytics: 1

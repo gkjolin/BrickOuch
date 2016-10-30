@@ -84,7 +84,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c279a11d384ff49af888b02bd86417e7, type: 2}
+  - {fileID: 2100000, guid: 6d1426fcb04724079950f35a0fbd3d3f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 930a1628fd7454d0ebb72b637c04402d, type: 2}
-  initialSkinName: default
+  skeletonDataAsset: {fileID: 11400000, guid: be0599d53acf746e1970003614b3d03e, type: 2}
+  initialSkinName: YELLOW
   separatorSlotNames: []
   zSpacing: 0
   renderMeshes: 1

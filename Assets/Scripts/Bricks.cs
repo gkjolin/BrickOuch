@@ -31,6 +31,7 @@ public class Bricks : MonoBehaviour {
 	private void CreateBrick(int type, int posX, int posY) {
 		if (bricks [posX, posY] == null) {
 			bricks [posX, posY] = Instantiate (prefabs[type]);
+			bricks [posX, posY].transform.parent = transform;
 
 			Vector2 startPos = new Vector2 (150 * posX + 75, 50 * posY + 700);
 			bricks [posX, posY].transform.position = startPos;

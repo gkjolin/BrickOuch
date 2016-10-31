@@ -6,7 +6,7 @@ public class Brick : MonoBehaviour
 {
 
 	public static int breakableCount = 0;
-	public int pointsWorth = 10;
+	public int pointsWorth;
 	public int maxHits;
 
 	private int timesHit;
@@ -47,6 +47,7 @@ public class Brick : MonoBehaviour
 	IEnumerator HandleHits ()
 	{
 		timesHit++;
+
 		if (timesHit >= maxHits) {
 			breakableCount--;
 			score.AddScore (pointsWorth);
@@ -56,6 +57,7 @@ public class Brick : MonoBehaviour
 
 			destroy = true;
 		} else {
+			skeletonAnimation.AnimationName = "";
 			skeletonAnimation.AnimationName = "Bump";
 		}
 	}

@@ -20,7 +20,7 @@ public class Bricks : MonoBehaviour {
 	void Update ()
 	{
 		float createBrickProbability = brickCreationIndex/(Brick.breakableCount + 1f) * Time.deltaTime/Time.maximumDeltaTime;
-		Debug.Log(createBrickProbability);
+
 		if (Random.value < createBrickProbability)
 		{
 			CreateRandomBrick();

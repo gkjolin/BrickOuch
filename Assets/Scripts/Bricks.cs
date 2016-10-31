@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Bricks : MonoBehaviour {
 
 	private const int MaxBricks = 50;
-
+	private const float brickCreationIndex = 1.5f;
 	private GameObject[,] bricks = new GameObject[6, 16];
 
 	public List<GameObject> prefabs;
@@ -15,6 +14,16 @@ public class Bricks : MonoBehaviour {
 	void Start () {
 		for (int i = 0; i < MaxBricks; i++) {
 			CreateRandomBrick ();
+		}
+	}
+
+	void Update ()
+	{
+		float createBrickProbability = brickCreationIndex/(Brick.breakableCount + 1f) * Time.deltaTime/Time.maximumDeltaTime;
+		Debug.Log(createBrickProbability);
+		if (Random.value < createBrickProbability)
+		{
+			CreateRandomBrick();
 		}
 	}
 	

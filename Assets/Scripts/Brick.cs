@@ -57,6 +57,7 @@ public class Brick : MonoBehaviour
 			breakableCount--;
 			score.AddScore (pointsWorth);
 
+			Destroy (this.GetComponent<BoxCollider2D> ());
 			skeletonAnimation.state.SetAnimation (0, "Pop", false);
 		} else {
 			skeletonAnimation.state.SetAnimation (0, "Bump", false);

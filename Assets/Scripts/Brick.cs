@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Spine.Unity;
 
 public class Brick : MonoBehaviour
@@ -7,14 +8,14 @@ public class Brick : MonoBehaviour
 
 	public static int breakableCount = 0;
 	public int pointsWorth;
-	public int maxHits;
+	public List<string> skins;
 
 	private int timesHit;
 	private bool isBreakable;
 	private Score score;
 	private bool destroy;
 	private SkeletonAnimation skeletonAnimation;
-	
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,39 +27,44 @@ public class Brick : MonoBehaviour
 		if (isBreakable) {
 			breakableCount++;
 		}
-		
-		timesHit = 0;
-	}
 
-	void Update ()
-	{
-		if (destroy) {
-			Destroy (gameObject);
-		}
+		skeletonAnimation.skeleton.SetSkin (skins [timesHit]);
+		skeletonAnimation.state.End += delegate (Spine.AnimationState state, int trackIndex) {
+			if (timesHit < skins.Count) {
+				skeletonAnimation.skeleton.SetSkin (skins [timesHit]);
+			} else {
+				skeletonAnimation.skeleton.SetSkin (skins [skins.Count - 1]);
+			}
+
+			if (skeletonAnimation.AnimationName == "Pop") {
+				Destroy (gameObject);
+			}
+		};
 	}
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		if (isBreakable) {
-			StartCoroutine (HandleHits ());
+			HandleHits ();
 		}
 	}
 
-	IEnumerator HandleHits ()
+	private void HandleHits ()
 	{
 		timesHit++;
 
-		if (timesHit >= maxHits) {
+		if (timesHit >= skins.Count) {
 			breakableCount--;
 			score.AddScore (pointsWorth);
 
-			skeletonAnimation.AnimationName = "Pop";
-			yield return new WaitForSeconds (0.5f);
-
-			destroy = true;
+			skeletonAnimation.state.SetAnimation (0, "Pop", false);
 		} else {
-			skeletonAnimation.AnimationName = "";
-			skeletonAnimation.AnimationName = "Bump";
+			skeletonAnimation.state.SetAnimation (0, "Bump", false);
 		}
+	}
+
+	public void SetInitialHits(int initialHits)
+	{
+		this.timesHit = initialHits;
 	}
 }

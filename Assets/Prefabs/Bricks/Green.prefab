@@ -131,4 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsWorth: 20
-  maxHits: 2
+  skins:
+  - GREEN_S1
+  - GREEN_S2
+  - GREEN

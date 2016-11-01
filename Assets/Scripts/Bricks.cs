@@ -24,7 +24,7 @@ public class Bricks : MonoBehaviour {
 	{
 		float createBrickProbability = brickCreationIndex/(Brick.breakableCount + 1f) * Time.deltaTime/Time.maximumDeltaTime;
 
-		if (Random.value < createBrickProbability)
+		if (ball.HasBeenLaunched && Random.value < createBrickProbability)
 		{
 			CreateRandomBrick();
 		}

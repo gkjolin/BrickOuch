@@ -6,12 +6,15 @@ using System.Collections;
 public class OptionsController : MonoBehaviour {
 
 	private GameObject optionsPanel;
+	private MusicPlayer musicPlayer;
 	private Slider musicSlider;
 	private Slider soundsSlider;
 
 	void Start () {
 		optionsPanel = GameObject.FindGameObjectWithTag("Options");
 		optionsPanel.SetActive(false);
+
+		musicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
 
 		var sliders = optionsPanel.GetComponentsInChildren<Slider>();
 		musicSlider = sliders.FirstOrDefault(c => c.name.Equals("Music Slider"));
@@ -26,6 +29,7 @@ public class OptionsController : MonoBehaviour {
 		if (musicSlider != null)
 		{
 			PlayerPrefsManager.SetMusicVolume(musicSlider.value);
+			musicPlayer.UpdateVolume();
 		}
 
 		if (soundsSlider != null)

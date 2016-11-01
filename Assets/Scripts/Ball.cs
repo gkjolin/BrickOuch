@@ -4,10 +4,11 @@ using Spine.Unity;
 
 public class Ball : MonoBehaviour {
 
+	public bool HasBeenLaunched { get; set; }
+
 	private const float Force = 1f;
 
 	private Paddle paddle;
-	private bool hasStarted = false;
 	private Vector3 paddleToBallVector;
 
 	private Rigidbody2D body;
@@ -15,6 +16,7 @@ public class Ball : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		HasBeenLaunched = false;
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
@@ -27,13 +29,13 @@ public class Ball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!hasStarted) {
+		if (!HasBeenLaunched) {
 			// Lock the ball relative to the paddle.
 			this.transform.position = paddle.transform.position + paddleToBallVector;
 			
 			// Wait for a mouse press to launch.
 			if (Input.GetMouseButtonDown (0)) {
-				hasStarted = true;
+				HasBeenLaunched = true;
 				StartCoroutine (paddle.StartGameAnimation ());
 				body.velocity = new Vector2 (-520f, 256f);
 			}
@@ -43,7 +45,7 @@ public class Ball : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D (Collision2D collision) {
-		if (hasStarted) {
+		if (HasBeenLaunched) {
 			GetComponent<AudioSource>().Play();
 		}
 	}

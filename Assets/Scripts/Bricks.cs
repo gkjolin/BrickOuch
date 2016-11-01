@@ -7,11 +7,14 @@ public class Bricks : MonoBehaviour {
 	private const int MaxBricks = 50;
 	private const float brickCreationIndex = 1.5f;
 	private GameObject[,] bricks = new GameObject[6, 16];
+	private Ball ball;
 
 	public List<GameObject> prefabs;
 
 	// Use this for initialization
 	void Start () {
+		ball = GameObject.FindObjectOfType<Ball>();
+
 		for (int i = 0; i < MaxBricks; i++) {
 			CreateRandomBrick ();
 		}
@@ -28,7 +31,7 @@ public class Bricks : MonoBehaviour {
 	}
 	
 	public void CreateRandomBrick() {
-		if (Brick.breakableCount < MaxBricks) {
+		if (Brick.breakableCount < MaxBricks && ball.transform.position.y < 600) {
 			int type = UnityEngine.Random.Range (0, prefabs.Count);
 			int posX = UnityEngine.Random.Range (0, 6);
 			int posY = UnityEngine.Random.Range (0, 16);

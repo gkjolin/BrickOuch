@@ -27,7 +27,7 @@ public class Paddle : MonoBehaviour
 
 		ball = GameObject.FindObjectOfType<Ball> ();
 		playSpace = GameObject.FindObjectOfType<PlaySpace> ();
-		mousePlay = !SystemInfo.supportsAccelerometer;
+		mousePlay = PlayerPrefsManager.GetControllerMode() == Constants.HowToPlayModes.PlayWithMouse || !SystemInfo.supportsAccelerometer;
 
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 		lastPos = this.transform.position.x;

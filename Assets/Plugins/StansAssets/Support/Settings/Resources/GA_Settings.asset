@@ -110,7 +110,7 @@ MonoBehaviour:
   showPlatfroms: 0
   showTestingMode: 1
   AppName: BrickOuch
-  AppVersion: 0.0.5-5
+  AppVersion: 0.0.6-6
   UseHTTPS: 0
   StringEscaping: 1
   EditorAnalytics: 1

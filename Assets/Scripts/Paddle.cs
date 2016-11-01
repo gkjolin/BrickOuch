@@ -8,7 +8,6 @@ public class Paddle : MonoBehaviour
 {
 
 	private const float SpeedFactor = 2000.0f;
-	private const float AnimationFactor = 0.05f;
 
 	public bool autoPlay = false;
 	public bool mousePlay = true;
@@ -18,8 +17,8 @@ public class Paddle : MonoBehaviour
 	private Ball ball;
 	private PlaySpace playSpace;
 
-	private new SkeletonAnimation animation;
-	private float moveAnimation = AnimationFactor;
+	private SkeletonAnimation skeletonAnimation;
+	private float lastPos;
 
 	void Start ()
 	{
@@ -30,7 +29,8 @@ public class Paddle : MonoBehaviour
 		playSpace = GameObject.FindObjectOfType<PlaySpace> ();
 		mousePlay = !SystemInfo.supportsAccelerometer;
 
-		animation = this.GetComponent<SkeletonAnimation> ();
+		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
+		lastPos = this.transform.position.x;
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
@@ -51,6 +51,8 @@ public class Paddle : MonoBehaviour
 		} else {
 			MoveWithAccelerometer ();
 		}
+
+		MoveAnimation ();
 	}
 
 	void AutoPlay ()
@@ -67,7 +69,6 @@ public class Paddle : MonoBehaviour
 		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
-		MoveAnimation (paddlePos);
 		this.transform.position = paddlePos;
 	}
 
@@ -84,56 +85,37 @@ public class Paddle : MonoBehaviour
 		speed *= Time.deltaTime;
 		this.transform.Translate (speed * SpeedFactor);
 		pos.x = Mathf.Clamp (this.transform.position.x, minX, maxX);
+
 		this.transform.position = pos;
 	}
 
 	void OnCollisionEnter2D (Collision2D collision) {
-		HitAnimation ();
-	}
-
-	private void HitAnimation ()
-	{
-		animation.loop = false;
-		animation.AnimationName = "Hit";
-		moveAnimation = 0.3f;
+		skeletonAnimation.state.AddAnimation (0, "Hit", false, 0);
 	}
 
 	public void EndGameAnimation ()
 	{
 		gameOver = true;
-
-		animation.loop = false;
-		animation.AnimationName = "EndGame";
-		moveAnimation = float.MaxValue;
+		skeletonAnimation.state.ClearTracks ();
+		skeletonAnimation.state.SetAnimation (0, "EndGame", false);
 	}
 
-	private void MoveAnimation (Vector3 newPos)
+	private void MoveAnimation ()
 	{
-		moveAnimation -= Time.deltaTime;
-		string newAnimation = "";
-
-		if (newPos.x < this.transform.position.x) {
-			newAnimation = "Frente";
-		} else if (newPos.x > this.transform.position.x) {
-			newAnimation = "Tras";
+		if (this.transform.position.x < lastPos) {
+			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
+		} else if (this.transform.position.x > lastPos) {
+			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
 		} else {
-			newAnimation = "";
+			skeletonAnimation.state.ClearTrack (1);
 		}
 
-		if (newAnimation == animation.AnimationName) {
-			moveAnimation = Math.Max(moveAnimation, AnimationFactor);
-		} else if (moveAnimation < 0) {
-			animation.loop = true;
-			animation.AnimationName = newAnimation;
-			moveAnimation = Math.Max(moveAnimation, AnimationFactor);
-		}
+		lastPos = this.transform.position.x;
 	}
 
 	public IEnumerator StartGameAnimation ()
 	{
-		animation.loop = false;
-		animation.AnimationName = "StartGame";
-		moveAnimation = 1.2f;
+		skeletonAnimation.state.AddAnimation (0, "StartGame", false, 0);
 
 		yield return new WaitForSeconds(1.2f);
 		this.GetComponent<Collider2D> ().isTrigger = false;

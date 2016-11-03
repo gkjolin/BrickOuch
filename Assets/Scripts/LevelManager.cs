@@ -5,15 +5,6 @@ using System.Collections;
 public class LevelManager : MonoBehaviour
 {
 
-	void Update ()
-	{
-		/*if (Time.timeScale == 0) {
-			Time.timeScale = 1f;
-		} else {
-			Time.timeScale = 0;
-		}*/
-	}
-
 	public void LoadScene (string name)
 	{
 		Brick.breakableCount = 0;

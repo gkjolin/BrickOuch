@@ -16,6 +16,10 @@ public class Ball : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		// Prevent fast ball from scaping the playspace
+		body = this.GetComponent<Rigidbody2D> ();
+		body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
 		HasBeenLaunched = false;
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
@@ -23,7 +27,6 @@ public class Ball : MonoBehaviour {
 		var audioSource = gameObject.GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefsManager.GetSoundsVolume();
 
-		body = this.GetComponent<Rigidbody2D> ();
 		animation = this.GetComponent<SkeletonAnimation> ();
 	}
 	

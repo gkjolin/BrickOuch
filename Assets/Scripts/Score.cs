@@ -17,7 +17,7 @@ public class Score : MonoBehaviour {
 
 	public void AddScore(int points = 10) {
 		score += points;
-		scoreText.text = string.Format ("Score: {0}", score);
+		scoreText.text = string.Format ("{0}", score);
 	}
 
 	public int GetScore() {

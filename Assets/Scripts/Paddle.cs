@@ -8,6 +8,7 @@ public class Paddle : MonoBehaviour
 {
 
 	private const float SpeedFactor = 2000.0f;
+	private const int rotationAngleMax = 30;
 
 	public bool autoPlay = false;
 	public bool mousePlay = true;
@@ -69,6 +70,10 @@ public class Paddle : MonoBehaviour
 		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
+		Vector3 speed = Vector3.zero;
+		speed.x = Input.acceleration.x;
+		this.transform.rotation = Quaternion.AngleAxis(speed.x * rotationAngleMax, Vector3.back);
+
 		this.transform.position = paddlePos;
 	}
 
@@ -81,6 +86,8 @@ public class Paddle : MonoBehaviour
 
 		if (speed.sqrMagnitude > 1)
 			speed.Normalize ();
+
+		this.transform.rotation = Quaternion.AngleAxis(speed.x * rotationAngleMax, Vector3.back);
 
 		speed *= Time.deltaTime;
 		this.transform.Translate (speed * SpeedFactor);

@@ -16,9 +16,12 @@ public class LoseCollider : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D trigger)
 	{
-		ball.PuffAnimation ();
-		paddle.EndGameAnimation ();
-		StartCoroutine (LoadLoseScreen ());
+		if (trigger.CompareTag("Ball"))
+		{
+			ball.PuffAnimation ();
+			paddle.EndGameAnimation ();
+			StartCoroutine (LoadLoseScreen ());
+		}
 	}
 
 	private IEnumerator LoadLoseScreen ()

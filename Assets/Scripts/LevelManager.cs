@@ -4,6 +4,15 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
+	public bool GameIsPaused { get; set; }
+
+	private Paddle paddle;
+
+	private void Start()
+	{
+		GameIsPaused = false;
+		paddle = GameObject.FindObjectOfType<Paddle>();
+	}
 
 	public void LoadScene (string name)
 	{
@@ -16,13 +25,24 @@ public class LevelManager : MonoBehaviour
 		Application.Quit ();
 	}
 
-	public void PauseGame(){
-		if (Time.timeScale == 0) {
+	public void PauseGame()
+	{
+		TogglePause();
+
+		if (GameIsPaused) 
+		{
+			Time.timeScale = 0f;
+			paddle.freezePaddle = true;
+		} 
+		else 
+		{
 			Time.timeScale = 1f;
-		} else {
-			Time.timeScale = 0;
+			paddle.freezePaddle = false;
 		}
 	}
 
-
+	public void TogglePause()
+	{
+		GameIsPaused = !GameIsPaused;
+	}
 }

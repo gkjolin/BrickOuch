@@ -6,14 +6,13 @@ using Spine.Unity;
 
 public class Paddle : MonoBehaviour
 {
-
-	private const float SpeedFactor = 2000.0f;
-	private const int rotationAngleMax = 30;
-
 	public bool autoPlay = false;
 	public bool mousePlay = true;
-	public bool gameOver = false;
+	public bool freezePaddle = false;
+
 	private float minX, maxX;
+	private const float SpeedFactor = 2000.0f;
+	private const int rotationAngleMax = 30;
 
 	private Ball ball;
 	private PlaySpace playSpace;
@@ -41,19 +40,23 @@ public class Paddle : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (gameOver) {
-			return;
-		}
-			
-		if (autoPlay) {
-			AutoPlay ();
-		} else if (mousePlay) {
-			MoveWithMouse ();
-		} else {
-			MoveWithAccelerometer ();
-		}
+		if (!freezePaddle) 
+		{
+			if (autoPlay) 
+			{
+				AutoPlay ();
+			} 
+			else if (mousePlay) 
+			{
+				MoveWithMouse ();
+			} 
+			else 
+			{
+				MoveWithAccelerometer ();
+			}
 
-		MoveAnimation ();
+			MoveAnimation ();
+		}
 	}
 
 	void AutoPlay ()
@@ -107,7 +110,7 @@ public class Paddle : MonoBehaviour
 
 	public void EndGameAnimation ()
 	{
-		gameOver = true;
+		freezePaddle = true;
 		skeletonAnimation.state.ClearTracks ();
 		skeletonAnimation.state.SetAnimation (0, "EndGame", false);
 	}

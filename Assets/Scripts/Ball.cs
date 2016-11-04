@@ -6,13 +6,13 @@ public class Ball : MonoBehaviour {
 
 	public bool HasBeenLaunched { get; set; }
 
-	private const float Force = 1f;
+	private const float velocityIncreaseRate = 1f;
 
 	private Paddle paddle;
 	private Vector3 paddleToBallVector;
 
 	private Rigidbody2D body;
-	private SkeletonAnimation animation;
+	private SkeletonAnimation skeletonAnimation;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour {
 		var audioSource = gameObject.GetComponent<AudioSource>();
 		audioSource.volume = PlayerPrefsManager.GetSoundsVolume();
 
-		animation = this.GetComponent<SkeletonAnimation> ();
+		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 	}
 	
 	// Update is called once per frame
@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour {
 				body.velocity = new Vector2 (-520f, 256f);
 			}
 		} else {
-			body.AddForce (body.velocity.normalized * Force);
+			body.AddForce (body.velocity.normalized * velocityIncreaseRate);
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class Ball : MonoBehaviour {
 	public void PuffAnimation()
 	{
 		body.velocity = Vector2.zero;
-		animation.AnimationName = "Puff";
+		skeletonAnimation.AnimationName = "Puff";
 	}
 
 }

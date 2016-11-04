@@ -12,7 +12,7 @@ public class Ball : MonoBehaviour {
 	private Vector3 paddleToBallVector;
 
 	private Rigidbody2D body;
-	private new SkeletonAnimation animation;
+	private SkeletonAnimation animation;
 
 	// Use this for initialization
 	void Start () {

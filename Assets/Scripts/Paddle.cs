@@ -7,7 +7,7 @@ using Spine.Unity;
 public class Paddle : MonoBehaviour
 {
 
-	private const float SpeedFactor = 2000.0f;
+	private const float SpeedFactor = 1.0f;
 	private const int rotationAngleMax = 30;
 
 	public bool autoPlay = false;
@@ -64,20 +64,18 @@ public class Paddle : MonoBehaviour
 		this.transform.position = paddlePos;
 	}
 
-	void MoveWithMouse ()
+	void MoveWithMouse (bool rotatePaddle = true)
 	{
 		var mouseWorldPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
-		Vector3 speed = Vector3.zero;
-		speed.x = Input.acceleration.x;
-		this.transform.rotation = Quaternion.AngleAxis(speed.x * rotationAngleMax, Vector3.back);
+		RotateWithAccelerometer();
 
 		this.transform.position = paddlePos;
 	}
 
-	void MoveWithAccelerometer ()
+	void MoveWithAccelerometer (bool rotatePaddle = true)
 	{
 		Vector3 speed = Vector3.zero;
 		Vector3 pos = new Vector3 (0.5f, this.transform.position.y, 0f);
@@ -87,13 +85,20 @@ public class Paddle : MonoBehaviour
 		if (speed.sqrMagnitude > 1)
 			speed.Normalize ();
 
-		this.transform.rotation = Quaternion.AngleAxis(speed.x * rotationAngleMax, Vector3.back);
+		RotateWithAccelerometer();
 
 		speed *= Time.deltaTime;
 		this.transform.Translate (speed * SpeedFactor);
 		pos.x = Mathf.Clamp (this.transform.position.x, minX, maxX);
 
 		this.transform.position = pos;
+	}
+
+	private void RotateWithAccelerometer()
+	{
+		Vector3 speed = Vector3.zero;
+		speed.x = Input.acceleration.x;
+		this.transform.rotation = Quaternion.AngleAxis(speed.x * rotationAngleMax, Vector3.back);
 	}
 
 	void OnCollisionEnter2D (Collision2D collision) {

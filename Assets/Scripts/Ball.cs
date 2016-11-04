@@ -37,7 +37,7 @@ public class Ball : MonoBehaviour {
 			this.transform.position = paddle.transform.position + paddleToBallVector;
 			
 			// Wait for a mouse press to launch.
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButtonUp (0)) {
 				HasBeenLaunched = true;
 				StartCoroutine (paddle.StartGameAnimation ());
 				body.velocity = new Vector2 (-520f, 256f);

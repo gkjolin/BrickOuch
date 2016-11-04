@@ -7,7 +7,7 @@ using Spine.Unity;
 public class Paddle : MonoBehaviour
 {
 
-	private const float SpeedFactor = 1.0f;
+	private const float SpeedFactor = 2000.0f;
 	private const int rotationAngleMax = 30;
 
 	public bool autoPlay = false;

@@ -12,6 +12,7 @@ public class Score : MonoBehaviour {
 	void Start () {
 		highestScore = PlayerPrefsManager.GetHighestScore();
 		scoreText = GetComponent<Text> ();
+		scoreText = "0";
 		DontDestroyOnLoad (gameObject.transform.root.gameObject);
 	}
 

@@ -7,11 +7,13 @@ public class LevelManager : MonoBehaviour
 	public bool GameIsPaused { get; set; }
 
 	private Paddle paddle;
+	private MusicPlayer musicPlayer;
 
 	private void Start()
 	{
 		GameIsPaused = false;
 		paddle = GameObject.FindObjectOfType<Paddle>();
+		musicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
 	}
 
 	public void LoadScene (string name)
@@ -28,6 +30,7 @@ public class LevelManager : MonoBehaviour
 	public void PauseGame()
 	{
 		TogglePause();
+		musicPlayer.ToggleMute();
 
 		if (GameIsPaused) 
 		{

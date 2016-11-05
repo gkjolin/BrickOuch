@@ -21,4 +21,18 @@ public class MusicPlayer : MonoBehaviour {
 
 		audioSource.volume = PlayerPrefsManager.GetMusicVolume();
 	}
+
+	public void ToggleMute()
+	{
+		var audioSource = gameObject.GetComponent<AudioSource>();
+
+		if (audioSource.isPlaying)
+		{
+			audioSource.Pause();
+		}
+		else
+		{
+			audioSource.Play();
+		}
+	}
 }

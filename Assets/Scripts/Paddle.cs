@@ -10,6 +10,7 @@ public class Paddle : MonoBehaviour
 	public bool mousePlay = true;
 	public bool freezePaddle = false;
 
+	private float touchOffset;
 	private float minX, maxX;
 	private const float SpeedFactor = 2000.0f;
 	private const int rotationAngleMax = 30;
@@ -69,16 +70,24 @@ public class Paddle : MonoBehaviour
 
 	void MoveWithMouse (bool rotatePaddle = true)
 	{
-		var mouseWorldPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
-		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
-
-		if (rotatePaddle)
-		{
-			RotateWithAccelerometer();
+		if (Input.GetMouseButtonDown (0)) {
+			touchOffset = this.transform.position.x - Camera.main.ScreenToWorldPoint (Input.mousePosition).x;
 		}
 
-		this.transform.position = paddlePos;
+		if (Input.GetMouseButton (0)) {
+			var mouseWorldPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			float cannonPosX = Mathf.Clamp (mouseWorldPosition.x + touchOffset, minX, maxX);
+			if (cannonPosX == minX || cannonPosX == maxX) {
+				touchOffset = cannonPosX - mouseWorldPosition.x;
+			}
+
+			if (rotatePaddle) {
+				RotateWithAccelerometer ();
+			}
+
+			Vector3 paddlePos = new Vector3 (cannonPosX, this.transform.position.y, 0f);
+			this.transform.position = paddlePos;
+		}
 	}
 
 	void MoveWithAccelerometer (bool rotatePaddle = true)

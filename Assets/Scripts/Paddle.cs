@@ -49,11 +49,11 @@ public class Paddle : MonoBehaviour
 			} 
 			else if (mousePlay) 
 			{
-				MoveWithMouse ();
+				MoveWithMouse (false);
 			} 
 			else 
 			{
-				MoveWithAccelerometer ();
+				MoveWithAccelerometer (false);
 			}
 
 			MoveAnimation ();
@@ -81,7 +81,9 @@ public class Paddle : MonoBehaviour
 				touchOffset = cannonPosX - mouseWorldPosition.x;
 			}
 
-			RotateWithAccelerometer ();
+			if (rotatePaddle) {
+				RotateWithAccelerometer ();
+			}
 
 			Vector3 paddlePos = new Vector3 (cannonPosX, this.transform.position.y, 0f);
 			this.transform.position = paddlePos;
@@ -98,7 +100,9 @@ public class Paddle : MonoBehaviour
 		if (speed.sqrMagnitude > 1)
 			speed.Normalize ();
 
-		RotateWithAccelerometer();
+		if (rotatePaddle) {
+			RotateWithAccelerometer();
+		}
 
 		speed *= Time.deltaTime;
 		this.transform.Translate (speed * SpeedFactor);

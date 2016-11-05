@@ -48,11 +48,11 @@ public class Paddle : MonoBehaviour
 			} 
 			else if (mousePlay) 
 			{
-				MoveWithMouse ();
+				MoveWithMouse (false);
 			} 
 			else 
 			{
-				MoveWithAccelerometer ();
+				MoveWithAccelerometer (false);
 			}
 
 			MoveAnimation ();
@@ -73,7 +73,10 @@ public class Paddle : MonoBehaviour
 		float mousePosX = Mathf.Clamp (mouseWorldPosition.x, minX, maxX);
 		Vector3 paddlePos = new Vector3 (mousePosX, this.transform.position.y, 0f);
 
-		RotateWithAccelerometer();
+		if (rotatePaddle)
+		{
+			RotateWithAccelerometer();
+		}
 
 		this.transform.position = paddlePos;
 	}
@@ -88,7 +91,10 @@ public class Paddle : MonoBehaviour
 		if (speed.sqrMagnitude > 1)
 			speed.Normalize ();
 
-		RotateWithAccelerometer();
+		if (rotatePaddle)
+		{
+			RotateWithAccelerometer();
+		}
 
 		speed *= Time.deltaTime;
 		this.transform.Translate (speed * SpeedFactor);

@@ -9,11 +9,18 @@ public class LevelManager : MonoBehaviour
 	private Paddle paddle;
 	private MusicPlayer musicPlayer;
 
-	private void Start()
+	private void Start ()
 	{
 		GameIsPaused = false;
-		paddle = GameObject.FindObjectOfType<Paddle>();
-		musicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
+		paddle = GameObject.FindObjectOfType<Paddle> ();
+		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
+	}
+
+	void Update ()
+	{
+		if (Application.platform == RuntimePlatform.Android) {
+			this.TrackAndroidBackButton ();
+		}
 	}
 
 	public void LoadScene (string name)
@@ -27,25 +34,29 @@ public class LevelManager : MonoBehaviour
 		Application.Quit ();
 	}
 
-	public void PauseGame()
+	public void PauseGame ()
 	{
-		TogglePause();
-		musicPlayer.ToggleMute();
+		TogglePause ();
+		musicPlayer.ToggleMute ();
 
-		if (GameIsPaused) 
-		{
+		if (GameIsPaused) {
 			Time.timeScale = 0f;
 			paddle.freezePaddle = true;
-		} 
-		else 
-		{
+		} else {
 			Time.timeScale = 1f;
 			paddle.freezePaddle = false;
 		}
 	}
 
-	public void TogglePause()
+	public void TogglePause ()
 	{
 		GameIsPaused = !GameIsPaused;
+	}
+
+	private void TrackAndroidBackButton ()
+	{
+		if (Input.GetKey (KeyCode.Escape)) {
+			GoogleAnalytics.HitAnalyticsEvent ("disabledbuttons", "android_back");
+		}
 	}
 }

@@ -8,23 +8,16 @@ public class HowToPlayController : MonoBehaviour {
 	{
 		PlayerPrefsManager.SetControllerMode(Constants.HowToPlayModes.PlayWithMouse);
 
-
-		HitAnalyticsEvent("touch");
+		GoogleAnalytics.HitAnalyticsEvent("howtoplay", "touch");
 	}
 
 	public void SetPlayWithAccelerometer()
 	{
 		PlayerPrefsManager.SetControllerMode(Constants.HowToPlayModes.PlayWithAccelerometer);
 
-		HitAnalyticsEvent("accelerometer");
+		GoogleAnalytics.HitAnalyticsEvent("howtoplay", "accelerometer");
 	}
 
-	void HitAnalyticsEvent(string eventAction)
-	{
-		Manager.Client.CreateHit(HitType.EVENT);
-		Manager.Client.SetEventCategory("howtoplay");
-		Manager.Client.SetEventAction(eventAction);
-		Manager.Client.Send();
-	}
+
 		
 }

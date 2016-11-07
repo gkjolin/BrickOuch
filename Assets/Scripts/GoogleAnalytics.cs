@@ -8,5 +8,13 @@ public class GoogleAnalytics : MonoBehaviour {
 	void Start () {
 		Manager.StartTracking ();
 	}
+
+	public static void HitAnalyticsEvent(string eventCategory, string eventAction)
+	{
+		Manager.Client.CreateHit(HitType.EVENT);
+		Manager.Client.SetEventCategory(eventCategory);
+		Manager.Client.SetEventAction(eventAction);
+		Manager.Client.Send();
+	}
 	
 }

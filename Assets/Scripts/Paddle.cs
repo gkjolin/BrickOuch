@@ -12,7 +12,8 @@ public class Paddle : MonoBehaviour
 
 	private float touchOffset;
 	private float minX, maxX;
-	private const float SpeedFactor = 2000.0f;
+	private const float accelerometerSpeedFactor = 4000.0f;
+	private const float accelerometerThreshold = 0.05f;
 	private const int rotationAngleMax = 30;
 
 	private Ball ball;
@@ -105,8 +106,13 @@ public class Paddle : MonoBehaviour
 			RotateWithAccelerometer();
 		}
 
+		if (Mathf.Abs(speed.x) < accelerometerThreshold)
+		{
+			speed.x = Mathf.MoveTowards(speed.x, 0, Time.deltaTime);
+		}
+
 		speed *= Time.deltaTime;
-		this.transform.Translate (speed * SpeedFactor);
+		this.transform.Translate (speed * accelerometerSpeedFactor);
 		pos.x = Mathf.Clamp (this.transform.position.x, minX, maxX);
 
 		this.transform.position = pos;
@@ -120,7 +126,7 @@ public class Paddle : MonoBehaviour
 	}
 
 	void OnCollisionEnter2D (Collision2D collision) {
-		skeletonAnimation.state.AddAnimation (0, "Hit", false, 0);
+		skeletonAnimation.state.AddAnimation (2, "Hit", false, 0);
 	}
 
 	public void EndGameAnimation ()

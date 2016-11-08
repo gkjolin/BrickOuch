@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
 
 	public void LoadScene (string name)
 	{
-		GameObject.FindObjectOfType<Bricks>().Reset();
 		SceneManager.LoadScene (name);
 	}
 

@@ -60,9 +60,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsWorth: 40
   skins:
+  - RED
   - RED_S1
   - RED_S2
-  - RED
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

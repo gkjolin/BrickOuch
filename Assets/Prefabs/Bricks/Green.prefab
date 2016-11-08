@@ -132,6 +132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointsWorth: 20
   skins:
+  - GREEN
   - GREEN_S1
   - GREEN_S2
-  - GREEN

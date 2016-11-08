@@ -6,32 +6,43 @@ using System.Collections.Generic;
 
 public class Bricks : MonoBehaviour {
 
+	public int BreakableCount { get; set; }
+
 	private const int MaxBricks = 50;
 	private const float brickCreationIndex = 1.5f;
 	private List<Brick> bricks = new List<Brick>();
 	private Ball ball;
 	private Paddle paddle;
-	private int phase = 0;
+	private int phase = 1;
 
 	public List<GameObject> prefabs;
 
 	// Use this for initialization
 	void Start () {
+		BreakableCount = 0;
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
+		CreateMultipleBricks(MaxBricks);
 	}
 
-	void Update ()
+	public void CheckLevelEnd()
 	{
-		if (bricks.Where(b => b != null).Count() == 0)
+		if (BreakableCount == 0)
 		{
-        	GoToNextLevel();
+			GoToNextLevel();
 		}
+	}
+
+	public void Reset()
+	{
+		BreakableCount = 0;
+		bricks = new List<Brick>();
 	}
 
 	private void GoToNextLevel()
 	{
 		phase++;
+		this.Reset();
 		ball.Reset(phase);
 		paddle.Reset();
 		CreateMultipleBricks(MaxBricks);
@@ -40,7 +51,7 @@ public class Bricks : MonoBehaviour {
 
 	private void CreateBrickOverTime()
 	{
-		float createBrickProbability = brickCreationIndex/(Brick.breakableCount + 1f) * Time.deltaTime/Time.maximumDeltaTime;
+		float createBrickProbability = brickCreationIndex/(BreakableCount + 1f) * Time.deltaTime/Time.maximumDeltaTime;
 
 		if (ball.HasBeenLaunched && Random.value < createBrickProbability)
 		{
@@ -57,17 +68,18 @@ public class Bricks : MonoBehaviour {
 	}
 
 	public void CreateRandomBrick() {
-		if (Brick.breakableCount < MaxBricks && ball.transform.position.y < 600) {
+		if (BreakableCount < MaxBricks) {
 			int type = UnityEngine.Random.Range (0, prefabs.Count);
 			int posX = UnityEngine.Random.Range (0, 6);
 			int posY = UnityEngine.Random.Range (0, 16);
-			int initialHits = UnityEngine.Random.Range (0, prefabs [type].GetComponent<Brick> ().skins.Count);
+			int maxHits = Mathf.Min(phase, prefabs[type].GetComponent<Brick>().skins.Count);
+			int initialHits = UnityEngine.Random.Range(0, maxHits) + 1;
 
 			CreateBrick (type, posX, posY, initialHits);
 		}
 	}
 
-	private void CreateBrick(int type, int posX, int posY, int initialHits)
+	private void CreateBrick(int type, int posX, int posY, int hp)
 	{
 		var pos = new Vector2(posX, posY);
 
@@ -77,13 +89,17 @@ public class Bricks : MonoBehaviour {
 
 			newBrick.Position = pos;
 			newBrick.gameObject.transform.parent = transform;
-			newBrick.SetInitialHits (initialHits);
+			newBrick.SetInitialHitPoints (hp);
 			newBrick.pointsWorth *= phase;
 
 			Vector2 startPos = new Vector2 (150 * posX + 75, 50 * posY + 700);
 			obj.transform.position = startPos;
 
 			bricks.Add(newBrick);
+
+			if (newBrick.CompareTag("Breakable")) {
+				BreakableCount++;
+			}
 		}
 	}
 

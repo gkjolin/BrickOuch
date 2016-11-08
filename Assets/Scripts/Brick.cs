@@ -5,15 +5,12 @@ using Spine.Unity;
 
 public class Brick : MonoBehaviour
 {
-
-	public static int breakableCount = 0;
 	public int pointsWorth;
 	public List<string> skins;
 
 	public Vector2 Position { get; set; }
 
-	private int timesHit;
-	private bool isBreakable;
+	private int hitPoints = 1;
 	private Score score;
 	private bool destroy;
 	private SkeletonAnimation skeletonAnimation;
@@ -26,18 +23,12 @@ public class Brick : MonoBehaviour
 
 		Position = new Vector2();
 
-		isBreakable = (this.tag == "Breakable");
-		// Keep track of breakable bricks
-		if (isBreakable) {
-			breakableCount++;
-		}
-
-		skeletonAnimation.skeleton.SetSkin (skins [timesHit]);
+		skeletonAnimation.skeleton.SetSkin (skins [hitPoints-1]);
 		skeletonAnimation.state.End += delegate (Spine.AnimationState state, int trackIndex) {
-			if (timesHit < skins.Count) {
-				skeletonAnimation.skeleton.SetSkin (skins [timesHit]);
+			if (hitPoints > 0) {
+				skeletonAnimation.skeleton.SetSkin (skins[hitPoints-1]);
 			} else {
-				skeletonAnimation.skeleton.SetSkin (skins [skins.Count - 1]);
+				skeletonAnimation.skeleton.SetSkin (skins[0]);
 			}
 
 			if (skeletonAnimation.AnimationName == "Pop") {
@@ -48,28 +39,36 @@ public class Brick : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D col)
 	{
-		if (isBreakable) {
+		if (this.CompareTag("Breakable"))
+		{
 			HandleHits ();
 		}
 	}
 
 	private void HandleHits ()
 	{
-		timesHit++;
+		hitPoints--;
 
-		if (timesHit >= skins.Count) {
-			breakableCount--;
+		if (hitPoints <= 0)
+		{
+			var bricks = this.GetComponentInParent<Bricks>();
+
+			bricks.BreakableCount--;
 			score.AddScore (pointsWorth);
 
 			Destroy (this.GetComponent<BoxCollider2D> ());
 			skeletonAnimation.state.SetAnimation (0, "Pop", false);
-		} else {
+
+			bricks.CheckLevelEnd();
+		} 
+		else 
+		{
 			skeletonAnimation.state.SetAnimation (0, "Bump", false);
 		}
 	}
 
-	public void SetInitialHits(int initialHits)
+	public void SetInitialHitPoints(int hp)
 	{
-		this.timesHit = initialHits;
+		this.hitPoints = hp;
 	}
 }

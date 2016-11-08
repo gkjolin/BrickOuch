@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ public class Bricks : MonoBehaviour {
 	private List<Brick> bricks = new List<Brick>();
 	private Ball ball;
 	private Paddle paddle;
-	private int phase = 1;
+	private int phase = 0;
 
 	public List<GameObject> prefabs;
 
@@ -18,8 +19,6 @@ public class Bricks : MonoBehaviour {
 	void Start () {
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
-
-		CreateMultipleBricks(MaxBricks);
 	}
 
 	void Update ()
@@ -36,6 +35,7 @@ public class Bricks : MonoBehaviour {
 		ball.Reset(phase);
 		paddle.Reset();
 		CreateMultipleBricks(MaxBricks);
+		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", phase);
 	}
 
 	private void CreateBrickOverTime()
@@ -78,6 +78,7 @@ public class Bricks : MonoBehaviour {
 			newBrick.Position = pos;
 			newBrick.gameObject.transform.parent = transform;
 			newBrick.SetInitialHits (initialHits);
+			newBrick.pointsWorth *= phase;
 
 			Vector2 startPos = new Vector2 (150 * posX + 75, 50 * posY + 700);
 			obj.transform.position = startPos;

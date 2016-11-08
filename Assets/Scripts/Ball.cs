@@ -15,12 +15,14 @@ public class Ball : MonoBehaviour {
 	private SkeletonAnimation skeletonAnimation;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		// Prevent fast ball from scaping the playspace
 		body = this.GetComponent<Rigidbody2D> ();
 		body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-		HasBeenLaunched = false;
+		Reset();
+
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
@@ -31,24 +33,33 @@ public class Ball : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (!HasBeenLaunched) {
+	void Update ()
+	{
+		if (!HasBeenLaunched)
+		{
 			// Lock the ball relative to the paddle.
 			this.transform.position = paddle.transform.position + paddleToBallVector;
 			
 			// Wait for a mouse press to launch.
-			if (Input.GetMouseButtonUp (0)) {
+			if (Input.GetMouseButtonUp (0))
+			{
 				HasBeenLaunched = true;
 				StartCoroutine (paddle.StartGameAnimation ());
 				body.velocity = new Vector2 (-520f, 256f);
 			}
-		} else {
-			body.AddForce (body.velocity.normalized * velocityIncreaseRate);
 		}
 	}
+
+	public void Reset()
+	{
+		HasBeenLaunched = false;
+		body.velocity = Vector2.zero;
+	}
 	
-	void OnCollisionEnter2D (Collision2D collision) {
-		if (HasBeenLaunched) {
+	void OnCollisionEnter2D (Collision2D collision)
+	{
+		if (HasBeenLaunched)
+		{
 			GetComponent<AudioSource>().Play();
 		}
 	}

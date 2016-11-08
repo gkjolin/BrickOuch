@@ -10,6 +10,8 @@ public class Brick : MonoBehaviour
 	public int pointsWorth;
 	public List<string> skins;
 
+	public Vector2 Position { get; set; }
+
 	private int timesHit;
 	private bool isBreakable;
 	private Score score;
@@ -21,6 +23,8 @@ public class Brick : MonoBehaviour
 	{
 		score = GameObject.FindObjectOfType<Score> ();
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
+
+		Position = new Vector2();
 
 		isBreakable = (this.tag == "Breakable");
 		// Keep track of breakable bricks

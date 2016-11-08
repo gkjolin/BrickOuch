@@ -62,6 +62,11 @@ public class Paddle : MonoBehaviour
 		}
 	}
 
+	public void Reset()
+	{
+		this.GetComponent<Collider2D> ().isTrigger = true;
+	}
+
 	void AutoPlay ()
 	{
 		Vector3 paddlePos = new Vector3 (0.5f, this.transform.position.y, 0f);

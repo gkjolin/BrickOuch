@@ -15,6 +15,9 @@ public class Paddle : MonoBehaviour
 	private const float accelerometerSpeedFactor = 4000.0f;
 	private const float accelerometerThreshold = 0.05f;
 	private const int rotationAngleMax = 30;
+	private const float maxAngleChangeOnCollision = 10f;
+	private const float minBallAngle = 30f;
+	private const float maxBallAngle = 150f;
 
 	private Ball ball;
 	private PlaySpace playSpace;
@@ -128,6 +131,7 @@ public class Paddle : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D collision) {
 		skeletonAnimation.state.AddAnimation (2, "Hit", false, 0);
+		AddCollisionForceToBall ();
 	}
 
 	public void EndGameAnimation ()
@@ -151,6 +155,14 @@ public class Paddle : MonoBehaviour
 		} else {
 			skeletonAnimation.state.ClearTrack (1);
 		}
+	}
+
+	private void AddCollisionForceToBall ()
+	{
+		Vector3 speed = this.transform.position - lastPos;
+		Quaternion angle = Quaternion.AngleAxis(Mathf.Clamp(speed.x, -maxAngleChangeOnCollision, maxAngleChangeOnCollision), Vector3.back);
+
+		ball.GetComponent<Rigidbody2D>().velocity = angle * ball.GetComponent<Rigidbody2D>().velocity;
 	}
 
 	public IEnumerator StartGameAnimation ()

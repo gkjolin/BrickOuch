@@ -20,7 +20,7 @@ public class Paddle : MonoBehaviour
 	private PlaySpace playSpace;
 
 	private SkeletonAnimation skeletonAnimation;
-	private float lastPos;
+	private Vector3 lastPos;
 
 	void Start ()
 	{
@@ -32,7 +32,7 @@ public class Paddle : MonoBehaviour
 		mousePlay = PlayerPrefsManager.GetControllerMode() == Constants.HowToPlayModes.PlayWithMouse || !SystemInfo.supportsAccelerometer;
 
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
-		lastPos = this.transform.position.x;
+		UpdateLastPos();
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
@@ -58,6 +58,7 @@ public class Paddle : MonoBehaviour
 			}
 
 			MoveAnimation ();
+			UpdateLastPos ();
 		}
 	}
 
@@ -86,8 +87,8 @@ public class Paddle : MonoBehaviour
 				RotateWithAccelerometer ();
 			}
 
-			Vector3 paddlePos = new Vector3 (cannonPosX, this.transform.position.y, 0f);
-			this.transform.position = paddlePos;
+			Vector2 paddlePos = new Vector2 (cannonPosX, this.transform.position.y);
+			this.GetComponent<Rigidbody2D>().MovePosition(paddlePos);
 		}
 	}
 
@@ -136,17 +137,20 @@ public class Paddle : MonoBehaviour
 		skeletonAnimation.state.SetAnimation (0, "EndGame", false);
 	}
 
+	private void UpdateLastPos ()
+	{
+		lastPos = this.transform.position;
+	}
+
 	private void MoveAnimation ()
 	{
-		if (this.transform.position.x < lastPos) {
+		if (this.transform.position.x < lastPos.x) {
 			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
-		} else if (this.transform.position.x > lastPos) {
+		} else if (this.transform.position.x > lastPos.x) {
 			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
 		} else {
 			skeletonAnimation.state.ClearTrack (1);
 		}
-
-		lastPos = this.transform.position.x;
 	}
 
 	public IEnumerator StartGameAnimation ()

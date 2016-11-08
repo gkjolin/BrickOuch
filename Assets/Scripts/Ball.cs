@@ -6,8 +6,10 @@ public class Ball : MonoBehaviour {
 
 	public bool HasBeenLaunched { get; set; }
 
-	private const float velocityIncreaseRate = 1f;
+	private const float velocityIncreaseRate = 0.1f;
 
+	// This can be modified in the Editor for testing purpose
+	public float velocityMultiplier = 1f;
 	private Paddle paddle;
 	private Vector3 paddleToBallVector;
 
@@ -21,7 +23,7 @@ public class Ball : MonoBehaviour {
 		body = this.GetComponent<Rigidbody2D> ();
 		body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-		Reset();
+		Reset(1);
 
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
@@ -45,15 +47,16 @@ public class Ball : MonoBehaviour {
 			{
 				HasBeenLaunched = true;
 				StartCoroutine (paddle.StartGameAnimation ());
-				body.velocity = new Vector2 (-520f, 256f);
+				body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
 			}
 		}
 	}
 
-	public void Reset()
+	public void Reset(int phase)
 	{
 		HasBeenLaunched = false;
 		body.velocity = Vector2.zero;
+		velocityMultiplier = 1 + phase * velocityIncreaseRate;
 	}
 	
 	void OnCollisionEnter2D (Collision2D collision)

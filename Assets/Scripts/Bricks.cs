@@ -10,6 +10,7 @@ public class Bricks : MonoBehaviour {
 	private List<Brick> bricks = new List<Brick>();
 	private Ball ball;
 	private Paddle paddle;
+	private int phase = 1;
 
 	public List<GameObject> prefabs;
 
@@ -31,7 +32,8 @@ public class Bricks : MonoBehaviour {
 
 	private void GoToNextLevel()
 	{
-		ball.Reset();
+		phase++;
+		ball.Reset(phase);
 		paddle.Reset();
 		CreateMultipleBricks(MaxBricks);
 	}

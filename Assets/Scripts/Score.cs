@@ -13,7 +13,6 @@ public class Score : MonoBehaviour {
 		highestScore = PlayerPrefsManager.GetHighestScore();
 		scoreText = GetComponent<Text> ();
 		scoreText.text = string.Format ("{0}", score);
-		DontDestroyOnLoad (gameObject.transform.root.gameObject);
 	}
 
 	public void AddScore(int points = 10) {

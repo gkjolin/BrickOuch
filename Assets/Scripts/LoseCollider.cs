@@ -27,7 +27,7 @@ public class LoseCollider : MonoBehaviour
 	private IEnumerator LoadLoseScreen ()
 	{
 		yield return new WaitForSeconds (2f);
-		levelManager.LoadScene ("Score Screen");
+		levelManager.LoadScene ("Start Menu");
 	}
 	
 }

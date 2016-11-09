@@ -34,6 +34,8 @@ public class Score : MonoBehaviour {
 
 	public void UpdateHighestScore()
 	{
+		PlayerPrefsManager.SetLastScore(score);
+
 		if (score > highestScore)
 		{
 			highestScore = score;

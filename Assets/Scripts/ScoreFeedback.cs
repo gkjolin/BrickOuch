@@ -9,12 +9,7 @@ public class ScoreFeedback : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject scoreObj = GameObject.Find ("Score");
-		Score score = scoreObj.GetComponent<Score> ();
-
-		lastScore.text += score.GetScore ();
-		bestScore.text += score.GetHighestScore();
-
-		Destroy (scoreObj.transform.root.gameObject);
+		lastScore.text += PlayerPrefsManager.GetLastScore();
+		bestScore.text += PlayerPrefsManager.GetHighestScore();
 	}
 }

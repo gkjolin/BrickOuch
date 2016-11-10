@@ -121,8 +121,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 763426656}
   m_RootOrder: 2
-  m_AnchorMin: {x: 0, y: 0.1}
-  m_AnchorMax: {x: 0.5, y: 0.15}
+  m_AnchorMin: {x: 0.072222225, y: 0.06089585}
+  m_AnchorMax: {x: 0.39151853, y: 0.14066671}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -618,6 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914b8a75977ed47209fdf798a93ddac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
 --- !u!4 &1276209267
 Transform:
   m_ObjectHideFlags: 0

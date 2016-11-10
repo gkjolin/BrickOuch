@@ -28,7 +28,6 @@ public class Paddle : MonoBehaviour
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		ball = GameObject.FindObjectOfType<Ball> ();
-		playSpace = GameObject.FindObjectOfType<PlaySpace> ();
 		mousePlay = PlayerPrefsManager.GetControllerMode() == Constants.HowToPlayModes.PlayWithMouse || !SystemInfo.supportsAccelerometer;
 
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
@@ -36,7 +35,7 @@ public class Paddle : MonoBehaviour
 
 		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
-		maxX = playSpace.Width - halfSizeX;
+		maxX = PlaySpace.Width - halfSizeX;
 	}
 		
 	// Update is called once per frame

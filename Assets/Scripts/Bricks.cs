@@ -6,9 +6,12 @@ using System.Collections.Generic;
 
 public class Bricks : MonoBehaviour {
 
+	public int BalloonsRows;
+	public int BalloonsColumns; 
+	public int MaxBricks;
+
 	public int BreakableCount { get; set; }
 
-	private const int MaxBricks = 50;
 	private const float brickCreationIndex = 1.5f;
 	private List<Brick> bricks = new List<Brick>();
 	private Ball ball;
@@ -70,8 +73,8 @@ public class Bricks : MonoBehaviour {
 	public void CreateRandomBrick() {
 		if (BreakableCount < MaxBricks) {
 			int type = UnityEngine.Random.Range (0, prefabs.Count);
-			int posX = UnityEngine.Random.Range (0, 6);
-			int posY = UnityEngine.Random.Range (0, 16);
+			int posX = UnityEngine.Random.Range (0, BalloonsColumns);
+			int posY = UnityEngine.Random.Range (0, BalloonsRows);
 			int maxHits = Mathf.Min(phase, prefabs[type].GetComponent<Brick>().skins.Count);
 			int initialHits = UnityEngine.Random.Range(0, maxHits) + 1;
 
@@ -92,7 +95,10 @@ public class Bricks : MonoBehaviour {
 			newBrick.SetInitialHitPoints (hp);
 			newBrick.pointsWorth *= phase;
 
-			Vector2 startPos = new Vector2 (150 * posX + 75, 50 * posY + 700);
+			var widthPerBalloon = PlaySpace.Width/BalloonsColumns;
+			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2;
+
+			Vector2 startPos = new Vector2 (widthPerBalloon * (posX + 0.5f), PlaySpace.UsefulPlaySpace - heightPerBalloon * (posY + 0.5f));
 			obj.transform.position = startPos;
 
 			bricks.Add(newBrick);

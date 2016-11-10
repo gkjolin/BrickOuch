@@ -8,6 +8,7 @@ TagManager:
   - Options
   - Ball
   - ScoreMultiplier
+  - PausePanel
   layers:
   - Default
   - TransparentFX

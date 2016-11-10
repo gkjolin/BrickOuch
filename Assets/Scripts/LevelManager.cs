@@ -5,6 +5,7 @@ using System.Collections;
 public class LevelManager : MonoBehaviour
 {
 	public bool GameIsPaused { get; set; }
+	public GameObject pausePanel;
 
 	private Paddle paddle;
 	private MusicPlayer musicPlayer;
@@ -41,7 +42,10 @@ public class LevelManager : MonoBehaviour
 		if (GameIsPaused) {
 			Time.timeScale = 0f;
 			paddle.freezePaddle = true;
+			this.UpdateScoreOnPause();
+			pausePanel.SetActive(true);
 		} else {
+			pausePanel.SetActive(false);
 			Time.timeScale = 1f;
 			paddle.freezePaddle = false;
 		}
@@ -50,6 +54,12 @@ public class LevelManager : MonoBehaviour
 	public void TogglePause ()
 	{
 		GameIsPaused = !GameIsPaused;
+	}
+
+	private void UpdateScoreOnPause() {
+		GameObject scoreObj = GameObject.Find ("Score");
+ 		Score score = scoreObj.GetComponent<Score> ();
+ 		score.UpdateHighestScore();
 	}
 
 	private void TrackAndroidBackButton ()

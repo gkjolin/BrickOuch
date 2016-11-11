@@ -24,6 +24,8 @@ public class Paddle : MonoBehaviour
 
 	void Start ()
 	{
+		Input.multiTouchEnabled = false;
+
 		this.GetComponent<Collider2D> ().isTrigger = true;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 

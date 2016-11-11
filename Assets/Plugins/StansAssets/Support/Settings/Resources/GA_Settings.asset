@@ -110,12 +110,12 @@ MonoBehaviour:
   showPlatfroms: 0
   showTestingMode: 1
   AppName: Circus Pop
-  AppVersion: 1.0.0-1
+  AppVersion: 1.0.1-2
   UseHTTPS: 0
   StringEscaping: 1
   EditorAnalytics: 1
   IsDisabled: 0
-  IsTestingModeEnabled: 0
+  IsTestingModeEnabled: 1
   TestingModeAccIndex: 0
   IsRequetsCachingEnabled: 1
   IsQueueTimeEnabled: 1

@@ -828,8 +828,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
   - {x: 0, y: 0}
-  - {x: 0, y: 1500}
-  - {x: 900, y: 1500}
+  - {x: 0, y: 1375}
+  - {x: 900, y: 1375}
   - {x: 900, y: 0}
 --- !u!1 &923835512
 GameObject:
@@ -977,7 +977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &994776879
 RectTransform:
   m_ObjectHideFlags: 0

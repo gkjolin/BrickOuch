@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour {
 
 	// This can be modified in the Editor for testing purpose
 	public float velocityMultiplier = 1f;
+	public float minAngle = 25f;
+
 	private Paddle paddle;
 	private Vector3 paddleToBallVector;
 
@@ -65,6 +67,16 @@ public class Ball : MonoBehaviour {
 		{
 			GetComponent<AudioSource>().Play();
 		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision)
+	{
+		float angle = Vector2.Angle(body.velocity, Vector2.left);
+		float angleToRotate = angle - Mathf.Clamp(angle, minAngle, 180 - minAngle);
+
+		Vector2 finalDirection = Quaternion.Euler(0, 0, angleToRotate) * body.velocity;
+
+		body.velocity = finalDirection;
 	}
 
 	public void PuffAnimation()

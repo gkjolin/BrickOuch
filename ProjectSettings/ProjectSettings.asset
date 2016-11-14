@@ -168,7 +168,7 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: /Users/fabiobeider/Dropbox/OneClick/Games/BrickOuch/signature.keystore
-  AndroidKeyaliasName: brickouch
+  AndroidKeyaliasName: 
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 0

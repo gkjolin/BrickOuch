@@ -71,18 +71,17 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		ClampAngle();
+		body.velocity = ClampAngle(body.velocity, minAngle, 180 - minAngle);
 	}
 
-	private void ClampAngle()
+	private Vector2 ClampAngle(Vector2 velocity, float minAngle, float maxAngle)
 	{
-		Vector2 velocity = body.velocity;
 		float angle = Vector2.Angle(velocity, Vector2.left);
-		float angleToRotate = (angle - Mathf.Clamp(angle, minAngle, 180 - minAngle)) * velocity.y/Mathf.Abs(velocity.y);
+		float angleToRotate = (angle - Mathf.Clamp(angle, minAngle, maxAngle)) * velocity.y/Mathf.Abs(velocity.y);
 
 		Vector2 finalDirection = Quaternion.Euler(0, 0, angleToRotate) * velocity;
 
-		body.velocity = finalDirection;
+		return finalDirection;
 	}
 
 	public void PuffAnimation()

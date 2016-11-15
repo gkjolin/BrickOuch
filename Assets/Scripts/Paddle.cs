@@ -94,7 +94,7 @@ public class Paddle : MonoBehaviour
 			}
 
 			Vector2 paddlePos = new Vector2 (cannonPosX, this.transform.position.y);
-			this.GetComponent<Rigidbody2D>().MovePosition(paddlePos);
+			this.transform.position = paddlePos;
 		}
 	}
 

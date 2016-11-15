@@ -891,7 +891,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.687
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1140,7 +1140,6 @@ GameObject:
   - 224: {fileID: 776443986}
   - 222: {fileID: 776443989}
   - 114: {fileID: 776443988}
-  - 114: {fileID: 776443987}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -1161,24 +1160,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1369950426}
   m_RootOrder: 0
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &776443987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 776443985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1254083943, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 2
-  m_AspectRatio: 1
 --- !u!114 &776443988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,7 +1753,6 @@ GameObject:
   - 224: {fileID: 1215564264}
   - 222: {fileID: 1215564267}
   - 114: {fileID: 1215564266}
-  - 114: {fileID: 1215564265}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -1788,24 +1773,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2119312794}
   m_RootOrder: 0
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1215564265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1215564263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1254083943, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 2
-  m_AspectRatio: 1
 --- !u!114 &1215564266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2614,7 +2586,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.253
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

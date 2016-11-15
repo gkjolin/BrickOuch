@@ -31,6 +31,7 @@ public static class PlayerPrefsManager {
 		if (volume >= 0 && volume <= 1)
 		{
 			PlayerPrefs.SetFloat(SOUNDS_VOLUME_KEY, volume);
+			Debug.LogError(PlayerPrefs.GetFloat(SOUNDS_VOLUME_KEY));
 		}
 		else
 		{

@@ -20,15 +20,18 @@ public class OptionsController : MonoBehaviour {
 		soundsSlider.value = PlayerPrefsManager.GetSoundsVolume();
 	}
 
-	public void SaveAndApply()
+	public void SaveMusicVolume()
 	{
 		if (musicSlider != null && musicPlayer != null)
 		{
 			PlayerPrefsManager.SetMusicVolume(musicSlider.value);
-			musicPlayer.UpdateVolume();
+			musicPlayer.UpdateVolume(musicSlider.value);
 		}
+	}
 
-		if (soundsSlider != null && soundsSlider.value < 1)
+	public void SaveSoundsVolume()
+	{
+		if (soundsSlider != null)
 		{
 			PlayerPrefsManager.SetSoundsVolume(soundsSlider.value);
 		}

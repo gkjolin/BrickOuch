@@ -37,8 +37,9 @@ public class Paddle : MonoBehaviour
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 		UpdateLastPos();
 
-		float halfSizeX = this.GetComponent<Collider2D> ().bounds.size.x / 2;
-		minX = halfSizeX;
+		var collider = this.GetComponent<Collider2D> ();
+		float halfSizeX = collider.bounds.size.x / 2;
+		minX = halfSizeX - collider.offset.x;
 		maxX = PlaySpace.Width - halfSizeX;
 	}
 		
@@ -68,6 +69,7 @@ public class Paddle : MonoBehaviour
 	public void Reset()
 	{
 		this.GetComponent<Collider2D> ().isTrigger = true;
+		freezePaddle = false;
 	}
 
 	void AutoPlay ()

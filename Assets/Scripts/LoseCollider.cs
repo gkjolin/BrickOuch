@@ -3,25 +3,36 @@ using System.Collections;
 
 public class LoseCollider : MonoBehaviour
 {
-	private LevelManager levelManager;
-	private Paddle paddle;
-	private Ball ball;
+	public int lives = 3;
 
-	void Start ()
-	{
-		levelManager = GameObject.FindObjectOfType<LevelManager> ();
-		paddle = GameObject.FindObjectOfType<Paddle> ();
-		ball = GameObject.FindObjectOfType<Ball> ();
-	}
+	public LevelManager levelManager;
+	public Paddle paddle;
+	public Ball ball;
 
 	void OnTriggerEnter2D (Collider2D trigger)
 	{
 		if (trigger.CompareTag("Ball"))
 		{
+			lives--;
 			ball.PuffAnimation ();
-			paddle.EndGameAnimation ();
-			StartCoroutine (LoadLoseScreen ());
+
+			if (lives == 0)
+			{
+				paddle.EndGameAnimation ();
+				StartCoroutine (LoadLoseScreen ());
+			}
+			else
+			{
+				StartCoroutine (ResetGame());
+			}
 		}
+	}
+
+	private IEnumerator ResetGame()
+	{
+		yield return new WaitForSeconds (2f);
+		ball.Reset(levelManager.Phase);
+		paddle.Reset();
 	}
 
 	private IEnumerator LoadLoseScreen ()

@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 	public bool GameIsPaused { get; set; }
 	public GameObject pausePanel;
 
+	public int Phase { get; set; }
+
 	private Paddle paddle;
 	private MusicPlayer musicPlayer;
 
@@ -15,6 +17,7 @@ public class LevelManager : MonoBehaviour
 		GameIsPaused = false;
 		paddle = GameObject.FindObjectOfType<Paddle> ();
 		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
+		Phase = 1;
 	}
 
 	void Update ()

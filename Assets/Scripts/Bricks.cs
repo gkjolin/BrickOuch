@@ -10,6 +10,7 @@ public class Bricks : MonoBehaviour {
 	public int BalloonsColumns; 
 	public int MaxBricks;
 	public SoundManager soundManager;
+	public LevelManager levelManager;
 	public AudioClip boingSound;
 	public AudioClip popSound;
 
@@ -19,7 +20,6 @@ public class Bricks : MonoBehaviour {
 	private List<Brick> bricks = new List<Brick>();
 	private Ball ball;
 	private Paddle paddle;
-	private int phase = 1;
 
 	public List<GameObject> prefabs;
 
@@ -47,12 +47,12 @@ public class Bricks : MonoBehaviour {
 
 	private void GoToNextLevel()
 	{
-		phase++;
+		levelManager.Phase++;
 		this.Reset();
-		ball.Reset(phase);
+		ball.Reset(levelManager.Phase);
 		paddle.Reset();
 		CreateMultipleBricks(MaxBricks);
-		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", phase);
+		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
 	}
 
 	private void CreateBrickOverTime()
@@ -78,7 +78,7 @@ public class Bricks : MonoBehaviour {
 			int type = UnityEngine.Random.Range (0, prefabs.Count);
 			int posX = UnityEngine.Random.Range (0, BalloonsColumns);
 			int posY = UnityEngine.Random.Range (0, BalloonsRows);
-			int maxHits = Mathf.Min(phase, prefabs[type].GetComponent<Brick>().skins.Count);
+			int maxHits = Mathf.Min(levelManager.Phase, prefabs[type].GetComponent<Brick>().skins.Count);
 			int initialHits = UnityEngine.Random.Range(0, maxHits) + 1;
 
 			CreateBrick (type, posX, posY, initialHits);
@@ -96,7 +96,7 @@ public class Bricks : MonoBehaviour {
 			newBrick.Position = pos;
 			newBrick.gameObject.transform.parent = transform;
 			newBrick.SetInitialHitPoints (hp);
-			newBrick.pointsWorth *= phase;
+			newBrick.pointsWorth *= levelManager.Phase;
 
 			var widthPerBalloon = PlaySpace.Width/BalloonsColumns;
 			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2;

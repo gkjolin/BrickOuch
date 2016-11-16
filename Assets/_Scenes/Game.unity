@@ -906,13 +906,13 @@ PolygonCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -10, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -65, y: 160}
-      - {x: 55, y: 160}
-      - {x: 140, y: 145}
-      - {x: 140, y: 40}
+    - - {x: -50, y: 160}
+      - {x: 50, y: 160}
+      - {x: 150, y: 145}
+      - {x: 150, y: 40}
       - {x: -150, y: 40}
       - {x: -150, y: 145}
 --- !u!50 &923835514
@@ -1419,6 +1419,7 @@ MonoBehaviour:
   BalloonsColumns: 6
   MaxBricks: 50
   soundManager: {fileID: 268158986}
+  levelManager: {fileID: 106883867}
   boingSound: {fileID: 8300000, guid: c6d191bbf8b124dff9212a25c3679c02, type: 3}
   popSound: {fileID: 8300000, guid: bfa5a4a1ab7d34517aab525ee08fea3e, type: 3}
   prefabs:
@@ -1538,6 +1539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aaab9426bb6450496c2a2f77670b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 3
+  levelManager: {fileID: 106883867}
+  paddle: {fileID: 1231813721}
+  ball: {fileID: 207692680}
 --- !u!68 &1734981433
 EdgeCollider2D:
   m_ObjectHideFlags: 0

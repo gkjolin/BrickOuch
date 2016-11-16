@@ -26,12 +26,12 @@ public class Ball : MonoBehaviour {
 		body = this.GetComponent<Rigidbody2D> ();
 		body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-		Reset(1);
+		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
-		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
+		Reset(1);
 	}
 	
 	// Update is called once per frame
@@ -52,11 +52,13 @@ public class Ball : MonoBehaviour {
 		}
 	}
 
-	public void Reset(int phase)
+	public void Reset (int phase)
 	{
 		HasBeenLaunched = false;
 		body.velocity = Vector2.zero;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;
+		skeletonAnimation.state.ClearTracks ();
+		skeletonAnimation.Skeleton.SetToSetupPose();
 	}
 
 	void OnCollisionEnter2D (Collision2D collision)
@@ -84,7 +86,7 @@ public class Ball : MonoBehaviour {
 	public void PuffAnimation()
 	{
 		body.velocity = Vector2.zero;
-		skeletonAnimation.AnimationName = "Puff";
+		skeletonAnimation.state.AddAnimation(1, "Puff", false, 0.5f);
 		soundManager.PlaySound(puffSound);
 	}
 

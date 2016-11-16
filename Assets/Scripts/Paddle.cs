@@ -153,7 +153,7 @@ public class Paddle : MonoBehaviour
 	private void MoveAnimation ()
 	{
 		if (this.transform.position.x < lastPos.x) {
-			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
+			skeletonAnimation.state.AddAnimation (1, "Frente", true, 0);
 		} else if (this.transform.position.x > lastPos.x) {
 			skeletonAnimation.state.AddAnimation (1, "Tras", true, 0);
 		} else {

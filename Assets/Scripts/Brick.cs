@@ -47,13 +47,13 @@ public class Brick : MonoBehaviour
 
 	private void HandleHits ()
 	{
-		hitPoints--;
+		var bricks = this.GetComponentInParent<Bricks>();
+		hitPoints--;		
 
 		if (hitPoints <= 0)
 		{
-			var bricks = this.GetComponentInParent<Bricks>();
-
 			bricks.BreakableCount--;
+			bricks.soundManager.PlaySound(bricks.popSound);
 			score.AddScore (pointsWorth);
 
 			Destroy (this.GetComponent<BoxCollider2D> ());
@@ -63,6 +63,7 @@ public class Brick : MonoBehaviour
 		} 
 		else 
 		{
+			bricks.soundManager.PlaySound(bricks.boingSound);
 			skeletonAnimation.state.SetAnimation (0, "Bump", false);
 		}
 	}

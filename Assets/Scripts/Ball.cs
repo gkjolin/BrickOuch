@@ -4,17 +4,18 @@ using Spine.Unity;
 
 public class Ball : MonoBehaviour {
 
+	public float velocityMultiplier = 1f;
+	public float minAngle = 25f;
+	public SoundManager soundManager;
+	public AudioClip hitSound;
+	public AudioClip puffSound;
+
 	public bool HasBeenLaunched { get; set; }
 
 	private const float velocityIncreaseRate = 0.1f;
 
-	// This can be modified in the Editor for testing purpose
-	public float velocityMultiplier = 1f;
-	public float minAngle = 25f;
-
 	private Paddle paddle;
 	private Vector3 paddleToBallVector;
-
 	private Rigidbody2D body;
 	private SkeletonAnimation skeletonAnimation;
 
@@ -29,9 +30,6 @@ public class Ball : MonoBehaviour {
 
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
-
-		var audioSource = gameObject.GetComponent<AudioSource>();
-		audioSource.volume = PlayerPrefsManager.GetSoundsVolume();
 
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 	}
@@ -60,12 +58,11 @@ public class Ball : MonoBehaviour {
 		body.velocity = Vector2.zero;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;
 	}
-	
+
 	void OnCollisionEnter2D (Collision2D collision)
 	{
-		if (HasBeenLaunched)
-		{
-			GetComponent<AudioSource>().Play();
+		if (collision.gameObject.CompareTag("Hittable")) {
+			soundManager.PlaySound(hitSound);
 		}
 	}
 
@@ -88,6 +85,7 @@ public class Ball : MonoBehaviour {
 	{
 		body.velocity = Vector2.zero;
 		skeletonAnimation.AnimationName = "Puff";
+		soundManager.PlaySound(puffSound);
 	}
 
 }

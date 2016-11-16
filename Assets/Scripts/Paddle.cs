@@ -9,6 +9,8 @@ public class Paddle : MonoBehaviour
 	public bool autoPlay = false;
 	public bool mousePlay = true;
 	public bool freezePaddle = false;
+	public SoundManager soundManager;
+	public AudioClip shotSound;
 
 	private float touchOffset;
 	private float minX, maxX;
@@ -162,6 +164,7 @@ public class Paddle : MonoBehaviour
 	public IEnumerator StartGameAnimation ()
 	{
 		skeletonAnimation.state.AddAnimation (0, "StartGame", false, 0);
+		soundManager.PlaySound(shotSound);
 
 		yield return new WaitForSeconds(1.2f);
 		this.GetComponent<Collider2D> ().isTrigger = false;

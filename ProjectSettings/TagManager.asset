@@ -9,6 +9,7 @@ TagManager:
   - Ball
   - ScoreMultiplier
   - PausePanel
+  - Hittable
   layers:
   - Default
   - TransparentFX

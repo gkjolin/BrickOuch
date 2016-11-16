@@ -9,6 +9,9 @@ public class Bricks : MonoBehaviour {
 	public int BalloonsRows;
 	public int BalloonsColumns; 
 	public int MaxBricks;
+	public SoundManager soundManager;
+	public AudioClip boingSound;
+	public AudioClip popSound;
 
 	public int BreakableCount { get; set; }
 

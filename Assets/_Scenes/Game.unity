@@ -884,10 +884,10 @@ GameObject:
   - 4: {fileID: 923835516}
   - 50: {fileID: 923835514}
   - 114: {fileID: 1231813721}
-  - 61: {fileID: 923835513}
   - 33: {fileID: 923835518}
   - 23: {fileID: 923835517}
   - 114: {fileID: 923835515}
+  - 60: {fileID: 923835513}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Hittable
@@ -895,11 +895,10 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &923835513
-BoxCollider2D:
+--- !u!60 &923835513
+PolygonCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6117236, guid: ea448cd94239b43b5a5165a7455a9282,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 923835512}
   m_Enabled: 1
@@ -907,9 +906,15 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 100}
-  serializedVersion: 2
-  m_Size: {x: 320, y: 100}
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -65, y: 160}
+      - {x: 55, y: 160}
+      - {x: 140, y: 145}
+      - {x: 140, y: 40}
+      - {x: -150, y: 40}
+      - {x: -150, y: 145}
 --- !u!50 &923835514
 Rigidbody2D:
   serializedVersion: 2

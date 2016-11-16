@@ -37,7 +37,7 @@ public class Paddle : MonoBehaviour
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 		UpdateLastPos();
 
-		float halfSizeX = this.GetComponent<BoxCollider2D> ().bounds.size.x / 2;
+		float halfSizeX = this.GetComponent<Collider2D> ().bounds.size.x / 2;
 		minX = halfSizeX;
 		maxX = PlaySpace.Width - halfSizeX;
 	}

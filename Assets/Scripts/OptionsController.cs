@@ -34,6 +34,12 @@ public class OptionsController : MonoBehaviour {
 		if (soundsSlider != null)
 		{
 			PlayerPrefsManager.SetSoundsVolume(soundsSlider.value);
+
+			SoundManager sound = GameObject.FindObjectOfType<SoundManager>();
+			if (sound)
+			{
+				sound.GetComponent<AudioSource>().volume = soundsSlider.value;
+			}
 		}
 	}
 

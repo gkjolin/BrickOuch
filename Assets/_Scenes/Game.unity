@@ -2638,11 +2638,11 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   m_Points:
-  - {x: -200, y: 100}
-  - {x: 1100, y: 100}
+  - {x: -200, y: 200}
+  - {x: 1100, y: 200}
   - {x: 1100, y: 1900}
   - {x: -200, y: 1900}
-  - {x: -200, y: 100}
+  - {x: -200, y: 200}
 --- !u!1 &1751884304
 GameObject:
   m_ObjectHideFlags: 0

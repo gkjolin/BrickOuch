@@ -29,6 +29,7 @@ public class LoseCollider : MonoBehaviour
 		if (trigger.CompareTag("Ball"))
 		{
 			lives--;
+			RemoveLifeFromContainer();
 			ball.PuffAnimation ();
 
 			if (lives == 0)
@@ -41,6 +42,13 @@ public class LoseCollider : MonoBehaviour
 				StartCoroutine (ResetGame());
 			}
 		}
+	}
+
+	private void RemoveLifeFromContainer()
+	{
+		var lastChild = lifeContainer.transform.GetChild(lives).gameObject;
+
+		Destroy(lastChild);
 	}
 
 	private IEnumerator ResetGame()

@@ -54,6 +54,7 @@ public class Ball : MonoBehaviour {
 
 	public void Reset (int phase)
 	{
+		this.transform.position = paddle.transform.position + paddleToBallVector;
 		HasBeenLaunched = false;
 		body.velocity = Vector2.zero;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;

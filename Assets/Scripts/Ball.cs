@@ -26,7 +26,6 @@ public class Ball : MonoBehaviour {
 	{
 		// Prevent fast ball from scaping the playspace
 		body = this.GetComponent<Rigidbody2D> ();
-		body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
 		skeletonAnimation = this.GetComponent<SkeletonAnimation> ();
 

@@ -77,7 +77,8 @@ public class Ball : MonoBehaviour {
 	private Vector2 ClampAngle(Vector2 velocity, float minAngle, float maxAngle)
 	{
 		float angle = Vector2.Angle(velocity, Vector2.left);
-		float angleToRotate = (angle - Mathf.Clamp(angle, minAngle, maxAngle)) * velocity.y/Mathf.Abs(velocity.y);
+		int direction = velocity.y >= 0 ? 1 : -1;
+		float angleToRotate = (angle - Mathf.Clamp(angle, minAngle, maxAngle)) * direction;
 
 		Vector2 finalDirection = Quaternion.Euler(0, 0, angleToRotate) * velocity;
 

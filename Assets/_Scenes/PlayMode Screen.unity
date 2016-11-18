@@ -165,7 +165,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 200
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_LocalPosition.z
@@ -189,11 +189,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000011041790044, guid: 4c80cb54de4184abeac364cc3b16d037,
-        type: 2}
-      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -941,7 +936,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 200
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_LocalPosition.z
@@ -967,11 +962,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 212000011041790044, guid: 4c80cb54de4184abeac364cc3b16d037,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0.587
-      objectReference: {fileID: 0}
     - target: {fileID: 1000010931463870, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_Name
       value: Background Overlay
@@ -990,6 +980,11 @@ Prefab:
         type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212000011041790044, guid: 4c80cb54de4184abeac364cc3b16d037,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.7058824
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}

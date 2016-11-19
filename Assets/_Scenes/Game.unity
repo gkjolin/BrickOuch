@@ -383,7 +383,6 @@ MonoBehaviour:
   soundManager: {fileID: 268158986}
   hitSound: {fileID: 8300000, guid: cc4ae649eb75840fa858071d165dead7, type: 3}
   puffSound: {fileID: 8300000, guid: ed66ed9d6bf4d48208a8dd4e00387d59, type: 3}
-  lifeContainer: {fileID: 96434190}
   loseCollider: {fileID: 1734981432}
 --- !u!58 &207692681
 CircleCollider2D:
@@ -2377,7 +2376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BalloonsRows: 10
   BalloonsColumns: 6
-  MaxBricks: 50
+  MaxBricks: 30
   soundManager: {fileID: 268158986}
   levelManager: {fileID: 106883867}
   boingSound: {fileID: 8300000, guid: c6d191bbf8b124dff9212a25c3679c02, type: 3}

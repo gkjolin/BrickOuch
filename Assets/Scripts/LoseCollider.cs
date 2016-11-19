@@ -14,6 +14,40 @@ public class LoseCollider : MonoBehaviour
 
 	void Start()
 	{
+		DrawLives ();
+	}
+
+	void OnTriggerEnter2D (Collider2D trigger)
+	{
+		if (trigger.CompareTag("Ball"))
+		{
+			ball.PuffAnimation ();
+
+			if (lives > 0)
+			{
+				UseExtraLife ();
+				StartCoroutine (ResetGame());
+			}
+			else
+			{
+				paddle.EndGameAnimation ();
+				StartCoroutine (LoadLoseScreen ());
+			}
+		}
+	}
+
+	private void UseExtraLife ()
+	{
+		lives--;
+
+		var lifeIcon = lifeContainer.transform.GetChild(lives).gameObject;
+		Destroy(lifeIcon);
+	}
+
+	private void DrawLives()
+	{
+		lives--;
+
 		for (int i = 0; i < lives; i++) 
 		{
 			var life = Instantiate(lifeIcon, lifeContainer.transform, false) as GameObject;
@@ -21,25 +55,6 @@ public class LoseCollider : MonoBehaviour
 			Vector2 position = new Vector2(offset, 0);
 
 			life.transform.localPosition = position;
-		}
-	}
-
-	void OnTriggerEnter2D (Collider2D trigger)
-	{
-		if (trigger.CompareTag("Ball"))
-		{
-			lives--;
-			ball.PuffAnimation ();
-
-			if (lives == 0)
-			{
-				paddle.EndGameAnimation ();
-				StartCoroutine (LoadLoseScreen ());
-			}
-			else
-			{
-				StartCoroutine (ResetGame());
-			}
 		}
 	}
 

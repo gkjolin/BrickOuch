@@ -9,7 +9,6 @@ public class Ball : MonoBehaviour {
 	public SoundManager soundManager;
 	public AudioClip hitSound;
 	public AudioClip puffSound;
-	public GameObject lifeContainer;
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
@@ -49,7 +48,6 @@ public class Ball : MonoBehaviour {
 				HasBeenLaunched = true;
 				StartCoroutine (paddle.StartGameAnimation ());
 				body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
-				RemoveLifeFromContainer();
 			}
 		}
 	}
@@ -74,13 +72,6 @@ public class Ball : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D collision)
 	{
 		body.velocity = ClampAngle(body.velocity, minAngle, 180 - minAngle);
-	}
-
-	private void RemoveLifeFromContainer()
-	{
-		var lastChild = lifeContainer.transform.GetChild(loseCollider.lives - 1).gameObject;
-
-		Destroy(lastChild);
 	}
 
 	private Vector2 ClampAngle(Vector2 velocity, float minAngle, float maxAngle)

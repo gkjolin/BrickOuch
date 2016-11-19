@@ -1315,7 +1315,7 @@ GameObject:
   - 33: {fileID: 923835518}
   - 23: {fileID: 923835517}
   - 114: {fileID: 923835515}
-  - 60: {fileID: 923835513}
+  - 68: {fileID: 923835519}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Hittable
@@ -1323,26 +1323,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!60 &923835513
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 923835512}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: -10, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: -50, y: 160}
-      - {x: 50, y: 160}
-      - {x: 150, y: 145}
-      - {x: 150, y: 40}
-      - {x: -150, y: 40}
-      - {x: -150, y: 145}
 --- !u!50 &923835514
 Rigidbody2D:
   serializedVersion: 2
@@ -1435,6 +1415,27 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 923835512}
   m_Mesh: {fileID: 0}
+--- !u!68 &923835519
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 923835512}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+  - {x: -160, y: 70}
+  - {x: -160, y: 140}
+  - {x: -125, y: 150}
+  - {x: -55, y: 160}
+  - {x: 50, y: 160}
+  - {x: 120, y: 150}
+  - {x: 155, y: 140}
+  - {x: 155, y: 70}
 --- !u!1 &962616753
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,6 +2800,16 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013029908766, guid: 4c80cb54de4184abeac364cc3b16d037, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212000011041790044, guid: 4c80cb54de4184abeac364cc3b16d037,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011927108910, guid: 4c80cb54de4184abeac364cc3b16d037,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

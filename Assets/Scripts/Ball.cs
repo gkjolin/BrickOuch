@@ -46,6 +46,7 @@ public class Ball : MonoBehaviour {
 			if (Input.GetMouseButtonUp (0))
 			{
 				HasBeenLaunched = true;
+				loseCollider.UseExtraLife();
 				StartCoroutine (paddle.StartGameAnimation ());
 				body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
 			}

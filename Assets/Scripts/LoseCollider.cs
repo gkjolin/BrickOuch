@@ -25,7 +25,6 @@ public class LoseCollider : MonoBehaviour
 
 			if (lives > 0)
 			{
-				UseExtraLife ();
 				StartCoroutine (ResetGame());
 			}
 			else
@@ -36,7 +35,7 @@ public class LoseCollider : MonoBehaviour
 		}
 	}
 
-	private void UseExtraLife ()
+	public void UseExtraLife ()
 	{
 		lives--;
 
@@ -46,8 +45,6 @@ public class LoseCollider : MonoBehaviour
 
 	private void DrawLives()
 	{
-		lives--;
-
 		for (int i = 0; i < lives; i++) 
 		{
 			var life = Instantiate(lifeIcon, lifeContainer.transform, false) as GameObject;

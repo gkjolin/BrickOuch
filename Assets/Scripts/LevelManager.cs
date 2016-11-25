@@ -71,4 +71,9 @@ public class LevelManager : MonoBehaviour
 			GoogleAnalytics.HitAnalyticsEvent ("disabledbuttons", "android_back");
 		}
 	}
+
+	public void ComingSoonEvents(string eventName)
+	{
+		GoogleAnalytics.HitAnalyticsEvent("coming_soon", eventName);
+	}
 }

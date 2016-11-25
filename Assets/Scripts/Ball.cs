@@ -4,8 +4,9 @@ using Spine.Unity;
 
 public class Ball : MonoBehaviour {
 
-	public float velocityMultiplier = 1f;
-	public float minAngle = 25f;
+	public float velocityMultiplier;
+	public float angleControlMultiplier;
+	public float minAngle;
 	public SoundManager soundManager;
 	public AudioClip hitSound;
 	public AudioClip puffSound;
@@ -74,8 +75,24 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D collision)
 	{
+
 		if (collision.gameObject.CompareTag("Hittable")) {
 			soundManager.PlaySound(hitSound);
+		}
+
+		Paddle paddle = collision.gameObject.GetComponent<Paddle> ();
+		if (paddle != null && body.velocity.y > 0) {
+			float distance = transform.position.x - paddle.transform.position.x;
+			float rotationAngle = -distance * angleControlMultiplier;
+			float currentAngle = Vector2.Angle(Vector2.right, body.velocity);
+			float newAngle = currentAngle + rotationAngle;
+
+			newAngle = Mathf.Min (newAngle, 180 - minAngle);
+			newAngle = Mathf.Max (newAngle, minAngle);
+
+			rotationAngle = newAngle - currentAngle;
+			Quaternion rotation = Quaternion.AngleAxis (rotationAngle, Vector3.forward);
+			body.velocity = rotation * body.velocity;
 		}
 	}
 

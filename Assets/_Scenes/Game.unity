@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocityMultiplier: 1
+  angleControlMultiplier: 0.5
   minAngle: 25
   soundManager: {fileID: 268158986}
   hitSound: {fileID: 8300000, guid: cc4ae649eb75840fa858071d165dead7, type: 3}
@@ -1456,13 +1457,9 @@ EdgeCollider2D:
   m_Offset: {x: -5, y: 0}
   m_Points:
   - {x: -155, y: 70}
-  - {x: -155, y: 140}
-  - {x: -120, y: 150}
-  - {x: -50, y: 160}
-  - {x: 49, y: 160}
-  - {x: 119, y: 150}
-  - {x: 154, y: 140}
-  - {x: 154, y: 70}
+  - {x: -155, y: 150}
+  - {x: 155, y: 150}
+  - {x: 155, y: 70}
 --- !u!1 &962616753
 GameObject:
   m_ObjectHideFlags: 0

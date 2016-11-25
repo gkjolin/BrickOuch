@@ -89,7 +89,7 @@ public class Ball : MonoBehaviour {
 	{
 		body.velocity = Vector2.zero;
 		skeletonAnimation.state.AddAnimation(1, "Puff", false, 0.5f);
-		soundManager.PlaySound(puffSound);
+		soundManager.PlaySound(puffSound, 10);
 	}
 
 }

@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour {
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
+	private Vector3 launchTouchPos = Vector3.zero;
 
 	private const float velocityIncreaseRate = 0.1f;
 
@@ -43,12 +44,20 @@ public class Ball : MonoBehaviour {
 			this.transform.position = paddle.transform.position + paddleToBallVector;
 			
 			// Wait for a mouse press to launch.
+			if (Input.GetMouseButtonDown (0)) {
+				launchTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			}
+
 			if (Input.GetMouseButtonUp (0))
 			{
-				HasBeenLaunched = true;
-				loseCollider.UseExtraLife();
-				StartCoroutine (paddle.StartGameAnimation ());
-				body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
+				Vector3 realeasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+				if (Vector3.Distance (launchTouchPos, realeasePos) < 10) {
+					HasBeenLaunched = true;
+					loseCollider.UseExtraLife ();
+					StartCoroutine (paddle.StartGameAnimation ());
+					body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
+				}
 			}
 		}
 	}

@@ -4,14 +4,16 @@ using Spine.Unity;
 
 public class Ball : MonoBehaviour {
 
-	public float velocityMultiplier = 1f;
-	public float minAngle = 25f;
+	public float velocityMultiplier;
+	public float angleControlMultiplier;
+	public float minAngle;
 	public SoundManager soundManager;
 	public AudioClip hitSound;
 	public AudioClip puffSound;
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
+	private Vector3 launchTouchPos = Vector3.zero;
 
 	private const float velocityIncreaseRate = 0.1f;
 
@@ -43,12 +45,20 @@ public class Ball : MonoBehaviour {
 			this.transform.position = paddle.transform.position + paddleToBallVector;
 			
 			// Wait for a mouse press to launch.
+			if (Input.GetMouseButtonDown (0)) {
+				launchTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			}
+
 			if (Input.GetMouseButtonUp (0))
 			{
-				HasBeenLaunched = true;
-				loseCollider.UseExtraLife();
-				StartCoroutine (paddle.StartGameAnimation ());
-				body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
+				Vector3 realeasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+				if (Vector3.Distance (launchTouchPos, realeasePos) < 10) {
+					HasBeenLaunched = true;
+					loseCollider.UseExtraLife ();
+					StartCoroutine (paddle.StartGameAnimation ());
+					body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
+				}
 			}
 		}
 	}
@@ -65,8 +75,24 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D collision)
 	{
+
 		if (collision.gameObject.CompareTag("Hittable")) {
 			soundManager.PlaySound(hitSound);
+		}
+
+		Paddle paddle = collision.gameObject.GetComponent<Paddle> ();
+		if (paddle != null && body.velocity.y > 0) {
+			float distance = transform.position.x - paddle.transform.position.x;
+			float rotationAngle = -distance * angleControlMultiplier;
+			float currentAngle = Vector2.Angle(Vector2.right, body.velocity);
+			float newAngle = currentAngle + rotationAngle;
+
+			newAngle = Mathf.Min (newAngle, 180 - minAngle);
+			newAngle = Mathf.Max (newAngle, minAngle);
+
+			rotationAngle = newAngle - currentAngle;
+			Quaternion rotation = Quaternion.AngleAxis (rotationAngle, Vector3.forward);
+			body.velocity = rotation * body.velocity;
 		}
 	}
 

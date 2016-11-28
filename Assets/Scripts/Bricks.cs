@@ -47,10 +47,14 @@ public class Bricks : MonoBehaviour {
 
 	private void GoToNextLevel()
 	{
+		// Recover ball used to win the level
+		paddle.IncrementLife ();
 		levelManager.Phase++;
+
 		this.Reset();
 		ball.Reset(levelManager.Phase);
 		paddle.Reset();
+
 		CreateMultipleBricks(MaxBricks);
 		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
 	}

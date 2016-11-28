@@ -1306,6 +1306,7 @@ GameObject:
   - 114: {fileID: 822728647}
   - 114: {fileID: 822728649}
   - 114: {fileID: 822728650}
+  - 114: {fileID: 822728651}
   m_Layer: 5
   m_Name: Start Menu
   m_TagString: Untagged
@@ -1404,6 +1405,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bestScore: {fileID: 97950581}
   lastScore: {fileID: 1330177978}
+--- !u!114 &822728651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 822728645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 0.5625
 --- !u!1 &832747632
 GameObject:
   m_ObjectHideFlags: 0

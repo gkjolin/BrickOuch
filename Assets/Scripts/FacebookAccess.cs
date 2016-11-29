@@ -17,7 +17,7 @@ public class FacebookAccess : MonoBehaviour {
 
 	public static void Login()
 	{
-		var perms = new List<string>() { "public_profile", "email", "user_friends" };
+		var perms = new List<string>() { "public_profile", "user_friends" };
 		FB.LogInWithReadPermissions(perms, FacebookAccess.AuthCallback);
 	}
 

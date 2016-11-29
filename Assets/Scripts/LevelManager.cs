@@ -64,11 +64,6 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	public void FacebookLogin()
-	{
-		FacebookAccess.Login();
-	}
-
 	public void FacebookInvite()
 	{
 		FacebookAccess.Invite();

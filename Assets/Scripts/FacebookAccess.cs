@@ -3,47 +3,34 @@ using System.Collections.Generic;
 using Facebook.Unity;
 using System;
 
-public class FacebookAccess : MonoBehaviour {
+public class FacebookAccess : MonoBehaviour
+{
+	private const string FB_ID = "facebook_id";
+	private const string FB_NAME = "facebook_name";
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-	public static void Login()
+	public static void SetName (string name)
 	{
-		var perms = new List<string>() { "public_profile", "user_friends" };
-		FB.LogInWithReadPermissions(perms, FacebookAccess.AuthCallback);
+		PlayerPrefs.SetString (FB_NAME, name);
 	}
 
-	private static void AuthCallback(ILoginResult result)
-    {
-        if (FB.IsLoggedIn)
-        {
-            // AccessToken class will have session details
-            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-            // Print current access token's User ID
-            Debug.Log(aToken.UserId);
-            // Print current access token's granted permissions
-            foreach (string perm in aToken.Permissions)
-            {
-                Debug.Log(perm);
-            }
-        }
-        else
-        {
-            Debug.Log("User cancelled login");
-        }
-    }
+	public static string GetName ()
+	{
+		return PlayerPrefs.GetString (FB_NAME);
+	}
 
-    public static void Invite()
-    {
-		FB.Mobile.AppInvite(
-    new Uri("https://fb.me/810530068992919"));
-    }
+	public static void SetId (string id)
+	{
+		PlayerPrefs.SetString (FB_ID, id);
+	}
+
+	public static string GetId ()
+	{
+		return PlayerPrefs.GetString (FB_ID);
+	}
+
+	public static void Invite ()
+	{
+		FB.Mobile.AppInvite (
+			new Uri ("https://fb.me/810530068992919"));
+	}
 }

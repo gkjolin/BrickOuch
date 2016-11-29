@@ -59,31 +59,6 @@ public class FacebookPanelController : MonoBehaviour
 
 			FacebookAccess.SetId((string)facebookId);
 			FacebookAccess.SetName((string)facebookName);
-
-			/*var userProfile = new Dictionary<string, string> ();
-             
-			userProfile ["facebookId"] = getDataValueForKey (resultObject, "id");
-			userProfile ["name"] = getDataValueForKey (resultObject, "name");
-			object location;
-			if (resultObject.TryGetValue ("location", out location)) {
-				userProfile ["location"] = (string)(((Dictionary<string, object>)location) ["name"]);
-			}
-			userProfile ["gender"] = getDataValueForKey (resultObject, "gender");
-			userProfile ["birthday"] = getDataValueForKey (resultObject, "birthday");
-			userProfile ["relationship"] = getDataValueForKey (resultObject, "relationship_status");
-			if (userProfile ["facebookId"] != "") {
-				userProfile ["pictureURL"] = 
-                "https://graph.facebook.com/" + userProfile ["facebookId"] + "/picture?type=large&return_ssl_resources=1";
-			}
-             
-			var emptyValueKeys = userProfile
-            .Where (pair => String.IsNullOrEmpty (pair.Value))
-            .Select (pair => pair.Key).ToList ();
-			foreach (var key in emptyValueKeys) {
-				userProfile.Remove (key);
-			}
-             
-			StartCoroutine ("saveUserProfile", userProfile);*/
 		}
 	}
 }

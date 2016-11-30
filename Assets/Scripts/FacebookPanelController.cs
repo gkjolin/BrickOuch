@@ -39,6 +39,7 @@ public class FacebookPanelController : MonoBehaviour
 				Debug.Log (perm);
 			}
 			FB.API ("/me", HttpMethod.GET, FBAPICallback);
+			FacebookAccess.GetScores ();
 		} else {
 			Debug.Log ("User cancelled login");
 		}

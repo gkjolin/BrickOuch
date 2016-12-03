@@ -1893,6 +1893,8 @@ MonoBehaviour:
   freezePaddle: 0
   soundManager: {fileID: 268158986}
   shotSound: {fileID: 8300000, guid: 908806661d0754a8fbdb560cb3662283, type: 3}
+  lifeContainer: {fileID: 96434191}
+  lifePrefab: {fileID: 1000012930060714, guid: 76e70eaa6c2184630b7e9ebd485e9d03, type: 2}
 --- !u!1001 &1252290128
 Prefab:
   m_ObjectHideFlags: 0
@@ -2674,12 +2676,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aaab9426bb6450496c2a2f77670b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
   levelManager: {fileID: 106883867}
   paddle: {fileID: 1231813721}
   ball: {fileID: 207692680}
-  lifeIcon: {fileID: 1000012930060714, guid: 76e70eaa6c2184630b7e9ebd485e9d03, type: 2}
-  lifeContainer: {fileID: 96434190}
 --- !u!68 &1734981433
 EdgeCollider2D:
   m_ObjectHideFlags: 0

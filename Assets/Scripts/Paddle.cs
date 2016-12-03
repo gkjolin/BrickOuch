@@ -6,11 +6,26 @@ using Spine.Unity;
 
 public class Paddle : MonoBehaviour
 {
+	private int lives;
+	public int Lives {
+		get {
+			return lives;
+		}
+		private set {
+			lives = value;
+			DrawLives ();
+		}
+	}
+
 	public bool autoPlay = false;
 	public bool mousePlay = true;
 	public bool freezePaddle = false;
+
 	public SoundManager soundManager;
 	public AudioClip shotSound;
+
+	public Transform lifeContainer;
+	public GameObject lifePrefab;
 
 	private float touchOffset;
 	private float minX, maxX;
@@ -25,6 +40,7 @@ public class Paddle : MonoBehaviour
 
 	void Start ()
 	{
+		Lives = 3;
 		Input.multiTouchEnabled = false;
 
 		this.GetComponent<Collider2D> ().isTrigger = true;
@@ -169,6 +185,32 @@ public class Paddle : MonoBehaviour
 
 		yield return new WaitForSeconds(1.2f);
 		this.GetComponent<Collider2D> ().isTrigger = false;
+	}
+
+	public void DecrementLife()
+	{
+		Lives--;
+	}
+
+	public void IncrementLife()
+	{
+		Lives++;
+	}
+
+	private void DrawLives()
+	{
+		foreach (Transform life in lifeContainer) {
+			Destroy (life.gameObject);
+		}
+
+		for (int i = 0; i < Lives; i++) 
+		{
+			var life = Instantiate(lifePrefab, lifeContainer, false) as GameObject;
+			float offset = i * life.GetComponent<RectTransform>().rect.width;
+			Vector2 position = new Vector2(offset, 0);
+
+			life.transform.localPosition = position;
+		}
 	}
 
 }

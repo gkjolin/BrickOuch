@@ -55,7 +55,7 @@ public class Ball : MonoBehaviour {
 
 				if (Vector3.Distance (launchTouchPos, realeasePos) < 10) {
 					HasBeenLaunched = true;
-					loseCollider.UseExtraLife ();
+					paddle.DecrementLife ();
 					StartCoroutine (paddle.StartGameAnimation ());
 					body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
 				}

@@ -1324,12 +1324,12 @@ EdgeCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 55, y: 0}
   m_Points:
   - {x: 0, y: 0}
-  - {x: 0, y: 1375}
-  - {x: 900, y: 1375}
-  - {x: 900, y: 0}
+  - {x: -40, y: 1290}
+  - {x: 850, y: 1290}
+  - {x: 795, y: 0}
 --- !u!1 &923835512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,7 +2411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BalloonsRows: 10
-  BalloonsColumns: 6
+  BalloonsColumns: 5
   MaxBricks: 30
   soundManager: {fileID: 268158986}
   levelManager: {fileID: 106883867}

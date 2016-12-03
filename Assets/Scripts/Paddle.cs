@@ -19,7 +19,6 @@ public class Paddle : MonoBehaviour
 	private const int rotationAngleMax = 30;
 
 	private Ball ball;
-	private PlaySpace playSpace;
 
 	private SkeletonAnimation skeletonAnimation;
 	private Vector3 lastPos;
@@ -39,8 +38,8 @@ public class Paddle : MonoBehaviour
 
 		var collider = this.GetComponent<Collider2D> ();
 		float halfSizeX = collider.bounds.size.x / 2;
-		minX = halfSizeX - collider.offset.x;
-		maxX = PlaySpace.Width - halfSizeX - collider.offset.x;
+		minX = PlaySpace.OffsetX + halfSizeX;
+		maxX = PlaySpace.Width - halfSizeX + PlaySpace.OffsetX - collider.offset.x;
 	}
 		
 	// Update is called once per frame

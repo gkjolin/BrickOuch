@@ -54,8 +54,8 @@ public class Paddle : MonoBehaviour
 
 		var collider = this.GetComponent<Collider2D> ();
 		float halfSizeX = collider.bounds.size.x / 2;
-		minX = PlaySpace.OffsetX + halfSizeX;
-		maxX = PlaySpace.Width - halfSizeX + PlaySpace.OffsetX - collider.offset.x;
+		minX = PlaySpace.MinX + halfSizeX - collider.offset.x;
+		maxX = PlaySpace.Width - halfSizeX + PlaySpace.MinX - collider.offset.x;
 	}
 		
 	// Update is called once per frame

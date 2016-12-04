@@ -1,0 +1,27 @@
+
+Tower.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 2, 460
+  size: 377, 1629
+  orig: 377, 1629
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 2, 77
+  size: 381, 1619
+  orig: 381, 1619
+  offset: 0, 0
+  index: -1
+Line
+  rotate: false
+  xy: 2, 2
+  size: 945, 73
+  orig: 945, 73
+  offset: 0, 0
+  index: -1

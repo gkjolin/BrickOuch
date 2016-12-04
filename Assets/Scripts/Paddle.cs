@@ -206,7 +206,7 @@ public class Paddle : MonoBehaviour
 		for (int i = 0; i < Lives; i++) 
 		{
 			var life = Instantiate(lifePrefab, lifeContainer, false) as GameObject;
-			float offset = i * life.GetComponent<RectTransform>().rect.width;
+			float offset = life.transform.localPosition.x + i * (life.transform.localPosition.x + life.GetComponent<RectTransform>().rect.width);
 			Vector2 position = new Vector2(offset, 0);
 
 			life.transform.localPosition = position;

@@ -83,13 +83,18 @@ public class LevelManager : MonoBehaviour
 	public void PauseGame ()
 	{
 		TogglePause ();
-		musicPlayer.ToggleMute ();
+
+		if (musicPlayer) 
+		{
+			musicPlayer.ToggleMute ();
+		}
 
 		if (GameIsPaused) {
+			pausePanel.SetActive (true);
 			Time.timeScale = 0f;
 			paddle.freezePaddle = true;
 			this.UpdateScoreOnPause ();
-			pausePanel.SetActive (true);
+
 		} else {
 			pausePanel.SetActive (false);
 			Time.timeScale = 1f;

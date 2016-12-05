@@ -5,6 +5,7 @@ using Facebook.Unity;
 
 public class LeaderboardController : MonoBehaviour
 {
+	private const int InvestmentAspectRatio = 5;
 
 	//  Leaderboard
 	public GameObject LeaderboardPanel;
@@ -36,7 +37,7 @@ public class LeaderboardController : MonoBehaviour
 	private void populateLeaderBoard ()
 	{
 		var scores = FacebookAccess.Scores;
-		Debug.Log ("Score count: "+ scores.Count);
+		Debug.Log ("Score count: " + scores.Count);
 		// Populate leaderboard
 		for (int i = 0; i < scores.Count; i++) {
 			GameObject LBgameObject = Instantiate (LeaderboardItemPrefab) as GameObject;
@@ -47,5 +48,12 @@ public class LeaderboardController : MonoBehaviour
 
 		// Scroll to top
 		LeaderboardScrollRect.verticalNormalizedPosition = 1f;
+
+		UpdateLeaderboardHeight (scores.Count);
+	}
+
+	private void UpdateLeaderboardHeight (int count) {
+		AspectRatioFitter transform = LeaderboardPanel.GetComponent<AspectRatioFitter> ();
+		transform.aspectRatio = InvestmentAspectRatio / count;
 	}
 }

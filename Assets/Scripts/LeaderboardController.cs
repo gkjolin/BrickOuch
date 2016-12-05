@@ -10,16 +10,19 @@ public class LeaderboardController : MonoBehaviour
 	public GameObject LeaderboardPanel;
 	public GameObject LeaderboardItemPrefab;
 	public ScrollRect LeaderboardScrollRect;
+	public Text NotLoggedText;
 
 	// Use this for initialization
 	void Start ()
 	{
 		Debug.Log ("Leaderboard start");
 		if (FB.IsLoggedIn) {
+			NotLoggedText.gameObject.SetActive(false);
 			Debug.Log ("Logged on Facebook");
 
 			populateLeaderBoard ();
 		} else {
+			NotLoggedText.gameObject.SetActive(true);
 			Debug.Log ("Not logged on Facebook");
 		}
 	}

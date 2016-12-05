@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Facebook.Unity;
 
 public class Score : MonoBehaviour {
 
@@ -39,6 +40,9 @@ public class Score : MonoBehaviour {
 		{
 			highestScore = score;
 			PlayerPrefsManager.SetHighestScore(score);
+			if(FB.IsLoggedIn){
+				FacebookAccess.PostScore(score);
+				}
 		}
 	}
 

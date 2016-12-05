@@ -126,4 +126,82 @@ public static class FacebookAccess
         Dictionary<string,object> entry = (Dictionary<string,object>) obj;
         return Convert.ToInt32(entry["score"]);
     }
+
+	public static void PostScore (int score, Action callback = null)
+    {
+        // Check for 'publish_actions' as the Scores API requires it for submitting scores
+        if (HavePublishActions)
+        {
+            var query = new Dictionary<string, string>();
+            query["score"] = score.ToString();
+            FB.API(
+                "/me/scores",
+                HttpMethod.POST,
+                delegate(IGraphResult result)
+            {
+                Debug.Log("PostScore Result: " + result.RawResult);
+                // Fetch fresh scores to update UI
+                GetScores();
+            },
+            query
+            );
+        }
+        else
+        {
+            // Showing context before prompting for publish actions
+            // See Facebook Login Best Practices: https://developers.facebook.com/docs/facebook-login/best-practices
+            /*PopupScript.SetPopup("Prompting for Publish Permissions for Scores API", 4f, delegate
+            {*/
+                // Prompt for `publish actions` and if granted, post score
+                PromptForPublish(delegate
+                                         {
+                    if (HavePublishActions)
+                    {
+                        PostScore(score);
+                    }
+                });
+            /*});*/
+			Debug.Log("No publish rights");
+        }
+    }
+
+	public static void PromptForPublish (Action callback = null)
+    {
+		List<string> publishPermissions = new List<string> {"publish_actions"};
+        // Login for publish permissions
+        // https://developers.facebook.com/docs/unity/reference/current/FB.LogInWithPublishPermissions
+        FB.LogInWithPublishPermissions(publishPermissions, delegate (ILoginResult result)
+        {
+            Debug.Log("LoginCallback");
+            if (FB.IsLoggedIn)
+            {
+                Debug.Log("Logged in with ID: " + AccessToken.CurrentAccessToken.UserId +
+                          "\nGranted Permissions: " + AccessToken.CurrentAccessToken.Permissions.ToCommaSeparateList());
+            }
+            else
+            {
+                if (result.Error != null)
+                {
+                    Debug.LogError(result.Error);
+                }
+                Debug.Log("Not Logged In");
+            }
+            if (callback != null)
+            {
+                callback();
+            }
+        });
+    }
+
+    #region Util
+    // Helper function to check whether the player has granted 'publish_actions'
+    public static bool HavePublishActions
+    {
+        get {
+            return (FB.IsLoggedIn &&
+                   (AccessToken.CurrentAccessToken.Permissions as List<string>).Contains("publish_actions")) ? true : false;
+        }
+        private set {}
+    }
+    #endregion
 }

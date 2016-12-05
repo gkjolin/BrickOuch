@@ -13,31 +13,36 @@ public class LeaderboardController : MonoBehaviour
 	public ScrollRect LeaderboardScrollRect;
 	public Text NotLoggedText;
 
-	// Use this for initialization
-	void Start ()
+	void OnEnable ()
 	{
 		Debug.Log ("Leaderboard start");
+
 		if (FB.IsLoggedIn) {
 			NotLoggedText.gameObject.SetActive(false);
 			Debug.Log ("Logged on Facebook");
 
-			populateLeaderBoard ();
+			PopulateLeaderBoard ();
 		} else {
 			NotLoggedText.gameObject.SetActive(true);
 			Debug.Log ("Not logged on Facebook");
 		}
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
 
-	private void populateLeaderBoard ()
+	private void PopulateLeaderBoard ()
 	{
 		var scores = FacebookAccess.Scores;
 		Debug.Log ("Score count: " + scores.Count);
+
+		// Clear out previous leaderboard
+		Transform[] scoreElements = LeaderboardPanel.GetComponentsInChildren<Transform>();
+		foreach(Transform childObject in scoreElements)
+		{
+			if (!LeaderboardPanel.transform.IsChildOf(childObject.transform))
+			{
+				Destroy (childObject.gameObject);
+			}
+		}
+
 		// Populate leaderboard
 		for (int i = 0; i < scores.Count; i++) {
 			GameObject LBgameObject = Instantiate (LeaderboardItemPrefab) as GameObject;

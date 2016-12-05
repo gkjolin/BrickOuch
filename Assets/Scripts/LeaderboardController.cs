@@ -5,7 +5,7 @@ using Facebook.Unity;
 
 public class LeaderboardController : MonoBehaviour
 {
-	private const int InvestmentAspectRatio = 5;
+	private const int LeaderboardAspectRatio = 5;
 
 	//  Leaderboard
 	public GameObject LeaderboardPanel;
@@ -58,7 +58,11 @@ public class LeaderboardController : MonoBehaviour
 	}
 
 	private void UpdateLeaderboardHeight (int count) {
+		if (count == 0) {
+			return;
+		}
+
 		AspectRatioFitter transform = LeaderboardPanel.GetComponent<AspectRatioFitter> ();
-		transform.aspectRatio = InvestmentAspectRatio / count;
+		transform.aspectRatio = LeaderboardAspectRatio / count;
 	}
 }

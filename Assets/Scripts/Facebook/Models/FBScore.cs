@@ -11,4 +11,19 @@ public class FBScore {
 		this.Score = score;
 	}
 
+	public override bool Equals (object obj)
+	{
+		if (obj is FBScore) {
+			FBScore other = (FBScore)obj;
+			return User.Equals (other.User);
+		}
+
+		return false;
+	}
+
+	public override int GetHashCode ()
+	{
+		return User.GetHashCode ();
+	}
+
 }

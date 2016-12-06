@@ -8,8 +8,8 @@ public static class FacebookAccess
 	private const string FB_ID = "facebook_id";
 	private const string FB_NAME = "facebook_name";
 
-	private static Dictionary<FBUser, FBScore> scores = new Dictionary<FBUser, FBScore> ();
-	public static Dictionary<FBUser, FBScore> Scores
+	private static HashSet<FBScore> scores = new HashSet<FBScore> ();
+	public static HashSet<FBScore> Scores
 	{
 		get
 		{
@@ -101,7 +101,7 @@ public static class FacebookAccess
             }
 
 			FBScore score = JsonMapping.GetScore (scoreItem);
-			Scores [score.User] = score;
+			Scores.Add (score);
         }
     }
 

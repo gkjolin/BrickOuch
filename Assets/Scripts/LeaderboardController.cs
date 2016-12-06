@@ -48,7 +48,7 @@ public class LeaderboardController : MonoBehaviour
 		foreach (var score in scores) {
 			GameObject LBgameObject = Instantiate (LeaderboardItemPrefab) as GameObject;
 			LeaderboardElement LBelement = LBgameObject.GetComponent<LeaderboardElement> ();
-			LBelement.SetupElement (count, score.Key.Name, score.Value.Score);
+			LBelement.SetupElement (count, score.User.Name, score.Score);
 			LBelement.transform.SetParent (LeaderboardPanel.transform, false);
 
 			count++;

@@ -64,12 +64,6 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	public void FacebookInvite()
-	{
-		FacebookAccess.Invite();
-	}
-
-
 	public void LoadScene (string name)
 	{
 		SceneManager.LoadScene (name);

@@ -21,6 +21,11 @@ public class FacebookPanelController : MonoBehaviour
 		}
 	}
 
+	public void FacebookInvite()
+	{
+		FacebookAccess.Invite();
+	}
+
 	public void  Login ()
 	{
 		var perms = new List<string> () { "public_profile", "user_friends", "publish_actions" };

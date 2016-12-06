@@ -36,8 +36,9 @@ public static class FacebookAccess
 
 	public static void Invite ()
 	{
-		FB.Mobile.AppInvite (
-			new Uri ("https://fb.me/810530068992919"));
+		FB.Mobile.AppInvite (new Uri ("https://fb.me/1267041886676012"), callback: delegate (IAppInviteResult result) {
+			Debug.Log (result);
+		});
 	}
 
 	public static void GetScores ()

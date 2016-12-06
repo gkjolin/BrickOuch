@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,21 +7,18 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager Instance { get; private set; }
 
-	static GameManager ()
-	{
-		GameObject container = new GameObject("GameManager");
-		Instance = container.AddComponent<GameManager> ();
-	}
-
 	public HashSet<FBScore> Scores { get; private set; }
 
-	private GameManager()
+	void Awake ()
 	{
-		Scores = new HashSet<FBScore> ();
-	}
+		if (Instance == null) {
+			Instance = this;
+			DontDestroyOnLoad (this);
 
-	void Awake()
-	{
-		DontDestroyOnLoad (this);
+			// Initialize GameManager variables
+			Scores = new HashSet<FBScore> ();
+		} else {
+			Destroy (gameObject);
+		}
 	}
 }

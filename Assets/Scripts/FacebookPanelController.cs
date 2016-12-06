@@ -23,8 +23,8 @@ public class FacebookPanelController : MonoBehaviour
 
 	public void  Login ()
 	{
-		var perms = new List<string> () { "public_profile", "user_friends" };
-		FB.LogInWithReadPermissions (perms, AuthCallback);
+		var perms = new List<string> () { "public_profile", "user_friends", "publish_actions" };
+		FB.LogInWithPublishPermissions (perms, AuthCallback);
 	}
 
 	private void AuthCallback (ILoginResult result)

@@ -8,11 +8,18 @@ public static class FacebookAccess
 	private const string FB_ID = "facebook_id";
 	private const string FB_NAME = "facebook_name";
 
-	private static List<object> scores;
-    public static List<object> Scores {
-        get { return scores; }
-        set { scores = value;}
-    }
+	private static Dictionary<FBUser, FBScore> scores = new Dictionary<FBUser, FBScore> ();
+	public static Dictionary<FBUser, FBScore> Scores
+	{
+		get
+		{
+			return scores;
+		}
+		private set
+		{
+			scores = value;
+		}
+	}
 
 	public static void SetName (string name)
 	{
@@ -71,19 +78,9 @@ public static class FacebookAccess
 
 	private static void HandleScoresData (List<object> scoresResponse)
     {
-        var structuredScores = new List<object>();
         foreach(object scoreItem in scoresResponse) 
-        {
-            // Score JSON format
-            // {
-            //   "score": 4,
-            //   "user": {
-            //      "name": "Chris Lewis",
-            //      "id": "10152646005463795"
-            //   }
-            // }
-
-            var entry = (Dictionary<string,object>) scoreItem;
+		{
+			var entry = (Dictionary <string,object>) scoreItem;
             var user = (Dictionary<string,object>) entry["user"];
             string userId = (string)user["id"];
             
@@ -102,23 +99,10 @@ public static class FacebookAccess
                 entry["score"] = playerHighScore.ToString();
 				PlayerPrefsManager.SetHighestScore(playerHighScore);
             }
-            
-            structuredScores.Add(entry);
-            /*if (!GameStateManager.FriendImages.ContainsKey(userId))
-            {
-                // We don't have this players image yet, request it now
-                LoadFriendImgFromID (userId, pictureTexture =>
-                {
-                    if (pictureTexture != null)
-                    {
-                        GameStateManager.FriendImages.Add(userId, pictureTexture);
-                        GameStateManager.CallUIRedraw();
-                    }
-                });
-            }*/
-        }
 
-        Scores = structuredScores;
+			FBScore score = JsonMapping.GetScore (scoreItem);
+			Scores [score.User] = score;
+        }
     }
 
 	// Pull out score from a JSON user entry object constructed in FBGraph.GetScores()

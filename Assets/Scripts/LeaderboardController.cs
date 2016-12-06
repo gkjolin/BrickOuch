@@ -44,11 +44,14 @@ public class LeaderboardController : MonoBehaviour
 		}
 
 		// Populate leaderboard
-		for (int i = 0; i < scores.Count; i++) {
+		int count = 1;
+		foreach (var score in scores) {
 			GameObject LBgameObject = Instantiate (LeaderboardItemPrefab) as GameObject;
 			LeaderboardElement LBelement = LBgameObject.GetComponent<LeaderboardElement> ();
-			LBelement.SetupElement (i + 1, scores [i]);
+			LBelement.SetupElement (count, score.Key.Name, score.Value.Score);
 			LBelement.transform.SetParent (LeaderboardPanel.transform, false);
+
+			count++;
 		}
 
 		// Scroll to top

@@ -9,13 +9,10 @@ public class LeaderboardElement : MonoBehaviour
 	public Text Name;
 	public Text Score;
 
-	public void SetupElement (int rank, object entryObj)
+	public void SetupElement (int rank, string name, long score)
 	{
-		var entry = (Dictionary<string,object>)entryObj;
-		var user = (Dictionary<string,object>)entry ["user"];
-
 		Rank.text = rank.ToString () + ".";
-		Name.text = ((string)user ["name"]).Split (new char[]{ ' ' }) [0];
-		Score.text = "Smashed: " + FacebookAccess.GetScoreFromEntry (entry).ToString ();
+		Name.text = string.IsNullOrEmpty (name) ? "" : name.Split (' ') [0];
+		Score.text = "Smashed: " + score;
 	}
 }

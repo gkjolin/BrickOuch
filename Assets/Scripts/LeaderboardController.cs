@@ -30,7 +30,7 @@ public class LeaderboardController : MonoBehaviour
 
 	private void PopulateLeaderBoard ()
 	{
-		var scores = FacebookAccess.Scores;
+		var scores = GameManager.Instance.Scores;
 		Debug.Log ("Score count: " + scores.Count);
 
 		// Clear out previous leaderboard

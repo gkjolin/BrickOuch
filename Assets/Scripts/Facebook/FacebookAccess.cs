@@ -8,19 +8,6 @@ public static class FacebookAccess
 	private const string FB_ID = "facebook_id";
 	private const string FB_NAME = "facebook_name";
 
-	private static HashSet<FBScore> scores = new HashSet<FBScore> ();
-	public static HashSet<FBScore> Scores
-	{
-		get
-		{
-			return scores;
-		}
-		private set
-		{
-			scores = value;
-		}
-	}
-
 	public static void SetName (string name)
 	{
 		PlayerPrefs.SetString (FB_NAME, name);
@@ -101,7 +88,7 @@ public static class FacebookAccess
             }
 
 			FBScore score = JsonMapping.GetScore (scoreItem);
-			Scores.Add (score);
+			GameManager.Instance.Scores.Add (score);
         }
     }
 

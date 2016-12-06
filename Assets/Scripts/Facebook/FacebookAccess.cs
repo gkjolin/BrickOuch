@@ -37,7 +37,14 @@ public static class FacebookAccess
 
 	public static void GetScores ()
     {
-        FB.API("/app/scores?fields=score,user.limit(20)", HttpMethod.GET, GetScoresCallback);
+		if (FB.IsLoggedIn)
+		{
+			FB.API ("/app/scores?fields=score", HttpMethod.GET, GetScoresCallback);
+		}
+		else
+		{
+			Debug.Log ("You must be logged in to retrieve scores");
+		}
     }
 
     private static void GetScoresCallback(IGraphResult result) 

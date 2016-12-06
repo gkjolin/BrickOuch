@@ -21,4 +21,10 @@ public class GameManager : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	void OnApplicationFocus (bool hasFocus) {
+		if (hasFocus) {
+			FacebookAccess.GetScores ();
+		}
+	}
 }

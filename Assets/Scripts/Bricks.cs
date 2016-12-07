@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
+using Spine.Unity;
 
 public class Bricks : MonoBehaviour {
 
@@ -29,6 +30,7 @@ public class Bricks : MonoBehaviour {
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		CreateMultipleBricks(MaxBricks);
+		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
 	}
 
 	public void CheckLevelEnd()
@@ -50,6 +52,7 @@ public class Bricks : MonoBehaviour {
 		// Recover ball used to win the level
 		paddle.IncrementLife ();
 		levelManager.Phase++;
+		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
 
 		this.Reset();
 		ball.Reset(levelManager.Phase);

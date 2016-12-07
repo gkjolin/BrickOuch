@@ -5,6 +5,7 @@ using Facebook.Unity;
 
 public class LevelManager : MonoBehaviour
 {
+
 	public bool GameIsPaused { get; set; }
 
 	public GameObject pausePanel;
@@ -119,4 +120,5 @@ public class LevelManager : MonoBehaviour
 	{
 		GoogleAnalytics.HitAnalyticsEvent ("coming_soon", eventName);
 	}
+
 }

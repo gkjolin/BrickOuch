@@ -72,11 +72,42 @@ public class FacebookPanelController : MonoBehaviour
 			} else {
 				Debug.Log ("(existing account)");
 			}
+
+			this.GetUserData ();
 		},
 			(error) => {
 				Debug.Log ("Error logging in player with custom ID:");
 				Debug.Log (error.ErrorMessage);
 			});
+	}
+
+	void GetUserData ()
+	{
+		GetAccountInfoRequest request = new GetAccountInfoRequest () {
+			PlayFabId = PlayFabId
+		};
+
+		PlayFabClientAPI.GetAccountInfo (request, (result) => {
+			Debug.Log ("Got account info:");
+			if ((result.AccountInfo == null)) {
+				Debug.Log ("No account available");
+			} else {
+				UserFacebookInfo fbInfo = result.AccountInfo.FacebookInfo;
+				if (fbInfo == null) {
+					Debug.Log ("No facebook info available");
+				} else {
+					loginButton.GetComponentInChildren<Text> ().text = "Logout";
+					welcomeText.text = "Welcome, " + fbInfo.FullName;
+
+					FacebookAccess.SetId ((string)fbInfo.FacebookId);
+					FacebookAccess.SetName ((string)fbInfo.FullName);
+				}
+
+			}
+		}, (error) => {
+			Debug.Log ("Got error retrieving user data:");
+			Debug.Log (error.ErrorMessage);
+		});
 	}
 
 	private void FBAPICallback (IResult result)

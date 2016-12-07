@@ -2294,6 +2294,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1affd22ea25bd544fa13c75d4c0dfb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelUpBackground: {fileID: 1000012895624302, guid: f08a1a25ddc6bf042ac5a7d6805db99b,
+    type: 2}
+  levelUpNumber: {fileID: 1000011091353518, guid: 115a614306d9669419bd1bff90770e92,
+    type: 2}
 --- !u!4 &929951124
 Transform:
   m_ObjectHideFlags: 0

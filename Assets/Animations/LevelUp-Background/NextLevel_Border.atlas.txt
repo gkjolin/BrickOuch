@@ -1,0 +1,34 @@
+
+NextLevel_Border.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Banner
+  rotate: false
+  xy: 2, 2
+  size: 521, 195
+  orig: 521, 195
+  offset: 0, 0
+  index: -1
+Border
+  rotate: false
+  xy: 2, 199
+  size: 537, 534
+  orig: 537, 534
+  offset: 0, 0
+  index: -1
+Star01
+  rotate: false
+  xy: 541, 621
+  size: 117, 112
+  orig: 117, 112
+  offset: 0, 0
+  index: -1
+Star02
+  rotate: false
+  xy: 541, 621
+  size: 117, 112
+  orig: 117, 112
+  offset: 0, 0
+  index: -1

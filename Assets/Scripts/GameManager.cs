@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager Instance { get; private set; }
 
-	public HashSet<FBScore> Scores { get; private set; }
-
 	public GameObject levelUpBackground;
 	public GameObject levelUpNumber;
+
+	public HashSet<FBScore> Scores { get; private set; }
 
 	void Awake ()
 	{

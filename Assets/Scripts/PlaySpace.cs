@@ -3,10 +3,13 @@ using System.Collections;
 
 public class PlaySpace : MonoBehaviour {
 
+	public new Collider2D collider;
+
 	public static float Width { get; set; }
 	public static float Height { get; set; }
 	public static float MinX { get; set; }
 	public static float ScoreHeight { get; set; }
+	public static Bounds Bounds { get; private set; }
 
 	public static float ActualWidth 
 	{
@@ -32,11 +35,10 @@ public class PlaySpace : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		var collider = this.GetComponentInChildren<Collider2D>();
-
 		PlaySpace.Height = Camera.main.orthographicSize * 2;
 		PlaySpace.MinX = collider.bounds.min.x;
 		PlaySpace.Width = collider.bounds.size.x;
-		PlaySpace.ScoreHeight = Height - this.GetComponentInChildren<Collider2D>().bounds.max.y;
+		PlaySpace.ScoreHeight = Height - collider.bounds.max.y;
+		PlaySpace.Bounds = collider.bounds;
 	}
 }

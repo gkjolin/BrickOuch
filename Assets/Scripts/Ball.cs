@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour {
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
-	private Vector3 launchTouchPos = Vector3.zero;
+	private Vector2 launchTouchPos = Vector2.zero;
 
 	private const float velocityIncreaseRate = 0.1f;
 
@@ -51,9 +51,12 @@ public class Ball : MonoBehaviour {
 
 			if (Input.GetMouseButtonUp (0))
 			{
-				Vector3 realeasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				Vector2 releasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-				if (Vector3.Distance (launchTouchPos, realeasePos) < 10) {
+				bool click = Vector3.Distance (launchTouchPos, releasePos) < 10;
+				bool insidePlaySpace = PlaySpace.Bounds.Contains (releasePos);
+
+				if (click && insidePlaySpace) {
 					HasBeenLaunched = true;
 					paddle.DecrementLife ();
 					StartCoroutine (paddle.StartGameAnimation ());

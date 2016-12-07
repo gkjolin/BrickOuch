@@ -89,7 +89,6 @@ public class LevelManager : MonoBehaviour
 			Time.timeScale = 0f;
 			paddle.freezePaddle = true;
 			this.UpdateScoreOnPause ();
-
 		} else {
 			pausePanel.SetActive (false);
 			Time.timeScale = 1f;

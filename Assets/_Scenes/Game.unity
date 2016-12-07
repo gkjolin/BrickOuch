@@ -2162,6 +2162,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1359681957}
+--- !u!68 &1385216389 stripped
+EdgeCollider2D:
+  m_PrefabParentObject: {fileID: 68000014234046494, guid: 40d22afe03dcf49889e9d835edb6c2f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1982581400}
 --- !u!1 &1441588125
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,6 +2880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f2495571add473d9127a5324eae357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 1385216389}
 --- !u!1 &1770156840
 GameObject:
   m_ObjectHideFlags: 0

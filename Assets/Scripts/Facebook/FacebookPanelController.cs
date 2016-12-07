@@ -47,9 +47,8 @@ public class FacebookPanelController : MonoBehaviour
 				Debug.Log (perm);
 			}
 			this.PlayfabLogin (aToken);
-			/*
-			FB.API ("/me", HttpMethod.GET, FBAPICallback);
-			FacebookAccess.GetScores ();*/
+
+			// FacebookAccess.GetScores ();*/
 		} else {
 			Debug.Log ("User cancelled login");
 		}
@@ -108,23 +107,5 @@ public class FacebookPanelController : MonoBehaviour
 			Debug.Log ("Got error retrieving user data:");
 			Debug.Log (error.ErrorMessage);
 		});
-	}
-
-	private void FBAPICallback (IResult result)
-	{
-		if (!String.IsNullOrEmpty (result.Error)) {
-			// Handle error
-		} else {
-			// Got user profile info
-			var resultObject = result.ResultDictionary;
-			var facebookId = resultObject ["id"];
-			var facebookName = resultObject ["name"];
-
-			loginButton.GetComponentInChildren<Text> ().text = "Logout";
-			welcomeText.text = "Welcome, " + facebookName;
-
-			FacebookAccess.SetId ((string)facebookId);
-			FacebookAccess.SetName ((string)facebookName);
-		}
 	}
 }

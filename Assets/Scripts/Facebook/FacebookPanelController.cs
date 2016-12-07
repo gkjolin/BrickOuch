@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Facebook.Unity;
+using PlayFab;
+using PlayFab.ClientModels;
 using System;
 
 public class FacebookPanelController : MonoBehaviour
@@ -9,6 +11,7 @@ public class FacebookPanelController : MonoBehaviour
 
 	public Text welcomeText;
 	public Button loginButton;
+	public string PlayFabId;
 
 	void Awake ()
 	{
@@ -21,9 +24,9 @@ public class FacebookPanelController : MonoBehaviour
 		}
 	}
 
-	public void FacebookInvite()
+	public void FacebookInvite ()
 	{
-		FacebookAccess.Invite();
+		FacebookAccess.Invite ();
 	}
 
 	public void  Login ()
@@ -43,11 +46,37 @@ public class FacebookPanelController : MonoBehaviour
 			foreach (string perm in aToken.Permissions) {
 				Debug.Log (perm);
 			}
+			this.PlayfabLogin (aToken);
+			/*
 			FB.API ("/me", HttpMethod.GET, FBAPICallback);
-			FacebookAccess.GetScores ();
+			FacebookAccess.GetScores ();*/
 		} else {
 			Debug.Log ("User cancelled login");
 		}
+	}
+
+	private void PlayfabLogin (AccessToken facebookToken)
+	{
+		LoginWithFacebookRequest request = new LoginWithFacebookRequest () {
+			TitleId = PlayFabSettings.TitleId,
+			AccessToken = facebookToken.TokenString,
+			CreateAccount = true,
+		};
+
+		PlayFabClientAPI.LoginWithFacebook (request, (result) => {
+			PlayFabId = result.PlayFabId;
+			Debug.Log ("Got PlayFabID: " + PlayFabId);
+
+			if (result.NewlyCreated) {
+				Debug.Log ("(new account)");
+			} else {
+				Debug.Log ("(existing account)");
+			}
+		},
+			(error) => {
+				Debug.Log ("Error logging in player with custom ID:");
+				Debug.Log (error.ErrorMessage);
+			});
 	}
 
 	private void FBAPICallback (IResult result)
@@ -57,14 +86,14 @@ public class FacebookPanelController : MonoBehaviour
 		} else {
 			// Got user profile info
 			var resultObject = result.ResultDictionary;
-			var facebookId = resultObject["id"];
-			var facebookName = resultObject["name"];
+			var facebookId = resultObject ["id"];
+			var facebookName = resultObject ["name"];
 
 			loginButton.GetComponentInChildren<Text> ().text = "Logout";
 			welcomeText.text = "Welcome, " + facebookName;
 
-			FacebookAccess.SetId((string)facebookId);
-			FacebookAccess.SetName((string)facebookName);
+			FacebookAccess.SetId ((string)facebookId);
+			FacebookAccess.SetName ((string)facebookName);
 		}
 	}
 }

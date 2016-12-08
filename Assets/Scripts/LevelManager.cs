@@ -9,7 +9,6 @@ public class LevelManager : Singleton<LevelManager>
 {
 	private const float DigitSize = 120;
 
-
 	public bool GameIsPaused { get; set; }
 
 	public GameObject pausePanel;
@@ -19,6 +18,7 @@ public class LevelManager : Singleton<LevelManager>
 	private Paddle paddle;
 	private MusicPlayer musicPlayer;
 
+	public GameObject levelUpOverlay;
 	public GameObject levelUpBackground;
 	public GameObject levelUpNumber;
 
@@ -117,6 +117,7 @@ public class LevelManager : Singleton<LevelManager>
 		var strSize = (levelStr.Length - 1) * DigitSize;
 		var offset = -strSize / 2;
 
+		levelUpOverlay.SetActive (true);
 		foreach (var digit in levelStr) {
 			CreateAnimation (levelUpNumber, digit.ToString (), offset, true);
 			offset += DigitSize;
@@ -149,6 +150,7 @@ public class LevelManager : Singleton<LevelManager>
 				Destroy (skeletonAnim.gameObject);
 
 				if (callback != null) {
+					levelUpOverlay.SetActive (false);
 					callback();
 				}
 			}

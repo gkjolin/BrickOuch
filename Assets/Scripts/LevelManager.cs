@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using Facebook.Unity;
 using Spine.Unity;
@@ -28,7 +27,6 @@ public class LevelManager : MonoBehaviour
 		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
 		Phase = 1;
 	}
-
 
 	// Awake function from Unity's MonoBehavior
 	void Awake ()
@@ -63,11 +61,6 @@ public class LevelManager : MonoBehaviour
 			// Resume the game - we're getting focus again
 			Time.timeScale = 1;
 		}
-	}
-
-	public void LoadScene (string name)
-	{
-		SceneManager.LoadScene (name);
 	}
 
 	public void QuitRequest ()

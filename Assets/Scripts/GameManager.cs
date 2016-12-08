@@ -18,16 +18,20 @@ public class GameManager : Singleton<GameManager> {
 		TrackAndroidBackButton ();
 	}
 
+	void OnApplicationFocus (bool hasFocus) {
+		if (hasFocus) {
+			FacebookAccess.GetScores ();
+		}
+	}
+
+	public void LoadScene (string name) {
+		SceneManager.LoadScene (name);
+	}
+
 	private void TrackAndroidBackButton ()
 	{
 		if (Application.platform == RuntimePlatform.Android && Input.GetKey (KeyCode.Escape)) {
 			Manager.Client.SendEventHit ("disabledbuttons", "android_back", SceneManager.GetActiveScene().name);
-		}
-	}
-
-	void OnApplicationFocus (bool hasFocus) {
-		if (hasFocus) {
-			FacebookAccess.GetScores ();
 		}
 	}
 }

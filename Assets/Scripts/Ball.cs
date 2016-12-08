@@ -33,7 +33,9 @@ public class Ball : MonoBehaviour {
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
-		Reset(1);
+		// Prevent from launching ball before level up animation ends
+		HasBeenLaunched = true;
+		Reset();
 	}
 	
 	// Update is called once per frame
@@ -66,11 +68,15 @@ public class Ball : MonoBehaviour {
 		}
 	}
 
-	public void Reset (int phase)
+	public void Reset ()
 	{
 		this.transform.position = paddle.transform.position + paddleToBallVector;
-		HasBeenLaunched = false;
 		body.velocity = Vector2.zero;
+	}
+
+	public void ReadyToLaunch (int phase)
+	{
+		HasBeenLaunched = false;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;
 		skeletonAnimation.state.ClearTracks ();
 		skeletonAnimation.Skeleton.SetToSetupPose();

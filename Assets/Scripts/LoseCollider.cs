@@ -29,8 +29,9 @@ public class LoseCollider : MonoBehaviour
 
 	private IEnumerator ResetGame()
 	{
-		yield return new WaitForSeconds (2f);
-		ball.Reset(levelManager.Phase);
+		yield return new WaitForSeconds (1f);
+		ball.Reset ();
+		ball.ReadyToLaunch (levelManager.Phase);
 		paddle.Reset();
 	}
 

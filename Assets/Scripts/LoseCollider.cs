@@ -29,15 +29,18 @@ public class LoseCollider : MonoBehaviour
 
 	private IEnumerator ResetGame()
 	{
-		yield return new WaitForSeconds (2f);
-		ball.Reset(levelManager.Phase);
+		ball.ReadyToLaunch = false;
+
+		yield return new WaitForSeconds (1f);
+		ball.Reset ();
+		ball.SetReadyToLaunch (levelManager.Phase);
 		paddle.Reset();
 	}
 
 	private IEnumerator LoadLoseScreen ()
 	{
 		yield return new WaitForSeconds (2f);
-		levelManager.LoadScene ("Start Menu");
+		GameManager.Instance.LoadScene ("Start Menu");
 	}
 	
 }

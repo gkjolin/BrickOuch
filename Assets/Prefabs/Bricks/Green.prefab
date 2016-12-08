@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.64, y: 0.64, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -135,6 +135,3 @@ MonoBehaviour:
   - GREEN
   - GREEN_S1
   - GREEN_S2
-  soundManager: {fileID: 0}
-  boingSound: {fileID: 8300000, guid: c6d191bbf8b124dff9212a25c3679c02, type: 3}
-  popSound: {fileID: 8300000, guid: bfa5a4a1ab7d34517aab525ee08fea3e, type: 3}

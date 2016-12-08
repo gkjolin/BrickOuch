@@ -13,7 +13,8 @@ public class Ball : MonoBehaviour {
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
-	private Vector3 launchTouchPos = Vector3.zero;
+	public bool ReadyToLaunch { get; set; }
+	private Vector2? launchTouchPos = null;
 
 	private const float velocityIncreaseRate = 0.1f;
 
@@ -33,41 +34,55 @@ public class Ball : MonoBehaviour {
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
-		Reset(1);
+		// Prevent from launching ball before level up animation ends
+		Reset();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!HasBeenLaunched)
-		{
-			// Lock the ball relative to the paddle.
-			this.transform.position = paddle.transform.position + paddleToBallVector;
-			
+		if (HasBeenLaunched || LevelManager.Instance.GameIsPaused) {
+			return;
+		}
+
+		// Lock the ball relative to the paddle.
+		this.transform.position = paddle.transform.position + paddleToBallVector;
+
+		if (ReadyToLaunch) {
 			// Wait for a mouse press to launch.
 			if (Input.GetMouseButtonDown (0)) {
-				launchTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				launchTouchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			}
 
-			if (Input.GetMouseButtonUp (0))
-			{
-				Vector3 realeasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			if (Input.GetMouseButtonUp (0) && launchTouchPos.HasValue) {
+				Vector2 releasePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
-				if (Vector3.Distance (launchTouchPos, realeasePos) < 10) {
+				bool click = Vector3.Distance (launchTouchPos.Value, releasePos) < 10;
+				bool insidePlaySpace = PlaySpace.Bounds.Contains (releasePos);
+
+				if (click && insidePlaySpace) {
 					HasBeenLaunched = true;
 					paddle.DecrementLife ();
 					StartCoroutine (paddle.StartGameAnimation ());
 					body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
 				}
+
+				launchTouchPos = null;
 			}
 		}
 	}
 
-	public void Reset (int phase)
+	public void Reset ()
 	{
-		this.transform.position = paddle.transform.position + paddleToBallVector;
 		HasBeenLaunched = false;
+		ReadyToLaunch = false;
+		this.transform.position = paddle.transform.position + paddleToBallVector;
 		body.velocity = Vector2.zero;
+	}
+
+	public void SetReadyToLaunch (int phase)
+	{
+		ReadyToLaunch = true;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;
 		skeletonAnimation.state.ClearTracks ();
 		skeletonAnimation.Skeleton.SetToSetupPose();

@@ -203,11 +203,21 @@ public class Paddle : MonoBehaviour
 			Destroy (life.gameObject);
 		}
 
-		for (int i = 0; i < Lives; i++) 
+		Rect containerRect = lifeContainer.GetComponent<RectTransform> ().rect;
+		var lifeSize = containerRect.width * 0.18f;
+		var firstLifePos = containerRect.width * 0.285f;
+		var livesDistance = containerRect.width * 0.218f;
+			
+		for (int i = 0; i < Lives; i++)
 		{
 			var life = Instantiate(lifePrefab, lifeContainer, false) as GameObject;
-			float offset = life.transform.localPosition.x + i * (life.transform.localPosition.x + life.GetComponent<RectTransform>().rect.width);
-			Vector2 position = new Vector2(offset, 0);
+			var lifeRect = life.GetComponent<RectTransform> ().rect;
+
+			var scale = lifeSize / lifeRect.width;
+			life.transform.localScale = new Vector2 (scale, scale);
+
+			var offset = firstLifePos + i * livesDistance;
+			Vector2 position = new Vector2 (offset, 0);
 
 			life.transform.localPosition = position;
 		}

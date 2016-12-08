@@ -29,8 +29,7 @@ public class Bricks : MonoBehaviour {
 		BreakableCount = 0;
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
-		CreateMultipleBricks(MaxBricks);
-		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
+		levelManager.LevelUpAnimation (1, InitializeLevel);
 	}
 
 	public void CheckLevelEnd()
@@ -52,14 +51,19 @@ public class Bricks : MonoBehaviour {
 		// Recover ball used to win the level
 		paddle.IncrementLife ();
 		levelManager.Phase++;
-		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
 
 		this.Reset();
-		ball.Reset(levelManager.Phase);
+		ball.Reset();
 		paddle.Reset();
 
+		levelManager.LevelUpAnimation (levelManager.Phase, InitializeLevel);
+	}
+
+	private void InitializeLevel ()
+	{
+		ball.SetReadyToLaunch (levelManager.Phase);
 		CreateMultipleBricks(MaxBricks);
-		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
+		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x {0}", levelManager.Phase);
 	}
 
 	private void CreateBrickOverTime()
@@ -106,7 +110,7 @@ public class Bricks : MonoBehaviour {
 			newBrick.pointsWorth *= levelManager.Phase;
 
 			var widthPerBalloon = PlaySpace.Width/BalloonsColumns;
-			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2;
+			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2.25f;
 
 			Vector2 startPos = new Vector2 (PlaySpace.MinX + widthPerBalloon * (posX + 0.5f), PlaySpace.UsefulPlaySpace - heightPerBalloon * (posY + 0.5f) - obj.GetComponent<Collider2D>().offset.y);
 			obj.transform.position = startPos;

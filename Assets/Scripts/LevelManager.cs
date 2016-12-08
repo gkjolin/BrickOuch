@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using System;
 using System.Collections;
 using Facebook.Unity;
+using Spine.Unity;
+using SA.Analytics.Google;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
+	private const float DigitSize = 120;
 
 	public bool GameIsPaused { get; set; }
 
@@ -15,23 +18,17 @@ public class LevelManager : MonoBehaviour
 	private Paddle paddle;
 	private MusicPlayer musicPlayer;
 
-	private void Start ()
-	{
-		GameIsPaused = false;
-		paddle = GameObject.FindObjectOfType<Paddle> ();
-		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
-		Phase = 1;
-	}
+	public GameObject levelUpOverlay;
+	public GameObject levelUpBackground;
+	public GameObject levelUpNumber;
 
-	void Update ()
-	{
-		if (Application.platform == RuntimePlatform.Android) {
-			this.TrackAndroidBackButton ();
+	protected override bool Destroyable {
+		get {
+			return true;
 		}
 	}
 
-	// Awake function from Unity's MonoBehavior
-	void Awake ()
+	protected override void Initialize ()
 	{
 		if (!FB.IsInitialized) {
 			// Initialize the Facebook SDK
@@ -40,6 +37,14 @@ public class LevelManager : MonoBehaviour
 			// Already initialized, signal an app activation App Event
 			FB.ActivateApp ();
 		}
+	}
+
+	private void Start ()
+	{
+		GameIsPaused = false;
+		paddle = GameObject.FindObjectOfType<Paddle> ();
+		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
+		Phase = 1;
 	}
 
 	private void InitCallback ()
@@ -65,11 +70,6 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	public void LoadScene (string name)
-	{
-		SceneManager.LoadScene (name);
-	}
-
 	public void QuitRequest ()
 	{
 		Application.Quit ();
@@ -89,7 +89,6 @@ public class LevelManager : MonoBehaviour
 			Time.timeScale = 0f;
 			paddle.freezePaddle = true;
 			this.UpdateScoreOnPause ();
-
 		} else {
 			pausePanel.SetActive (false);
 			Time.timeScale = 1f;
@@ -104,21 +103,58 @@ public class LevelManager : MonoBehaviour
 
 	private void UpdateScoreOnPause ()
 	{
-		GameObject scoreObj = GameObject.Find ("Score");
-		Score score = scoreObj.GetComponent<Score> ();
+		Score score = GameObject.FindObjectOfType<Score> ();
 		score.UpdateHighestScore ();
-	}
-
-	private void TrackAndroidBackButton ()
-	{
-		if (Input.GetKey (KeyCode.Escape)) {
-			GoogleAnalytics.HitAnalyticsEvent ("disabledbuttons", "android_back");
-		}
 	}
 
 	public void ComingSoonEvents (string eventName)
 	{
-		GoogleAnalytics.HitAnalyticsEvent ("coming_soon", eventName);
+		Manager.Client.SendEventHit ("coming_soon", eventName);
+	}
+
+	public void LevelUpAnimation(int level, Action callback) {
+		var levelStr = level.ToString ();
+		var strSize = (levelStr.Length - 1) * DigitSize;
+		var offset = -strSize / 2;
+
+		levelUpOverlay.SetActive (true);
+		foreach (var digit in levelStr) {
+			CreateAnimation (levelUpNumber, digit.ToString (), offset, true);
+			offset += DigitSize;
+		}
+
+		CreateAnimation (levelUpBackground, callback: callback);
+	}
+
+	private void CreateAnimation (GameObject prefab, string skin = null, float offset = 0, bool front = false, Action callback = null)
+	{
+		var gameObj = Instantiate (prefab) as GameObject;
+		gameObj.transform.Translate (offset, 0, front ? -5 : -4);
+
+		var animation = gameObj.GetComponent<SkeletonAnimation> ();
+
+		if (skin != null) {
+			animation.skeleton.SetSkin (skin);
+		}
+
+		animation.state.AddAnimation (0, "Out", false, 2);
+		DestroyOnComplete (animation, callback);
+	}
+
+	private void DestroyOnComplete (SkeletonAnimation skeletonAnim, Action callback)
+	{
+		skeletonAnim.state.End += delegate (Spine.AnimationState state, int trackIndex) {
+			var animationName = state.GetCurrent(trackIndex).Animation.Name;
+
+			if (animationName == "Out") {
+				Destroy (skeletonAnim.gameObject);
+
+				if (callback != null) {
+					levelUpOverlay.SetActive (false);
+					callback();
+				}
+			}
+		};
 	}
 
 }

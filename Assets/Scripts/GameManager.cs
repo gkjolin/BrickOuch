@@ -8,6 +8,12 @@ public class GameManager : Singleton<GameManager> {
 
 	public HashSet<FBScore> Scores { get; private set; }
 
+	protected override bool Destroyable {
+		get {
+			return false;
+		}
+	}
+
 	protected override void Initialize ()
 	{
 		Scores = new HashSet<FBScore> ();

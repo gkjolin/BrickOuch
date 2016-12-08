@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour {
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
-	private Vector2 launchTouchPos = Vector2.zero;
+	private Vector2? launchTouchPos = null;
 
 	private const float velocityIncreaseRate = 0.1f;
 
@@ -41,7 +41,7 @@ public class Ball : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!HasBeenLaunched)
+		if (!HasBeenLaunched && !LevelManager.Instance.GameIsPaused)
 		{
 			// Lock the ball relative to the paddle.
 			this.transform.position = paddle.transform.position + paddleToBallVector;
@@ -51,11 +51,11 @@ public class Ball : MonoBehaviour {
 				launchTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			}
 
-			if (Input.GetMouseButtonUp (0))
+			if (Input.GetMouseButtonUp (0) && launchTouchPos.HasValue)
 			{
 				Vector2 releasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-				bool click = Vector3.Distance (launchTouchPos, releasePos) < 10;
+				bool click = Vector3.Distance (launchTouchPos.Value, releasePos) < 10;
 				bool insidePlaySpace = PlaySpace.Bounds.Contains (releasePos);
 
 				if (click && insidePlaySpace) {
@@ -64,6 +64,8 @@ public class Ball : MonoBehaviour {
 					StartCoroutine (paddle.StartGameAnimation ());
 					body.velocity = new Vector2 (-520f, 256f) * velocityMultiplier;
 				}
+
+				launchTouchPos = null;
 			}
 		}
 	}

@@ -5,9 +5,10 @@ using Facebook.Unity;
 using Spine.Unity;
 using SA.Analytics.Google;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
 	private const float DigitSize = 120;
+
 
 	public bool GameIsPaused { get; set; }
 
@@ -21,16 +22,13 @@ public class LevelManager : MonoBehaviour
 	public GameObject levelUpBackground;
 	public GameObject levelUpNumber;
 
-	private void Start ()
-	{
-		GameIsPaused = false;
-		paddle = GameObject.FindObjectOfType<Paddle> ();
-		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
-		Phase = 1;
+	protected override bool Destroyable {
+		get {
+			return true;
+		}
 	}
 
-	// Awake function from Unity's MonoBehavior
-	void Awake ()
+	protected override void Initialize ()
 	{
 		if (!FB.IsInitialized) {
 			// Initialize the Facebook SDK
@@ -39,6 +37,14 @@ public class LevelManager : MonoBehaviour
 			// Already initialized, signal an app activation App Event
 			FB.ActivateApp ();
 		}
+	}
+
+	private void Start ()
+	{
+		GameIsPaused = false;
+		paddle = GameObject.FindObjectOfType<Paddle> ();
+		musicPlayer = GameObject.FindObjectOfType<MusicPlayer> ();
+		Phase = 1;
 	}
 
 	private void InitCallback ()
@@ -97,8 +103,7 @@ public class LevelManager : MonoBehaviour
 
 	private void UpdateScoreOnPause ()
 	{
-		GameObject scoreObj = GameObject.Find ("Score");
-		Score score = scoreObj.GetComponent<Score> ();
+		Score score = GameObject.FindObjectOfType<Score> ();
 		score.UpdateHighestScore ();
 	}
 

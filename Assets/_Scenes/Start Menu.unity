@@ -176,7 +176,8 @@ MonoBehaviour:
           m_StringArgument: choose_cannon
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 832747633}
+      - m_Target: {fileID: 114000010277288640, guid: e928fdde6c856b046a12772067a2dfdb,
+          type: 2}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -2805,7 +2806,8 @@ MonoBehaviour:
           m_StringArgument: choose_ball
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 832747633}
+      - m_Target: {fileID: 114000010277288640, guid: e928fdde6c856b046a12772067a2dfdb,
+          type: 2}
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:

@@ -4,28 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
 
 	private const float DigitSize = 120;
-
-	public static GameManager Instance { get; private set; }
 
 	public GameObject levelUpBackground;
 	public GameObject levelUpNumber;
 
 	public HashSet<FBScore> Scores { get; private set; }
 
-	void Awake ()
+	protected override void Initialize ()
 	{
-		if (Instance == null) {
-			Instance = this;
-			DontDestroyOnLoad (this);
-
-			// Initialize GameManager variables
-			Scores = new HashSet<FBScore> ();
-		} else {
-			Destroy (gameObject);
-		}
+		Scores = new HashSet<FBScore> ();
 	}
 
 	void OnApplicationFocus (bool hasFocus) {

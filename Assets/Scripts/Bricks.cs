@@ -29,8 +29,7 @@ public class Bricks : MonoBehaviour {
 		BreakableCount = 0;
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
-		CreateMultipleBricks(MaxBricks);
-		levelManager.LevelUpAnimation (1);
+		levelManager.LevelUpAnimation (1, InitializeLevel);
 	}
 
 	public void CheckLevelEnd()
@@ -52,12 +51,16 @@ public class Bricks : MonoBehaviour {
 		// Recover ball used to win the level
 		paddle.IncrementLife ();
 		levelManager.Phase++;
-		levelManager.LevelUpAnimation (levelManager.Phase);
 
 		this.Reset();
 		ball.Reset(levelManager.Phase);
 		paddle.Reset();
 
+		levelManager.LevelUpAnimation (levelManager.Phase, InitializeLevel);
+	}
+
+	private void InitializeLevel ()
+	{
 		CreateMultipleBricks(MaxBricks);
 		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
 	}

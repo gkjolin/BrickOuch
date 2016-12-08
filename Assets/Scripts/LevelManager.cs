@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using Facebook.Unity;
 using Spine.Unity;
@@ -106,7 +107,7 @@ public class LevelManager : MonoBehaviour
 		Manager.Client.SendEventHit ("coming_soon", eventName);
 	}
 
-	public void LevelUpAnimation(int level) {
+	public void LevelUpAnimation(int level, Action callback) {
 		var levelStr = level.ToString ();
 		var strSize = (levelStr.Length - 1) * DigitSize;
 		var offset = -strSize / 2;
@@ -116,10 +117,10 @@ public class LevelManager : MonoBehaviour
 			offset += DigitSize;
 		}
 
-		CreateAnimation (levelUpBackground);
+		CreateAnimation (levelUpBackground, callback: callback);
 	}
 
-	private void CreateAnimation (GameObject prefab, string skin = null, float offset = 0, bool front = false)
+	private void CreateAnimation (GameObject prefab, string skin = null, float offset = 0, bool front = false, Action callback = null)
 	{
 		var gameObj = Instantiate (prefab) as GameObject;
 		gameObj.transform.Translate (offset, 0, front ? -5 : -4);
@@ -131,16 +132,20 @@ public class LevelManager : MonoBehaviour
 		}
 
 		animation.state.AddAnimation (0, "Out", false, 2);
-		DestroyOnComplete (animation);
+		DestroyOnComplete (animation, callback);
 	}
 
-	private void DestroyOnComplete (SkeletonAnimation skeletonAnim)
+	private void DestroyOnComplete (SkeletonAnimation skeletonAnim, Action callback)
 	{
 		skeletonAnim.state.End += delegate (Spine.AnimationState state, int trackIndex) {
 			var animationName = state.GetCurrent(trackIndex).Animation.Name;
 
 			if (animationName == "Out") {
 				Destroy (skeletonAnim.gameObject);
+
+				if (callback != null) {
+					callback();
+				}
 			}
 		};
 	}

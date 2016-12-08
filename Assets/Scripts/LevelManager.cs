@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Facebook.Unity;
 using Spine.Unity;
+using SA.Analytics.Google;
 
 public class LevelManager : MonoBehaviour
 {
@@ -28,12 +29,6 @@ public class LevelManager : MonoBehaviour
 		Phase = 1;
 	}
 
-	void Update ()
-	{
-		if (Application.platform == RuntimePlatform.Android) {
-			this.TrackAndroidBackButton ();
-		}
-	}
 
 	// Awake function from Unity's MonoBehavior
 	void Awake ()
@@ -113,16 +108,9 @@ public class LevelManager : MonoBehaviour
 		score.UpdateHighestScore ();
 	}
 
-	private void TrackAndroidBackButton ()
-	{
-		if (Input.GetKey (KeyCode.Escape)) {
-			GoogleAnalytics.HitAnalyticsEvent ("disabledbuttons", "android_back");
-		}
-	}
-
 	public void ComingSoonEvents (string eventName)
 	{
-		GoogleAnalytics.HitAnalyticsEvent ("coming_soon", eventName);
+		Manager.Client.SendEventHit ("coming_soon", eventName);
 	}
 
 	public void LevelUpAnimation(int level) {

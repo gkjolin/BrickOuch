@@ -13,6 +13,7 @@ public class Ball : MonoBehaviour {
 	public LoseCollider loseCollider;
 
 	public bool HasBeenLaunched { get; set; }
+	public bool ReadyToLaunch { get; set; }
 	private Vector2? launchTouchPos = null;
 
 	private const float velocityIncreaseRate = 0.1f;
@@ -34,26 +35,27 @@ public class Ball : MonoBehaviour {
 		paddleToBallVector = this.transform.position - paddle.transform.position;
 
 		// Prevent from launching ball before level up animation ends
-		HasBeenLaunched = true;
 		Reset();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!HasBeenLaunched && !LevelManager.Instance.GameIsPaused)
-		{
-			// Lock the ball relative to the paddle.
-			this.transform.position = paddle.transform.position + paddleToBallVector;
-			
+		if (HasBeenLaunched || LevelManager.Instance.GameIsPaused) {
+			return;
+		}
+
+		// Lock the ball relative to the paddle.
+		this.transform.position = paddle.transform.position + paddleToBallVector;
+
+		if (ReadyToLaunch) {
 			// Wait for a mouse press to launch.
 			if (Input.GetMouseButtonDown (0)) {
-				launchTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				launchTouchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			}
 
-			if (Input.GetMouseButtonUp (0) && launchTouchPos.HasValue)
-			{
-				Vector2 releasePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			if (Input.GetMouseButtonUp (0) && launchTouchPos.HasValue) {
+				Vector2 releasePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
 				bool click = Vector3.Distance (launchTouchPos.Value, releasePos) < 10;
 				bool insidePlaySpace = PlaySpace.Bounds.Contains (releasePos);
@@ -72,13 +74,15 @@ public class Ball : MonoBehaviour {
 
 	public void Reset ()
 	{
+		HasBeenLaunched = false;
+		ReadyToLaunch = false;
 		this.transform.position = paddle.transform.position + paddleToBallVector;
 		body.velocity = Vector2.zero;
 	}
 
-	public void ReadyToLaunch (int phase)
+	public void SetReadyToLaunch (int phase)
 	{
-		HasBeenLaunched = false;
+		ReadyToLaunch = true;
 		velocityMultiplier = 1 + phase * velocityIncreaseRate;
 		skeletonAnimation.state.ClearTracks ();
 		skeletonAnimation.Skeleton.SetToSetupPose();

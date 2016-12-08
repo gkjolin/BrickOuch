@@ -61,7 +61,7 @@ public class Bricks : MonoBehaviour {
 
 	private void InitializeLevel ()
 	{
-		ball.ReadyToLaunch (levelManager.Phase);
+		ball.SetReadyToLaunch (levelManager.Phase);
 		CreateMultipleBricks(MaxBricks);
 		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
 	}

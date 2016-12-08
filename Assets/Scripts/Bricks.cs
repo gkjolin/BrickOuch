@@ -30,7 +30,7 @@ public class Bricks : MonoBehaviour {
 		ball = GameObject.FindObjectOfType<Ball>();
 		paddle = GameObject.FindObjectOfType<Paddle>();
 		CreateMultipleBricks(MaxBricks);
-		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
+		levelManager.LevelUpAnimation (1);
 	}
 
 	public void CheckLevelEnd()
@@ -52,7 +52,7 @@ public class Bricks : MonoBehaviour {
 		// Recover ball used to win the level
 		paddle.IncrementLife ();
 		levelManager.Phase++;
-		GameManager.Instance.LevelUpAnimation (levelManager.Phase);
+		levelManager.LevelUpAnimation (levelManager.Phase);
 
 		this.Reset();
 		ball.Reset(levelManager.Phase);

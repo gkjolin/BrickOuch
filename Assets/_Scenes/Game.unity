@@ -242,6 +242,16 @@ Prefab:
       propertyPath: pausePanel
       value: 
       objectReference: {fileID: 994776878}
+    - target: {fileID: 11400000, guid: fe9188b7c592e49b396b4f5e61d5a8ca, type: 2}
+      propertyPath: levelUpBackground
+      value: 
+      objectReference: {fileID: 1000012895624302, guid: f08a1a25ddc6bf042ac5a7d6805db99b,
+        type: 2}
+    - target: {fileID: 11400000, guid: fe9188b7c592e49b396b4f5e61d5a8ca, type: 2}
+      propertyPath: levelUpNumber
+      value: 
+      objectReference: {fileID: 1000011091353518, guid: 115a614306d9669419bd1bff90770e92,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe9188b7c592e49b396b4f5e61d5a8ca, type: 2}
   m_IsPrefabParent: 0

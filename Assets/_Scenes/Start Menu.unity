@@ -2089,6 +2089,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
+  levelUpBackground: {fileID: 0}
+  levelUpNumber: {fileID: 0}
 --- !u!4 &832747634
 Transform:
   m_ObjectHideFlags: 0

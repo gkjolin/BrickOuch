@@ -2563,8 +2563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ef9c388c346fc40a354adfac2d107b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BalloonsRows: 10
-  BalloonsColumns: 5
+  BalloonsRows: 12
+  BalloonsColumns: 6
   MaxBricks: 30
   soundManager: {fileID: 268158986}
   levelManager: {fileID: 106883867}

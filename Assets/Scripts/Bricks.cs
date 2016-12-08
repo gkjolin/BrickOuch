@@ -110,7 +110,7 @@ public class Bricks : MonoBehaviour {
 			newBrick.pointsWorth *= levelManager.Phase;
 
 			var widthPerBalloon = PlaySpace.Width/BalloonsColumns;
-			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2;
+			var heightPerBalloon = PlaySpace.UsefulPlaySpace / BalloonsRows / 2.25f;
 
 			Vector2 startPos = new Vector2 (PlaySpace.MinX + widthPerBalloon * (posX + 0.5f), PlaySpace.UsefulPlaySpace - heightPerBalloon * (posY + 0.5f) - obj.GetComponent<Collider2D>().offset.y);
 			obj.transform.position = startPos;

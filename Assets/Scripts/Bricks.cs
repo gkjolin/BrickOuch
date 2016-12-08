@@ -63,7 +63,7 @@ public class Bricks : MonoBehaviour {
 	{
 		ball.SetReadyToLaunch (levelManager.Phase);
 		CreateMultipleBricks(MaxBricks);
-		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x{0}", levelManager.Phase);
+		GameObject.FindGameObjectWithTag("ScoreMultiplier").GetComponent<Text>().text = string.Format("x {0}", levelManager.Phase);
 	}
 
 	private void CreateBrickOverTime()

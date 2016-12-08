@@ -217,8 +217,6 @@ public class Paddle : MonoBehaviour
 			life.transform.localScale = new Vector2 (scale, scale);
 
 			var offset = firstLifePos + i * livesDistance;
-			print (firstLifePos);
-			print (i * 90f);
 			Vector2 position = new Vector2 (offset, 0);
 
 			life.transform.localPosition = position;

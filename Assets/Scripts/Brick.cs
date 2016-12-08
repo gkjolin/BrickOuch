@@ -57,7 +57,7 @@ public class Brick : MonoBehaviour
 			score.AddScore (pointsWorth);
 
 			Destroy (this.GetComponent<BoxCollider2D> ());
-			skeletonAnimation.state.SetAnimation (0, "Pop", false);
+			skeletonAnimation.state.SetAnimation (0, "Pop", false).TimeScale = 1.3f;
 
 			bricks.CheckLevelEnd();
 		} 

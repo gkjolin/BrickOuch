@@ -6,6 +6,8 @@ using Spine.Unity;
 
 public class Paddle : MonoBehaviour
 {
+	private const float LivesOffset = 45f;
+
 	private int lives;
 	public int Lives {
 		get {
@@ -26,6 +28,7 @@ public class Paddle : MonoBehaviour
 
 	public Transform lifeContainer;
 	public GameObject lifePrefab;
+	private GameObject currentLife;
 
 	private float touchOffset;
 	private float minX, maxX;
@@ -189,7 +192,11 @@ public class Paddle : MonoBehaviour
 
 	public void DecrementLife()
 	{
-		Lives--;
+		var animation = currentLife.GetComponent<SkeletonAnimation> ();
+		animation.state.SetAnimation (0, "Puff", false);
+		animation.state.End += delegate {
+			Lives--;
+		};
 	}
 
 	public void IncrementLife()
@@ -203,23 +210,16 @@ public class Paddle : MonoBehaviour
 			Destroy (life.gameObject);
 		}
 
-		Rect containerRect = lifeContainer.GetComponent<RectTransform> ().rect;
-		var lifeSize = containerRect.width * 0.18f;
-		var firstLifePos = containerRect.width * 0.285f;
-		var livesDistance = containerRect.width * 0.218f;
-			
 		for (int i = 0; i < Lives; i++)
 		{
 			var life = Instantiate(lifePrefab, lifeContainer, false) as GameObject;
-			var lifeRect = life.GetComponent<RectTransform> ().rect;
+			var offset = i * LivesOffset;
 
-			var scale = lifeSize / lifeRect.width;
-			life.transform.localScale = new Vector2 (scale, scale);
-
-			var offset = firstLifePos + i * livesDistance;
-			Vector2 position = new Vector2 (offset, 0);
-
+			var position = life.transform.localPosition;
+			position.y -= offset;
 			life.transform.localPosition = position;
+
+			currentLife = life;
 		}
 	}
 

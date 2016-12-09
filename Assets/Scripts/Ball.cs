@@ -23,6 +23,8 @@ public class Ball : MonoBehaviour {
 	private Rigidbody2D body;
 	private SkeletonAnimation skeletonAnimation;
 
+	public GameObject splashAnimation;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -96,7 +98,11 @@ public class Ball : MonoBehaviour {
 		}
 
 		Paddle paddle = collision.gameObject.GetComponent<Paddle> ();
+
+		// If ball bounced on top of paddle
 		if (paddle != null && body.velocity.y > 0) {
+			SplashAnimation ();
+
 			float distance = transform.position.x - paddle.transform.position.x;
 			float rotationAngle = -distance * angleControlMultiplier;
 			float currentAngle = Vector2.Angle(Vector2.right, body.velocity);
@@ -109,6 +115,19 @@ public class Ball : MonoBehaviour {
 			Quaternion rotation = Quaternion.AngleAxis (rotationAngle, Vector3.forward);
 			body.velocity = rotation * body.velocity;
 		}
+	}
+
+	private void SplashAnimation() {
+		GameObject splash = Instantiate (splashAnimation) as GameObject;
+
+		var pos = splash.transform.localPosition;
+		pos.x = transform.position.x;
+		splash.transform.localPosition = pos;
+
+		var animation = splash.GetComponent<SkeletonAnimation> ();
+		animation.state.End += delegate {
+			Destroy(splash);
+		};
 	}
 
 	void OnCollisionExit2D(Collision2D collision)

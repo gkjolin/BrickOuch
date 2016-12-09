@@ -204,9 +204,9 @@ public class Paddle : MonoBehaviour
 		}
 
 		Rect containerRect = lifeContainer.GetComponent<RectTransform> ().rect;
-		var lifeSize = containerRect.width * 0.18f;
-		var firstLifePos = containerRect.width * 0.285f;
-		var livesDistance = containerRect.width * 0.218f;
+		var lifeSize = containerRect.width * 0.235f;
+		var firstLifePos = containerRect.width * 0.84f;
+		var livesDistance = containerRect.width * 0.305f;
 			
 		for (int i = 0; i < Lives; i++)
 		{
@@ -216,8 +216,8 @@ public class Paddle : MonoBehaviour
 			var scale = lifeSize / lifeRect.width;
 			life.transform.localScale = new Vector2 (scale, scale);
 
-			var offset = firstLifePos + i * livesDistance;
-			Vector2 position = new Vector2 (offset, 0);
+			var offset = firstLifePos - i * livesDistance;
+			Vector2 position = new Vector2 (0, offset);
 
 			life.transform.localPosition = position;
 		}

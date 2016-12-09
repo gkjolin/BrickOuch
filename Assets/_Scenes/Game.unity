@@ -194,11 +194,11 @@ RectTransform:
   - {fileID: 391324418}
   m_Father: {fileID: 2041823371}
   m_RootOrder: 4
-  m_AnchorMin: {x: 0.05, y: 0.9}
-  m_AnchorMax: {x: 0.25, y: 1}
+  m_AnchorMin: {x: 0.05, y: 0.87}
+  m_AnchorMax: {x: 0.22, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &106883866
 Prefab:
   m_ObjectHideFlags: 0
@@ -542,7 +542,7 @@ RectTransform:
   m_AnchorMin: {x: -0.16664584, y: -0.26000002}
   m_AnchorMax: {x: 0.30135417, y: -0.116000004}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.83487433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &209617952
 MonoBehaviour:
@@ -872,7 +872,7 @@ RectTransform:
   m_AnchorMin: {x: -0.04854369, y: 0.71386576}
   m_AnchorMax: {x: 0.1262136, y: 0.845}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -3.4542415}
+  m_SizeDelta: {x: 0.6869278, y: -3.4542415}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &346564557
 MonoBehaviour:
@@ -1078,7 +1078,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &558917699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1397,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888855114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,7 +1417,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 927442180c41045a6bbaeec945ac1ab1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64b4b0caf5fbfc54493d5218177dea12, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1647,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &994776879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2386,7 +2386,7 @@ RectTransform:
   m_AnchorMin: {x: 0.1764706, y: 0.36687446}
   m_AnchorMax: {x: 0.8305322, y: 0.78005344}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 2.5145135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1587804781
 MonoBehaviour:
@@ -2803,7 +2803,7 @@ RectTransform:
   m_AnchorMin: {x: 0.41374195, y: 0.22}
   m_AnchorMax: {x: 0.582, y: 0.79}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 116.85936, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1727117699
 MonoBehaviour:
@@ -3674,8 +3674,8 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 273.5, y: 211}
-  m_SizeDelta: {x: 0, y: 422}
+  m_AnchoredPosition: {x: 273.5, y: 229}
+  m_SizeDelta: {x: 0, y: 458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2041823372
 MonoBehaviour:

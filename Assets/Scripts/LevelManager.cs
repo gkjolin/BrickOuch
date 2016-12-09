@@ -115,7 +115,7 @@ public class LevelManager : Singleton<LevelManager>
 	public void LevelUpAnimation(int level, Action callback) {
 		var levelStr = level.ToString ();
 		var strSize = (levelStr.Length - 1) * DigitSize;
-		var offset = -strSize / 2;
+		var offset = -strSize / 2 + 5;
 
 		levelUpOverlay.SetActive (true);
 		foreach (var digit in levelStr) {

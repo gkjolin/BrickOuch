@@ -33,5 +33,55 @@ public static class PlayfabAccess
 	{
 		Debug.Log ("Fail on update player score");
 	}
-      
+
+	public static void GetLeaderboard ()
+	{
+		GetFriendLeaderboardRequest request = new GetFriendLeaderboardRequest () {
+			StatisticName = "Score",
+			IncludeSteamFriends = false
+		};
+
+		PlayFabClientAPI.GetFriendLeaderboard (request, OnGetLeaderboardSuccess, OnGetLeaderboardFail);
+	}
+
+	private static void OnGetLeaderboardSuccess (GetLeaderboardResult result)
+	{
+		Debug.Log ("Succeed to get leaderboard");
+
+		HandleScoresData(result.Leaderboard);
+	}
+
+	private static void OnGetLeaderboardFail (PlayFabError error)
+	{
+		Debug.Log ("Fail to get leaderboard");
+		Debug.Log (error);
+	}
+
+	private static void HandleScoresData (List<PlayerLeaderboardEntry> scoresResponse)
+    {
+		foreach(PlayerLeaderboardEntry scoreItem in scoresResponse) 
+		{
+			FBScore score = JsonMapping.GetScore (scoreItem);
+			GameManager.Instance.Scores.Add (score);
+        }
+    }
+
+    public static void UpdateDisplayName(string name)
+    {
+    	UpdateUserTitleDisplayNameRequest request = new UpdateUserTitleDisplayNameRequest(){
+    		DisplayName = name
+    	};
+
+    	PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnUpdateUserTitleDisplayNameSuccess, OnUpdateUserTitleDisplayNameFail);
+    }
+
+	private static void OnUpdateUserTitleDisplayNameSuccess (UpdateUserTitleDisplayNameResult result)
+	{
+		Debug.Log ("Succeed to update user diplay name");
+	}
+
+	private static void OnUpdateUserTitleDisplayNameFail (PlayFabError error)
+	{
+		Debug.Log ("Fail to update user diplay name");
+	}
 }

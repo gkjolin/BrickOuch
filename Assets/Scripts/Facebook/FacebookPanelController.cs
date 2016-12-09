@@ -73,6 +73,7 @@ public class FacebookPanelController : MonoBehaviour
 			}
 
 			this.GetUserData ();
+			PlayfabAccess.GetLeaderboard();
 		},
 			(error) => {
 				Debug.Log ("Error logging in player with custom ID:");
@@ -100,6 +101,8 @@ public class FacebookPanelController : MonoBehaviour
 
 					FacebookAccess.SetId ((string)fbInfo.FacebookId);
 					FacebookAccess.SetName ((string)fbInfo.FullName);
+
+					PlayfabAccess.UpdateDisplayName(FacebookAccess.GetName());
 				}
 
 			}

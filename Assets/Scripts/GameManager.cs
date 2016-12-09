@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager> {
 
 	void OnApplicationFocus (bool hasFocus) {
 		if (hasFocus) {
-			FacebookAccess.GetScores ();
+			PlayfabAccess.GetLeaderboard ();
 		}
 	}
 

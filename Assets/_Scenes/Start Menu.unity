@@ -101,6 +101,7 @@ GameObject:
   - 222: {fileID: 26380189}
   - 114: {fileID: 26380188}
   - 114: {fileID: 26380187}
+  - 114: {fileID: 26380190}
   m_Layer: 5
   m_Name: ChooseCannonButton
   m_TagString: Untagged
@@ -223,6 +224,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 26380185}
+--- !u!114 &26380190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 26380185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &65755207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2721,6 +2733,7 @@ GameObject:
   - 222: {fileID: 1255932446}
   - 114: {fileID: 1255932445}
   - 114: {fileID: 1255932444}
+  - 114: {fileID: 1255932447}
   m_Layer: 5
   m_Name: ChooseBallButton
   m_TagString: Untagged
@@ -2843,6 +2856,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255932442}
+--- !u!114 &1255932447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1255932442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1330177976
 GameObject:
   m_ObjectHideFlags: 0

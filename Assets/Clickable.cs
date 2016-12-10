@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class Clickable : MonoBehaviour {
+public class Clickable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
 	private RectTransform rect;
 
@@ -26,18 +27,13 @@ public class Clickable : MonoBehaviour {
 
 			Debug.LogWarning (message + gameObject.name);
 		}
-
-		button.onClick.AddListener (ResizeOnClick);
-	}
-	
-	private void ResizeOnClick () {
-		StartCoroutine (ShrinkAndGrow ());
 	}
 
-	public IEnumerator ShrinkAndGrow () {
+	public void OnPointerDown (PointerEventData eventData) {
 		rect.localScale = new Vector3 (0.9f, 0.9f, 1);
+	}
 
-		yield return new WaitForSeconds (0.1f);
+	public void OnPointerUp (PointerEventData eventData) {
 		rect.localScale = new Vector3 (1, 1, 1);
 	}
 }

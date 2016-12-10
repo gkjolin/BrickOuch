@@ -101,6 +101,7 @@ GameObject:
   - 222: {fileID: 332315282}
   - 114: {fileID: 332315281}
   - 114: {fileID: 332315280}
+  - 114: {fileID: 332315283}
   m_Layer: 0
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -147,7 +148,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -212,6 +213,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332315278}
+--- !u!114 &332315283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 332315278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &686276053
 GameObject:
   m_ObjectHideFlags: 0

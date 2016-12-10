@@ -486,6 +486,7 @@ GameObject:
   - 114: {fileID: 209617953}
   - 114: {fileID: 209617952}
   - 114: {fileID: 209617955}
+  - 114: {fileID: 209617956}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -532,7 +533,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -621,6 +622,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 2.170886
+--- !u!114 &209617956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 209617950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &232117419
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +828,7 @@ GameObject:
   - 114: {fileID: 346564558}
   - 114: {fileID: 346564557}
   - 114: {fileID: 346564560}
+  - 114: {fileID: 346564561}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -862,7 +875,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -939,6 +952,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 2
   m_AspectRatio: 1
+--- !u!114 &346564561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 346564555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &368037158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,6 +2237,7 @@ GameObject:
   - 114: {fileID: 1587804782}
   - 114: {fileID: 1587804781}
   - 114: {fileID: 1587804784}
+  - 114: {fileID: 1587804785}
   m_Layer: 5
   m_Name: ResumePlayButton
   m_TagString: Untagged
@@ -2259,7 +2284,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2336,6 +2361,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1.0064378
+--- !u!114 &1587804785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1587804779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1612075120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2980,6 +3016,7 @@ GameObject:
   - 222: {fileID: 1913700750}
   - 114: {fileID: 1913700749}
   - 114: {fileID: 1913700748}
+  - 114: {fileID: 1913700751}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -3026,7 +3063,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3090,6 +3127,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1913700746}
+--- !u!114 &1913700751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1913700746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3072d777dd310b94f9eed1c2aea5e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1924859620
 GameObject:
   m_ObjectHideFlags: 0
@@ -3551,7 +3599,7 @@ RectTransform:
   m_RootOrder: 9
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 273.5, y: 229}
+  m_AnchoredPosition: {x: 129, y: 229}
   m_SizeDelta: {x: 0, y: 458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2041823372

@@ -43,8 +43,9 @@ public class Score : MonoBehaviour
 		if (score > highestScore) {
 			highestScore = score;
 			PlayerPrefsManager.SetHighestScore (score);
+
 			if (FB.IsLoggedIn) {
-				PlayfabAccess.PostScore (score);
+				PlayfabAccess.Instance.PostScore (score);
 			}
 		}
 	}

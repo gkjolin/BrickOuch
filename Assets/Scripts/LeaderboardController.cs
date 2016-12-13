@@ -30,7 +30,7 @@ public class LeaderboardController : MonoBehaviour
 
 	private void PopulateLeaderBoard ()
 	{
-		var scores = GameManager.Instance.Scores;
+		var scores = PlayfabAccess.Instance.Scores;
 		Debug.Log ("Score count: " + scores.Count);
 
 		// Clear out previous leaderboard
@@ -44,14 +44,11 @@ public class LeaderboardController : MonoBehaviour
 		}
 
 		// Populate leaderboard
-		int count = 1;
 		foreach (var score in scores) {
 			GameObject LBgameObject = Instantiate (LeaderboardItemPrefab) as GameObject;
 			LeaderboardElement LBelement = LBgameObject.GetComponent<LeaderboardElement> ();
-			LBelement.SetupElement (count, score.User.Name, score.Score);
+			LBelement.SetupElement (score.Position + 1, score.DisplayName, score.StatValue);
 			LBelement.transform.SetParent (LeaderboardPanel.transform, false);
-
-			count++;
 		}
 
 		// Scroll to top

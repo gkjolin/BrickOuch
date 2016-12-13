@@ -6,8 +6,6 @@ using SA.Analytics.Google;
 
 public class GameManager : Singleton<GameManager> {
 
-	public HashSet<FBScore> Scores { get; private set; }
-
 	protected override bool Destroyable {
 		get {
 			return false;
@@ -16,7 +14,9 @@ public class GameManager : Singleton<GameManager> {
 
 	protected override void Initialize ()
 	{
-		Scores = new HashSet<FBScore> ();
+		// Initialize other singletons
+		GameObject facebookAccess = new GameObject ("FacebookAccess", typeof(FacebookAccess));
+		GameObject playfabAccess = new GameObject ("PlayfabAccess", typeof(PlayfabAccess));
 	}
 
 	void Update ()
@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager> {
 
 	void OnApplicationFocus (bool hasFocus) {
 		if (hasFocus) {
-			PlayfabAccess.GetLeaderboard ();
+			PlayfabAccess.Instance.GetLeaderboard ();
 		}
 	}
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,8 +38,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 			Debug.Log ("(existing account)");
 		}
 
-		this.GetUserData ();
-		this.GetLeaderboard();
+		this.GetUserData (GetLeaderboard);
 	}
 
 	private void LoginErrorCallback (PlayFabError error) {
@@ -46,18 +46,29 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 		Debug.Log (error.ErrorMessage);
 	}
 
-	private void GetUserData ()
+	private void GetUserData (Action afterPostScore = null)
 	{
-		GetAccountInfoRequest request = new GetAccountInfoRequest () {
-			PlayFabId = Id
+		var stats = new List<string> ();
+		stats.Add ("Score");
+
+		var reqParams = new GetPlayerCombinedInfoRequestParams ();
+		reqParams.GetUserAccountInfo = true;
+		reqParams.GetPlayerStatistics = true;
+		reqParams.PlayerStatisticNames = stats;
+
+		var request = new GetPlayerCombinedInfoRequest () {
+			PlayFabId = Id,
+			InfoRequestParameters = reqParams
 		};
 
-		PlayFabClientAPI.GetAccountInfo (request, (result) => {
+		PlayFabClientAPI.GetPlayerCombinedInfo (request, (result) => {
 			Debug.Log ("Got account info:");
-			if ((result.AccountInfo == null)) {
+			var accountInfo = result.InfoResultPayload.AccountInfo;
+
+			if ((accountInfo == null)) {
 				Debug.Log ("No account available");
 			} else {
-				UserFacebookInfo fbInfo = result.AccountInfo.FacebookInfo;
+				UserFacebookInfo fbInfo = accountInfo.FacebookInfo;
 				if (fbInfo == null) {
 					Debug.Log ("No facebook info available");
 				} else {
@@ -68,13 +79,18 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 				}
 
 			}
+
+			var stat = result.InfoResultPayload.PlayerStatistics.FirstOrDefault();
+			if (stat == null || stat.Value < PlayerPrefsManager.GetHighestScore()) {
+				this.PostScore(PlayerPrefsManager.GetHighestScore(), afterPostScore);
+			}
 		}, (error) => {
 			Debug.Log ("Got error retrieving user data:");
 			Debug.Log (error.ErrorMessage);
 		});
 	}
 
-	public void PostScore (int score)
+	public void PostScore (int score, Action afterPostScore = null)
 	{
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			List<StatisticUpdate> stats = new List<StatisticUpdate> ();
@@ -84,20 +100,22 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 			UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest ();
 			request.Statistics = stats;
 
-			PlayFabClientAPI.UpdatePlayerStatistics (request, OnUpdateUserStatisticsSuccess, OnUpdateUserStatisticFail);
+			PlayFabClientAPI.UpdatePlayerStatistics (request, (result) => {
+				Debug.Log ("Success on update player score");
+
+				if (afterPostScore != null) {
+					afterPostScore();
+				}
+			}, (error) => {
+				Debug.Log ("Fail on update player score");
+
+				if (afterPostScore != null) {
+					afterPostScore();
+				}
+			});
 		} else {
 			Debug.Log ("Must be logged in to update score");
 		}
-	}
-
-	private void OnUpdateUserStatisticsSuccess (UpdatePlayerStatisticsResult updateUserStatisticsResult)
-	{
-		Debug.Log ("Success on update player score");
-	}
-
-	private static void OnUpdateUserStatisticFail (PlayFabError playfab)
-	{
-		Debug.Log ("Fail on update player score");
 	}
 
 	public void GetLeaderboard ()
@@ -130,7 +148,6 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 	private void HandleScoresData (List<PlayerLeaderboardEntry> scoresResponse)
     {
 		Scores = scoresResponse.OrderBy(s => s.Position).ToList();
-
     }
 
     public void UpdateDisplayName(string name)

@@ -2027,7 +2027,7 @@ RectTransform:
   m_GameObject: {fileID: 822728645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.28204858, y: 0.28204858, z: 1}
+  m_LocalScale: {x: 0.33086798, y: 0.33086798, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 313472627}
@@ -2040,8 +2040,8 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 127, y: 225.5}
-  m_SizeDelta: {x: 0, y: 1599.0153}
+  m_AnchoredPosition: {x: 149, y: 264.5}
+  m_SizeDelta: {x: 0, y: 1598.8251}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822728647
 MonoBehaviour:
@@ -2639,7 +2639,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 1905427288}
   m_Father: {fileID: 313472627}
   m_RootOrder: 6
   m_AnchorMin: {x: -0.03854369, y: 0.09}
@@ -4012,6 +4013,74 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1881088997}
+--- !u!1 &1905427287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1905427288}
+  - 222: {fileID: 1905427290}
+  - 114: {fileID: 1905427289}
+  m_Layer: 5
+  m_Name: ProfilePicture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1905427288
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1905427287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1253337510}
+  m_RootOrder: 0
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -2.2, y: 4.4}
+  m_SizeDelta: {x: -24.5, y: -24.5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1905427289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1905427287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1905427290
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1905427287}
 --- !u!1 &1932181182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,7 +4619,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeText: {fileID: 1493100186}
   loginButton: {fileID: 537155054}
-  facebookPicture: {fileID: 1253337512}
+  facebookIcon: {fileID: 1253337512}
+  facebookPicture: {fileID: 1905427289}
+  facebookLogo: {fileID: 21300000, guid: 4266369b07fed0342be089b4b049d62a, type: 3}
+  userPicture: {fileID: 21300000, guid: 8f994f7dc6c78414bae87902e9a9fecf, type: 3}
 --- !u!1 &2119312793
 GameObject:
   m_ObjectHideFlags: 0

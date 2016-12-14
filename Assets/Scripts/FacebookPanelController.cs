@@ -6,7 +6,12 @@ public class FacebookPanelController : MonoBehaviour
 {
 	public Text welcomeText;
 	public Button loginButton;
+
+	public Image facebookIcon;
 	public Image facebookPicture;
+
+	public Sprite facebookLogo;
+	public Sprite userPicture;
 
 	void Update ()
 	{
@@ -30,10 +35,15 @@ public class FacebookPanelController : MonoBehaviour
 	public void SetLoggedInState () {
 		loginButton.GetComponentInChildren<Text> ().text = "Logout";
 		welcomeText.text = "Welcome, " + FacebookAccess.Instance.Name;
+
+		facebookIcon.sprite = userPicture;
 	}
 
 	public void SetLoggedOutState () {
 		loginButton.GetComponentInChildren<Text> ().text = "Login";
 		welcomeText.text = "Welcome";
+
+		facebookIcon.sprite = facebookLogo;
+		facebookPicture.gameObject.SetActive (false);
 	}
 }

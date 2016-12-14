@@ -63,6 +63,7 @@ public class FacebookAccess : Singleton<FacebookAccess>
 		if (String.IsNullOrEmpty (result.Error) && !result.Cancelled && result.Texture != null) {
 			var rect = new Rect (0, 0, result.Texture.width, result.Texture.height);
 			picture.sprite = Sprite.Create (result.Texture, rect, Vector2.zero);
+			picture.gameObject.SetActive (true);
 		} else {
 			Debug.Log ("Failed loading profile picture");
 		}

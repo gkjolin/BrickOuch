@@ -83,6 +83,8 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 			var stat = result.InfoResultPayload.PlayerStatistics.FirstOrDefault();
 			if (stat == null || stat.Value < PlayerPrefsManager.GetHighestScore()) {
 				this.PostScore(PlayerPrefsManager.GetHighestScore(), afterPostScore);
+			} else {
+				afterPostScore();
 			}
 		}, (error) => {
 			Debug.Log ("Got error retrieving user data:");

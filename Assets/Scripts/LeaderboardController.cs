@@ -31,6 +31,10 @@ public class LeaderboardController : MonoBehaviour
 	private void PopulateLeaderBoard ()
 	{
 		var scores = PlayfabAccess.Instance.Scores;
+		if (scores == null) {
+			return;
+		}
+
 		Debug.Log ("Score count: " + scores.Count);
 
 		// Clear out previous leaderboard

@@ -15,8 +15,8 @@ public class GameManager : Singleton<GameManager> {
 	protected override void Initialize ()
 	{
 		// Initialize other singletons
-		GameObject facebookAccess = new GameObject ("FacebookAccess", typeof(FacebookAccess));
-		GameObject playfabAccess = new GameObject ("PlayfabAccess", typeof(PlayfabAccess));
+		new GameObject ("FacebookAccess", typeof(FacebookAccess));
+		new GameObject ("PlayfabAccess", typeof(PlayfabAccess));
 	}
 
 	void Update ()

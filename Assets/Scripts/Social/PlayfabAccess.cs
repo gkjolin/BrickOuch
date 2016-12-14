@@ -49,7 +49,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 	private void GetUserData (Action afterPostScore = null)
 	{
 		var stats = new List<string> ();
-		stats.Add ("Score");
+		stats.Add (Constants.ScoreKey);
 
 		var reqParams = new GetPlayerCombinedInfoRequestParams ();
 		reqParams.GetUserAccountInfo = true;
@@ -97,7 +97,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			List<StatisticUpdate> stats = new List<StatisticUpdate> ();
 
-			stats.Add (new StatisticUpdate (){ StatisticName = "Score", Value = score });
+			stats.Add (new StatisticUpdate (){ StatisticName = Constants.ScoreKey, Value = score });
 
 			UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest ();
 			request.Statistics = stats;
@@ -124,7 +124,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 	{
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			GetFriendLeaderboardRequest request = new GetFriendLeaderboardRequest () {
-				StatisticName = "Score",
+				StatisticName = Constants.ScoreKey,
 				IncludeSteamFriends = false
 			};
 

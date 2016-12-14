@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using Facebook.Unity;
-using System;
 
 public class FacebookAccess : Singleton<FacebookAccess>
 {
@@ -21,13 +23,15 @@ public class FacebookAccess : Singleton<FacebookAccess>
 		});
 	}
 
-	public void Login ()
+	public void Login (Image picture)
 	{
 		var perms = new List<string> () { "public_profile", "user_friends" };
-		FB.LogInWithReadPermissions (perms, AuthCallback);
+		FB.LogInWithReadPermissions (perms, (result) => {
+			AuthCallback (result, picture);
+		});
 	}
 
-	private void AuthCallback (ILoginResult result)
+	private void AuthCallback (ILoginResult result, Image picture)
 	{
 		if (FB.IsLoggedIn) {
 			// AccessToken class will have session details
@@ -41,10 +45,26 @@ public class FacebookAccess : Singleton<FacebookAccess>
 				Debug.Log (perm);
 			}
 
+			LoadPicture (picture);
 			PlayfabAccess.Instance.Login (aToken.TokenString);
 		} else {
 			Debug.Log ("User cancelled login");
 		}
 	}
 
+	private void LoadPicture (Image picture) {
+		FB.API ("/me/picture", HttpMethod.GET, (result) => {
+			PictureCallback (result, picture);
+		});
+	}
+
+	private void PictureCallback (IGraphResult result, Image picture)
+	{
+		if (String.IsNullOrEmpty (result.Error) && !result.Cancelled && result.Texture != null) {
+			var rect = new Rect (0, 0, result.Texture.width, result.Texture.height);
+			picture.sprite = Sprite.Create (result.Texture, rect, Vector2.zero);
+		} else {
+			Debug.Log ("Failed loading profile picture");
+		}
+	}
 }

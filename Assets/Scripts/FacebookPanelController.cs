@@ -6,6 +6,7 @@ public class FacebookPanelController : MonoBehaviour
 {
 	public Text welcomeText;
 	public Button loginButton;
+	public Image facebookPicture;
 
 	void Update ()
 	{
@@ -23,7 +24,7 @@ public class FacebookPanelController : MonoBehaviour
 
 	public void  Login ()
 	{
-		FacebookAccess.Instance.Login ();
+		FacebookAccess.Instance.Login (facebookPicture);
 	}
 
 	public void SetLoggedInState () {

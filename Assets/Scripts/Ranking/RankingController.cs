@@ -5,9 +5,11 @@ using Facebook.Unity;
 
 public class RankingController : MonoBehaviour
 {
-	public ScrollableSettings scroll;
+	public ScrollableSettings scrollSettings;
 	public Transform rowContainer;
 	public GameObject rankingRowPrefab;
+
+	public GameObject facebookPanel;
 
 	void Start ()
 	{
@@ -15,6 +17,8 @@ public class RankingController : MonoBehaviour
 
 		if (FB.IsLoggedIn) {
 			Debug.Log ("Logged on Facebook");
+
+			DisableFacebookPanel ();
 			PopulateLeaderBoard ();
 		} else {
 			Debug.Log ("Not logged on Facebook");
@@ -34,7 +38,7 @@ public class RankingController : MonoBehaviour
 			CreateRankingRow (score.Position + 1, score.DisplayName, score.StatValue);
 		}
 
-		scroll.UpdateDimensions ();
+		scrollSettings.UpdateDimensions ();
 	}
 
 	private void CreateRankingRow (int rank, string name, int score) {
@@ -49,5 +53,9 @@ public class RankingController : MonoBehaviour
 		scoreText.GetComponent<Text> ().text = score.ToString();
 
 		row.transform.SetParent (rowContainer);
+	}
+
+	public void DisableFacebookPanel () {
+		facebookPanel.SetActive (false);
 	}
 }

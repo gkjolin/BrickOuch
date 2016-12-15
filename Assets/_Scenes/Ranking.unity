@@ -531,6 +531,7 @@ GameObject:
   - 114: {fileID: 1405314507}
   - 114: {fileID: 1405314508}
   - 114: {fileID: 1405314509}
+  - 114: {fileID: 1405314510}
   m_Layer: 5
   m_Name: ScrollableArea
   m_TagString: Untagged
@@ -611,6 +612,21 @@ MonoBehaviour:
   m_Script: {fileID: -146154839, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1405314510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1405314505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcab7a6337640bd44b30533929b6b87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scroll: {fileID: 1405314508}
+  rowContainer: {fileID: 428925590}
+  rankingRowPrefab: {fileID: 1000011901214628, guid: 950cfe41ef310a845835de5953bfc809,
+    type: 2}
 --- !u!1001 &2050758019
 Prefab:
   m_ObjectHideFlags: 0

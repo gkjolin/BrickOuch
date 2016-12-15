@@ -6,8 +6,7 @@ public class ScrollableSettings : MonoBehaviour {
 
 	public int visibleCount;
 
-	// Use this for initialization
-	void Start () {
+	public void UpdateDimensions () {
 		var scroll = GetComponent <ScrollRect> ();
 		var scrollRect = scroll.GetComponent<RectTransform> ();
 		var content = scroll.content;

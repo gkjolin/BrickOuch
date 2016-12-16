@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using PlayFab.ClientModels;
 using UnityEngine.UI;
 using Facebook.Unity;
 
@@ -14,18 +16,19 @@ public class RankingController : MonoBehaviour
 	void Start ()
 	{
 		Debug.Log ("Leaderboard start");
+		EventManager.Instance.OnRankingUpdate += RefreshRanking;
 
 		if (FB.IsLoggedIn) {
 			Debug.Log ("Logged on Facebook");
-
 			DisableFacebookPanel ();
-			PopulateLeaderBoard ();
+			RefreshRanking ();
 		} else {
 			Debug.Log ("Not logged on Facebook");
+			EnableFacebookPanel ();
 		}
 	}
 
-	private void PopulateLeaderBoard ()
+	private void RefreshRanking ()
 	{
 		var scores = PlayfabAccess.Instance.Scores;
 		if (scores == null) {
@@ -34,11 +37,22 @@ public class RankingController : MonoBehaviour
 
 		Debug.Log ("Score count: " + scores.Count);
 
+		ClearRanking ();
+		PopulateRanking (scores);
+
+		scrollSettings.UpdateDimensions (scores.Count);
+	}
+
+	private void ClearRanking () {
+		foreach (Transform row in rowContainer.transform) {
+			Destroy (row.gameObject);
+		}
+	}
+
+	private void PopulateRanking (List<PlayerLeaderboardEntry> scores) {
 		foreach (var score in scores) {
 			CreateRankingRow (score.Position + 1, score.DisplayName, score.StatValue);
 		}
-
-		scrollSettings.UpdateDimensions ();
 	}
 
 	private void CreateRankingRow (int rank, string name, int score) {
@@ -57,5 +71,9 @@ public class RankingController : MonoBehaviour
 
 	public void DisableFacebookPanel () {
 		facebookPanel.SetActive (false);
+	}
+
+	public void EnableFacebookPanel () {
+		facebookPanel.SetActive (true);
 	}
 }

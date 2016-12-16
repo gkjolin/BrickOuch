@@ -6,25 +6,47 @@ public class ScrollableSettings : MonoBehaviour {
 
 	public int visibleCount;
 
-	public void UpdateDimensions () {
+	private float minY;
+	private float maxY;
+
+	void Awake() {
+		var scroll = GetComponent <RectTransform> ();
+		minY = scroll.anchorMin.y;
+		maxY = scroll.anchorMax.y;
+	}
+
+	public void UpdateDimensions (int count) {
 		var scroll = GetComponent <ScrollRect> ();
-		var scrollRect = scroll.GetComponent<RectTransform> ();
+		var scrollRect = GetComponent<RectTransform> ();
 		var content = scroll.content;
 
-		if (content.childCount < visibleCount) {
-			var minY = scrollRect.anchorMin.y;
-			var maxY = scrollRect.anchorMax.y;
+		UpdateScrollDimensions (scrollRect, count);
+		UpdateContentDimensions (content, count);
+	}
 
-			var scrollAreaSize = maxY - minY;
-			var newScrollAreaSize = scrollAreaSize * (float)content.childCount / (float)visibleCount;
-			var newMinY = maxY - newScrollAreaSize;
+	private void UpdateScrollDimensions(RectTransform scroll, int count) {
+		var scrollAreaSize = maxY - minY;
+		var newScrollAreaSize = scrollAreaSize * (float)count / (float)visibleCount;
+		var newMinY = maxY - newScrollAreaSize;
 
-			scrollRect.anchorMin = new Vector2 (scrollRect.anchorMin.x, newMinY);
-			scrollRect.sizeDelta = Vector2.zero;
-		} else {
-			var minY = 1f - (float)content.childCount / (float)visibleCount;
-			content.anchorMin = new Vector2 (0, minY);
-			content.sizeDelta = Vector2.zero;
+		if (newMinY < minY) {
+			newMinY = minY;
 		}
+
+		scroll.anchorMin = new Vector2 (scroll.anchorMin.x, newMinY);
+		scroll.sizeDelta = Vector2.zero;
+	}
+
+	private void UpdateContentDimensions(RectTransform content, int count) {
+		var newMinY = 0f;
+
+		if (count > visibleCount) {
+			newMinY = 1f - (float)count / (float)visibleCount;
+			content.anchorMin = new Vector2 (0, newMinY);
+		}
+
+		content.anchorMin = new Vector2 (0, newMinY);
+		content.anchorMax = new Vector2 (1, 1);
+		content.sizeDelta = Vector2.zero;
 	}
 }

@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager> {
 		// Initialize other singletons
 		new GameObject ("FacebookAccess", typeof(FacebookAccess));
 		new GameObject ("PlayfabAccess", typeof(PlayfabAccess));
+		new GameObject ("EventManager", typeof(EventManager));
 	}
 
 	void Update ()

@@ -150,6 +150,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 	private void HandleScoresData (List<PlayerLeaderboardEntry> scoresResponse)
     {
 		Scores = scoresResponse.OrderBy(s => s.Position).ToList();
+		EventManager.Instance.RankingUpdate ();
     }
 
     public void UpdateDisplayName(string name)

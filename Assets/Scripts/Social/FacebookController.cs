@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class FacebookController : MonoBehaviour
 {
-	public void FacebookInvite ()
+	public void Invite ()
 	{
 		FacebookAccess.Instance.Invite ();
 	}

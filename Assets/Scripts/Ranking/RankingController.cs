@@ -14,6 +14,8 @@ public class RankingController : MonoBehaviour
 
 	public GameObject facebookPanel;
 
+	private bool updateFontSize = false;
+
 	void Start ()
 	{
 		FacebookAccess.Instance.LoadFriendsPictures ();
@@ -31,6 +33,45 @@ public class RankingController : MonoBehaviour
 		}
 	}
 
+	void Update ()
+	{
+		if (updateFontSize) {
+			UpdateFontSize ();
+			updateFontSize = false;
+		}
+	}
+
+	private void UpdateFontSize ()
+	{
+		Text[] texts = GameObject.FindObjectsOfType<Text> ();
+		int minFontSize = int.MaxValue;
+
+		foreach (Transform row in rowContainer.transform) {
+			var rankText = row.transform.Find ("Rank/Text").GetComponent<Text> ();
+			var nameText = row.transform.Find ("Name/Text").GetComponent<Text> ();
+			var scoreText = row.transform.Find ("Score/Text").GetComponent<Text> ();
+
+			minFontSize = Mathf.Min (minFontSize, rankText.cachedTextGenerator.fontSizeUsedForBestFit);
+			minFontSize = Mathf.Min (minFontSize, nameText.cachedTextGenerator.fontSizeUsedForBestFit);
+			minFontSize = Mathf.Min (minFontSize, scoreText.cachedTextGenerator.fontSizeUsedForBestFit);
+		}
+
+		foreach (Transform row in rowContainer.transform) {
+			var rankText = row.transform.Find ("Rank/Text").GetComponent<Text> ();
+			var nameText = row.transform.Find ("Name/Text").GetComponent<Text> ();
+			var scoreText = row.transform.Find ("Score/Text").GetComponent<Text> ();
+
+			rankText.resizeTextForBestFit = false;
+			rankText.fontSize = minFontSize;
+
+			nameText.resizeTextForBestFit = false;
+			nameText.fontSize = minFontSize;
+
+			scoreText.resizeTextForBestFit = false;
+			scoreText.fontSize = minFontSize;
+		}
+	}
+
 	private void RefreshRanking ()
 	{
 		var scores = PlayfabAccess.Instance.Scores;
@@ -42,6 +83,7 @@ public class RankingController : MonoBehaviour
 
 		ClearRanking ();
 		PopulateRanking (scores);
+		updateFontSize = true;
 
 		scrollSettings.UpdateDimensions (scores.Count);
 	}
@@ -73,19 +115,19 @@ public class RankingController : MonoBehaviour
 	private void CreateRankingRow (Sprite picture, int rank, string name, int score) {
 		GameObject row = Instantiate (rankingRowPrefab) as GameObject;
 
-		var rankText = row.transform.Find ("Rank/Text");
-		var nameText = row.transform.Find ("Name/Text");
-		var scoreText = row.transform.Find ("Score/Text");
-		var pictureImage = row.transform.Find ("Picture");
+		var rankText = row.transform.Find ("Rank/Text").GetComponent<Text> ();
+		var nameText = row.transform.Find ("Name/Text").GetComponent<Text> ();
+		var scoreText = row.transform.Find ("Score/Text").GetComponent<Text> ();
+		var pictureImage = row.transform.Find ("Picture").GetComponent<Image> ();
 
-		rankText.GetComponent<Text> ().text = rank.ToString();
-		nameText.GetComponent<Text> ().text = name;
-		scoreText.GetComponent<Text> ().text = score.ToString();
+		rankText.text = rank.ToString();
+		nameText.text = name;
+		scoreText.text = score.ToString();
 
 		if (picture != null) {
-			pictureImage.GetComponent<Image> ().sprite = picture;
+			pictureImage.sprite = picture;
 		} else {
-			pictureImage.GetComponent<Image> ().sprite = defaultPicture;
+			pictureImage.sprite = defaultPicture;
 		}
 
 		row.transform.SetParent (rowContainer);

@@ -804,6 +804,7 @@ MonoBehaviour:
   rowContainer: {fileID: 428925590}
   rankingRowPrefab: {fileID: 1000011901214628, guid: 950cfe41ef310a845835de5953bfc809,
     type: 2}
+  defaultPicture: {fileID: 21300000, guid: c840b46d5bf12b240a3695b14f8c86be, type: 3}
   facebookPanel: {fileID: 1968746846}
 --- !u!1 &1315231660
 GameObject:

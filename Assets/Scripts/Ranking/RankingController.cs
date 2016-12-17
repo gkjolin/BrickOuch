@@ -10,6 +10,7 @@ public class RankingController : MonoBehaviour
 	public ScrollableSettings scrollSettings;
 	public Transform rowContainer;
 	public GameObject rankingRowPrefab;
+	public Sprite defaultPicture;
 
 	public GameObject facebookPanel;
 
@@ -81,6 +82,8 @@ public class RankingController : MonoBehaviour
 
 		if (picture != null) {
 			pictureImage.GetComponent<Image> ().sprite = picture;
+		} else {
+			pictureImage.GetComponent<Image> ().sprite = defaultPicture;
 		}
 
 		row.transform.SetParent (rowContainer);

@@ -56,7 +56,9 @@ public class RankingController : MonoBehaviour
 		foreach (var score in scores) {
 			Sprite picture = null;
 
-			if (PlayfabAccess.Instance.FriendsIds.ContainsKey (score.PlayFabId)) {
+			if (score.PlayFabId == PlayfabAccess.Instance.Id) {
+				picture = FacebookAccess.Instance.Picture;
+			} else if (PlayfabAccess.Instance.FriendsIds.ContainsKey (score.PlayFabId)) {
 				var facebookId = PlayfabAccess.Instance.FriendsIds [score.PlayFabId];
 				
 				if (!string.IsNullOrEmpty(facebookId) && FacebookAccess.Instance.FriendsPictures.ContainsKey(facebookId)) {

@@ -15,6 +15,8 @@ public class RankingController : MonoBehaviour
 
 	void Start ()
 	{
+		FacebookAccess.Instance.LoadFriendsPictures ();
+
 		Debug.Log ("Leaderboard start");
 		EventManager.Instance.OnRankingUpdate += RefreshRanking;
 
@@ -51,20 +53,35 @@ public class RankingController : MonoBehaviour
 
 	private void PopulateRanking (List<PlayerLeaderboardEntry> scores) {
 		foreach (var score in scores) {
-			CreateRankingRow (score.Position + 1, score.DisplayName, score.StatValue);
+			Sprite picture = null;
+
+			if (PlayfabAccess.Instance.FriendsIds.ContainsKey (score.PlayFabId)) {
+				var facebookId = PlayfabAccess.Instance.FriendsIds [score.PlayFabId];
+				
+				if (!string.IsNullOrEmpty(facebookId) && FacebookAccess.Instance.FriendsPictures.ContainsKey(facebookId)) {
+					picture = FacebookAccess.Instance.FriendsPictures [facebookId];
+				}
+			}
+
+			CreateRankingRow (picture, score.Position + 1, score.DisplayName, score.StatValue);
 		}
 	}
 
-	private void CreateRankingRow (int rank, string name, int score) {
+	private void CreateRankingRow (Sprite picture, int rank, string name, int score) {
 		GameObject row = Instantiate (rankingRowPrefab) as GameObject;
 
 		var rankText = row.transform.Find ("Rank/Text");
 		var nameText = row.transform.Find ("Name/Text");
 		var scoreText = row.transform.Find ("Score/Text");
+		var pictureImage = row.transform.Find ("Picture");
 
 		rankText.GetComponent<Text> ().text = rank.ToString();
 		nameText.GetComponent<Text> ().text = name;
 		scoreText.GetComponent<Text> ().text = score.ToString();
+
+		if (picture != null) {
+			pictureImage.GetComponent<Image> ().sprite = picture;
+		}
 
 		row.transform.SetParent (rowContainer);
 	}

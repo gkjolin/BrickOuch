@@ -10,6 +10,7 @@ public class FacebookAccess : Singleton<FacebookAccess>
 	public string Id { get; set; }
 	public string Name { get; set; }
 	public Sprite Picture { get; set; }
+	public Dictionary<string, Sprite> FriendsPictures { get; private set; }
 
 	protected override bool Destroyable {
 		get {
@@ -19,6 +20,8 @@ public class FacebookAccess : Singleton<FacebookAccess>
 
 	protected override void Initialize ()
 	{
+		FriendsPictures = new Dictionary<string, Sprite> ();
+
 		if (!FB.IsInitialized) {
 			// Initialize the Facebook SDK
 			FB.Init (InitCallback, OnHideUnity);
@@ -79,6 +82,7 @@ public class FacebookAccess : Singleton<FacebookAccess>
 			}
 
 			LoadPicture ();
+			LoadFriendsPictures ();
 			PlayfabAccess.Instance.Login (aToken.TokenString);
 		} else {
 			Debug.Log ("User cancelled login");
@@ -92,12 +96,60 @@ public class FacebookAccess : Singleton<FacebookAccess>
 	private void PictureCallback (IGraphResult result)
 	{
 		if (String.IsNullOrEmpty (result.Error) && !result.Cancelled && result.Texture != null) {
-			var rect = new Rect (0, 0, result.Texture.width, result.Texture.height);
-			Picture = Sprite.Create (result.Texture, rect, Vector2.zero);
+			Picture = ConvertTextureToSprite (result.Texture);
 		} else {
 			Picture = null;
 			Debug.Log ("Failed loading profile picture");
 		}
 	}
 
+	public void LoadFriendsPictures () {
+		FB.API ("/me/friends?fields=id,name,picture", HttpMethod.GET, FriendsPicturesCallback);
+	}
+
+	private void FriendsPicturesCallback (IGraphResult result)
+	{
+		if (String.IsNullOrEmpty (result.Error) && !result.Cancelled) {
+			RequestFriendsPictures (result.ResultDictionary);
+		} else {
+			Debug.Log ("Failed loading friends pictures");
+		}
+	}
+
+	private void RequestFriendsPictures (IDictionary<string, object> friends)
+	{
+		var dataList = (List<object>)friends ["data"];
+
+		foreach (var data in dataList) {
+			var friend = (Dictionary<string, object>)data;
+			var id = (string)friend ["id"];
+
+			var picture = (Dictionary<string, object>)friend ["picture"];
+			var pictureData = (Dictionary<string, object>)picture ["data"];
+			var url = (string)pictureData ["url"];
+
+			StartCoroutine (GetImage(id, url));
+		}
+	}
+
+	private IEnumerator GetImage (string id, string url)
+	{
+		WWW www = new WWW(url);
+		yield return www;
+
+		if (www.error != null)
+		{
+			Debug.LogError(www.error);
+			yield break;
+		}
+
+		var picture = ConvertTextureToSprite (www.texture);
+		FriendsPictures[id] = picture;
+	}
+
+	private Sprite ConvertTextureToSprite (Texture2D texture)
+	{
+		var rect = new Rect (0, 0, texture.width, texture.height);
+		return Sprite.Create (texture, rect, Vector2.zero);
+	}
 }

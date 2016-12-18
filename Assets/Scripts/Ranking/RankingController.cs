@@ -15,6 +15,7 @@ public class RankingController : MonoBehaviour
 
 	public GameObject facebookPanel;
 
+	private bool firstFrame = true;
 	private bool updateFontSize = false;
 
 	void Start ()
@@ -37,10 +38,12 @@ public class RankingController : MonoBehaviour
 
 	void Update ()
 	{
-		if (updateFontSize) {
+		if (updateFontSize && !firstFrame) {
 			UpdateFontSize ();
 			updateFontSize = false;
 		}
+
+		firstFrame = false;
 	}
 
 	void OnDestroy() {

@@ -95,8 +95,14 @@ public class RankingController : MonoBehaviour
 	}
 
 	private void PopulateRanking (List<PlayerLeaderboardEntry> scores) {
+		bool oddRow = true;
+		Color oddColor = new Color (198f / 255f, 147f / 255f, 96f / 255f, 0.51f);
+		Color evenColor = new Color (198f / 255f, 147f / 255f, 96f / 255f, 0.26f);
+
 		foreach (var score in scores) {
 			Sprite picture = null;
+			Color color = oddRow ? oddColor : evenColor;
+			oddRow = !oddRow;
 
 			if (score.PlayFabId == PlayfabAccess.Instance.Id) {
 				picture = FacebookAccess.Instance.Picture;
@@ -108,11 +114,11 @@ public class RankingController : MonoBehaviour
 				}
 			}
 
-			CreateRankingRow (picture, score.Position + 1, score.DisplayName, score.StatValue);
+			CreateRankingRow (picture, score.Position + 1, score.DisplayName, score.StatValue, color);
 		}
 	}
 
-	private void CreateRankingRow (Sprite picture, int rank, string name, int score) {
+	private void CreateRankingRow (Sprite picture, int rank, string name, int score, Color color) {
 		GameObject row = Instantiate (rankingRowPrefab) as GameObject;
 
 		var rankText = row.transform.Find ("Rank/Text").GetComponent<Text> ();
@@ -129,6 +135,15 @@ public class RankingController : MonoBehaviour
 		} else {
 			pictureImage.sprite = defaultPicture;
 		}
+
+		var rankBackground = row.transform.Find ("Rank/Background").GetComponent<Image> ();
+		var nameBackground = row.transform.Find ("Name/Background").GetComponent<Image> ();
+		var scoreBackground = row.transform.Find ("Score/Background").GetComponent<Image> ();
+
+		print (color);
+		rankBackground.color = color;
+		nameBackground.color = color;
+		scoreBackground.color = color;
 
 		row.transform.SetParent (rowContainer);
 	}

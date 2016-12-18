@@ -147,7 +147,8 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			GetFriendLeaderboardRequest request = new GetFriendLeaderboardRequest () {
 				StatisticName = Constants.TotalScoreKey,
-				IncludeSteamFriends = false
+				IncludeSteamFriends = false,
+				MaxResultsCount = 100
 			};
 
 			PlayFabClientAPI.GetFriendLeaderboard (request, OnGetLeaderboardSuccess, OnGetLeaderboardFail);

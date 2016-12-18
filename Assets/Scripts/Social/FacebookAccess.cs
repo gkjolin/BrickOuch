@@ -85,7 +85,7 @@ public class FacebookAccess : Singleton<FacebookAccess>
 			LoadFriendsPictures ();
 			PlayfabAccess.Instance.Login (aToken.TokenString);
 		} else {
-			Debug.Log ("User cancelled login");
+			EventManager.Instance.FacebookLoginCancel ();
 		}
 	}
 

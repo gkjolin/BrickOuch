@@ -11,6 +11,7 @@ public class RankingController : MonoBehaviour
 	public Transform rowContainer;
 	public GameObject rankingRowPrefab;
 	public Sprite defaultPicture;
+	public Text loadingText;
 
 	public GameObject facebookPanel;
 
@@ -18,10 +19,11 @@ public class RankingController : MonoBehaviour
 
 	void Start ()
 	{
-		FacebookAccess.Instance.LoadFriendsPictures ();
-
 		Debug.Log ("Leaderboard start");
+
 		EventManager.Instance.OnRankingUpdate += RefreshRanking;
+		EventManager.Instance.OnFacebookLoginCancel += LoginCancelled;
+		loadingText.gameObject.SetActive (false);
 
 		if (FB.IsLoggedIn) {
 			Debug.Log ("Logged on Facebook");
@@ -39,6 +41,12 @@ public class RankingController : MonoBehaviour
 			UpdateFontSize ();
 			updateFontSize = false;
 		}
+	}
+
+	private void LoginCancelled ()
+	{
+		EnableFacebookPanel ();
+		loadingText.gameObject.SetActive (false);
 	}
 
 	private void UpdateFontSize ()
@@ -80,6 +88,7 @@ public class RankingController : MonoBehaviour
 
 		Debug.Log ("Score count: " + scores.Count);
 
+		loadingText.gameObject.SetActive (false);
 		ClearRanking ();
 		PopulateRanking (scores);
 		updateFontSize = true;

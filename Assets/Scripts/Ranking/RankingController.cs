@@ -43,7 +43,6 @@ public class RankingController : MonoBehaviour
 
 	private void UpdateFontSize ()
 	{
-		Text[] texts = GameObject.FindObjectsOfType<Text> ();
 		int minFontSize = int.MaxValue;
 
 		foreach (Transform row in rowContainer.transform) {
@@ -96,8 +95,8 @@ public class RankingController : MonoBehaviour
 
 	private void PopulateRanking (List<PlayerLeaderboardEntry> scores) {
 		bool oddRow = true;
-		Color oddColor = new Color (198f / 255f, 147f / 255f, 96f / 255f, 0.51f);
-		Color evenColor = new Color (198f / 255f, 147f / 255f, 96f / 255f, 0.26f);
+		Color oddColor = new Color (93f / 255f, 40f / 255f, 29f / 255f);
+		Color evenColor = new Color (80f / 255f, 26f / 255f, 20f / 255f);
 
 		foreach (var score in scores) {
 			Sprite picture = null;
@@ -140,7 +139,6 @@ public class RankingController : MonoBehaviour
 		var nameBackground = row.transform.Find ("Name/Background").GetComponent<Image> ();
 		var scoreBackground = row.transform.Find ("Score/Background").GetComponent<Image> ();
 
-		print (color);
 		rankBackground.color = color;
 		nameBackground.color = color;
 		scoreBackground.color = color;

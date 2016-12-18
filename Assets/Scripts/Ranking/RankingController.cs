@@ -43,6 +43,11 @@ public class RankingController : MonoBehaviour
 		}
 	}
 
+	void OnDestroy() {
+		EventManager.Instance.OnRankingUpdate -= RefreshRanking;
+		EventManager.Instance.OnFacebookLoginCancel -= LoginCancelled;
+	}
+
 	private void LoginCancelled ()
 	{
 		EnableFacebookPanel ();

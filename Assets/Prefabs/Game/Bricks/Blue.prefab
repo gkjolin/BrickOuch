@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47689956037e142c482f983d49afd30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsWorth: 10
+  pointsWorth: 1
   skins:
   - BLUE
   - BLUE_S1

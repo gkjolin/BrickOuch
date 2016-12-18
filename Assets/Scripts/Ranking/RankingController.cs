@@ -105,6 +105,7 @@ public class RankingController : MonoBehaviour
 
 			if (score.PlayFabId == PlayfabAccess.Instance.Id) {
 				picture = FacebookAccess.Instance.Picture;
+				color = new Color (150f / 255f, 30f / 255f, 39f / 255f);
 			} else if (PlayfabAccess.Instance.FriendsIds.ContainsKey (score.PlayFabId)) {
 				var facebookId = PlayfabAccess.Instance.FriendsIds [score.PlayFabId];
 				

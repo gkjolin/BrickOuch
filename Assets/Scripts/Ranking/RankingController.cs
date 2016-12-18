@@ -144,7 +144,7 @@ public class RankingController : MonoBehaviour
 		var pictureImage = row.transform.Find ("Picture").GetComponent<Image> ();
 
 		rankText.text = rank.ToString();
-		nameText.text = name;
+		nameText.text = GetFirstAndLastName(name);
 		scoreText.text = score.ToString();
 
 		if (picture != null) {
@@ -162,6 +162,16 @@ public class RankingController : MonoBehaviour
 		scoreBackground.color = color;
 
 		row.transform.SetParent (rowContainer);
+	}
+
+	private string GetFirstAndLastName(string fullName) {
+		var names = fullName.Split (' ');
+
+		if (names.Length > 2) {
+			return names [0] + " " + names [names.Length - 1];
+		}
+
+		return fullName;
 	}
 
 	public void DisableFacebookPanel () {

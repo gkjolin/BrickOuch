@@ -79,13 +79,8 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 
 	private void GetUserData ()
 	{
-		var stats = new List<string> ();
-		stats.Add (Constants.ScoreKey);
-
 		var reqParams = new GetPlayerCombinedInfoRequestParams ();
 		reqParams.GetUserAccountInfo = true;
-		reqParams.GetPlayerStatistics = true;
-		reqParams.PlayerStatisticNames = stats;
 
 		var request = new GetPlayerCombinedInfoRequest () {
 			PlayFabId = Id,
@@ -110,12 +105,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 				}
 			}
 
-			var stat = result.InfoResultPayload.PlayerStatistics.FirstOrDefault();
-			if (stat == null || stat.Value < PlayerPrefsManager.GetHighestScore()) {
-				this.PostScore(PlayerPrefsManager.GetHighestScore());
-			} else {
-				GetLeaderboard();
-			}
+			GetLeaderboard();
 		}, (error) => {
 			Debug.Log ("Got error retrieving user data:");
 			Debug.Log (error.ErrorMessage);
@@ -127,7 +117,15 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			List<StatisticUpdate> stats = new List<StatisticUpdate> ();
 
-			stats.Add (new StatisticUpdate (){ StatisticName = Constants.ScoreKey, Value = score });
+			stats.Add (new StatisticUpdate () {
+				StatisticName = Constants.ScoreKey,
+				Value = score
+			});
+
+			stats.Add (new StatisticUpdate () {
+				StatisticName = Constants.TotalScoreKey,
+				Value = score
+			});
 
 			UpdatePlayerStatisticsRequest request = new UpdatePlayerStatisticsRequest ();
 			request.Statistics = stats;
@@ -148,7 +146,7 @@ public class PlayfabAccess : Singleton<PlayfabAccess>
 	{
 		if (PlayFabClientAPI.IsClientLoggedIn ()) {
 			GetFriendLeaderboardRequest request = new GetFriendLeaderboardRequest () {
-				StatisticName = Constants.ScoreKey,
+				StatisticName = Constants.TotalScoreKey,
 				IncludeSteamFriends = false
 			};
 

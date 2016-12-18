@@ -21,6 +21,7 @@ public class LoseCollider : MonoBehaviour
 			}
 			else
 			{
+				PlayfabAccess.Instance.PostScore (Score.Instance.ScoreCount);
 				paddle.EndGameAnimation ();
 				StartCoroutine (LoadLoseScreen ());
 			}

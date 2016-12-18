@@ -3,50 +3,50 @@ using UnityEngine.UI;
 using System.Collections;
 using Facebook.Unity;
 
-public class Score : MonoBehaviour
+public class Score : Singleton<Score>
 {
 
-	private int score = 0;
+	public int ScoreCount { get; private set; }
 	private int highestScore = 0;
 	private Text scoreText;
+
+	protected override bool Destroyable {
+		get {
+			return true;
+		}
+	}
+
+	protected override void Initialize ()
+	{
+		ScoreCount = 0;
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
 		highestScore = PlayerPrefsManager.GetHighestScore ();
 		scoreText = GetComponent<Text> ();
-		scoreText.text = string.Format ("{0}", score);
+		scoreText.text = string.Format ("{0}", ScoreCount);
 	}
 
 	public void AddScore (int points = 10)
 	{
-		score += points;
-		scoreText.text = string.Format ("{0}", score);
+		ScoreCount += points;
+		scoreText.text = string.Format ("{0}", ScoreCount);
 	}
 
 	public int GetScore ()
 	{
-		return score;
-	}
-
-	public int GetHighestScore ()
-	{
-		UpdateHighestScore ();
-
-		return highestScore;
+		return ScoreCount;
 	}
 
 	public void UpdateHighestScore ()
 	{
-		PlayerPrefsManager.SetLastScore (score);
+		PlayerPrefsManager.SetLastScore (ScoreCount);
 
-		if (score > highestScore) {
-			highestScore = score;
-			PlayerPrefsManager.SetHighestScore (score);
-
-			if (FB.IsLoggedIn) {
-				PlayfabAccess.Instance.PostScore (score);
-			}
+		if (ScoreCount > highestScore) {
+			highestScore = ScoreCount;
+			PlayerPrefsManager.SetHighestScore (ScoreCount);
 		}
 	}
 
